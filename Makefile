@@ -39,4 +39,4 @@ STDC    := c11
 #-------------------------------------------------------------------------------
 
 # Gets every C file in the source directories
-FILES_C += $(call GET_C_FILES, $(DIR_SRC))
+FILES_C += $(call GET_C_FILES, $(DIR_SRC)FloatingPoint/)
