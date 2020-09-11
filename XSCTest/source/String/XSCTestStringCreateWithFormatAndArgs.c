@@ -77,7 +77,7 @@ XSCTestStringRef XSCTestStringCreateWithFormatAndArgs( const char * fmt, va_list
         return NULL;
     }
 
-    vsnprintf( string->cstr, string->length, fmt, ap2 );
+    vsnprintf( string->cstr, string->length + 1, fmt, ap2 );
 
     return string;
 }
