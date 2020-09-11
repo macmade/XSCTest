@@ -29,8 +29,6 @@
  */
 
 #include <XSCTest/XSCTest.h>
-#include <stdio.h>
-#include <unistd.h>
 
 Test( Foo, Bar )
 {
