@@ -23,18 +23,26 @@
  ******************************************************************************/
 
 /*!
- * @header      XSCTest.h
+ * @header      Macros.h
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_H
-#define XSCTEST_H
+#ifndef XSCTEST_MACROS_H
+#define XSCTEST_MACROS_H
 
-#include <XSCTest/FloatingPoint.h>
-#include <XSCTest/TermColor.h>
-#include <XSCTest/StopWatch.h>
-#include <XSCTest/String.h>
-#include <XSCTest/Macros.h>
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-#endif /* XSCTEST_H */
+#define XSCTestAssertTrue( _e_ )  XSCTestAssertBoolean( _e_, true, XSCTestInternalXString( _e_ ), __FILE__, __LINE__ )
+#define XSCTestAssertFalse( _e_ ) XSCTestAssertBoolean( _e_, false, XSCTestInternalXString( _e_ ), __FILE__, __LINE__ )
+
+#define XSCTestInternalXString( _s_ ) XSCTestInternalString( _s_ )
+#define XSCTestInternalString( _s_ )  #_s_
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* XSCTEST_MACROS_H */
