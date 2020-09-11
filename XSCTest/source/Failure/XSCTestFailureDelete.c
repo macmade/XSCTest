@@ -23,20 +23,24 @@
  ******************************************************************************/
 
 /*!
- * @header      XSCTest.h
+ * @file        XSCTestFailureDelete.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_H
-#define XSCTEST_H
+#include <XSCTest/XSCTest.h>
+#include <XSCTest/Private/Failure.h>
+#include <stdlib.h>
 
-#include <XSCTest/FloatingPoint.h>
-#include <XSCTest/TermColor.h>
-#include <XSCTest/StopWatch.h>
-#include <XSCTest/String.h>
-#include <XSCTest/Failure.h>
-#include <XSCTest/Assert.h>
-#include <XSCTest/Macros.h>
-
-#endif /* XSCTEST_H */
+void XSCTestFailureDelete( XSCTestFailureRef failure )
+{
+    if( failure != NULL )
+    {
+        XSCTestStringDelete( failure->expression );
+        XSCTestStringDelete( failure->evaluated );
+        XSCTestStringDelete( failure->expected );
+        XSCTestStringDelete( failure->actual );
+        XSCTestStringDelete( failure->file );
+        free( failure );
+    }
+}

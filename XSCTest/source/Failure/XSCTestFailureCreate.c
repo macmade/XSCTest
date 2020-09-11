@@ -23,60 +23,32 @@
  ******************************************************************************/
 
 /*!
- * @file        XSCTestFailureString.c
+ * @file        XSCTestFailureDelete.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
 #include <XSCTest/XSCTest.h>
+#include <XSCTest/Private/Failure.h>
+#include <stdlib.h>
 
-XSCTestStringRef XSCTestCreateFailureString( const char * expression, const char * evaluated, const char * expected, const char * actual, const char * file, size_t line )
+XSCTestFailureRef XSCTestFailureCreate( const char * expression, const char * evaluated, const char * expected, const char * actual, const char * file, int line )
 {
-    XSCTestStringRef description;
-    bool             hasExpression;
-    bool             hasEvaluated;
+    struct XSCTestFailure * failure;
 
-    description = XSCTestStringCreateWithCString( "" );
+    failure = calloc( 1, sizeof( struct XSCTestFailure ) );
 
-    if( expression == NULL )
+    if( failure == NULL )
     {
-        expression = "";
+        return NULL;
     }
 
-    if( expression != NULL && strlen( expression ) != 0 )
-    {
-        XSCTestStringAppendFormat( description, "Expression: %s", expression );
-    }
+    failure->expression = XSCTestStringCreateWithCString( expression );
+    failure->evaluated  = XSCTestStringCreateWithCString( evaluated );
+    failure->expected   = XSCTestStringCreateWithCString( expected );
+    failure->actual     = XSCTestStringCreateWithCString( actual );
+    failure->file       = XSCTestStringCreateWithCString( file );
+    failure->line       = line;
 
-    if( evaluated != NULL && strlen( evaluated ) != 0 && strcmp( expression, evaluated ) != 0 )
-    {
-        if( XSCTestStringGetLength( description ) > 0 )
-        {
-            XSCTestStringAppendCString( description, " / " );
-        }
-
-        XSCTestStringAppendFormat( description, "Evaluated: %s", evaluated );
-    }
-
-    if( expected != NULL && strlen( expected ) != 0 )
-    {
-        if( XSCTestStringGetLength( description ) > 0 )
-        {
-            XSCTestStringAppendCString( description, " / " );
-        }
-
-        XSCTestStringAppendFormat( description, "Expected: %s", expected );
-    }
-
-    if( actual != NULL && strlen( actual ) != 0 )
-    {
-        if( XSCTestStringGetLength( description ) > 0 )
-        {
-            XSCTestStringAppendCString( description, " / " );
-        }
-
-        XSCTestStringAppendFormat( description, "Actual: %s", actual );
-    }
-
-    return description;
+    return failure;
 }

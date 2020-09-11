@@ -23,20 +23,24 @@
  ******************************************************************************/
 
 /*!
- * @header      XSCTest.h
+ * @header      Assert.h
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_H
-#define XSCTEST_H
+#ifndef XSCTEST_ASSERT_H
+#define XSCTEST_ASSERT_H
 
-#include <XSCTest/FloatingPoint.h>
-#include <XSCTest/TermColor.h>
-#include <XSCTest/StopWatch.h>
-#include <XSCTest/String.h>
-#include <XSCTest/Failure.h>
-#include <XSCTest/Assert.h>
-#include <XSCTest/Macros.h>
+#include <stdbool.h>
 
-#endif /* XSCTEST_H */
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+    bool XSCTestAssertBoolean( bool value, bool expected, const char * expression, const char * file, int line );
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* XSCTEST_ASSERT_H */

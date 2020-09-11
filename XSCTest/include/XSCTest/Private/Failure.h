@@ -23,20 +23,41 @@
  ******************************************************************************/
 
 /*!
- * @header      XSCTest.h
+ * @header      Failure.h
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_H
-#define XSCTEST_H
+#ifndef XSCTEST_PRIVATE_FAILURE_H
+#define XSCTEST_PRIVATE_FAILURE_H
 
-#include <XSCTest/FloatingPoint.h>
-#include <XSCTest/TermColor.h>
-#include <XSCTest/StopWatch.h>
-#include <XSCTest/String.h>
-#include <XSCTest/Failure.h>
-#include <XSCTest/Assert.h>
-#include <XSCTest/Macros.h>
+#include <XSCTest/Private/String.h>
 
-#endif /* XSCTEST_H */
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpadded"
+#endif
+
+    struct XSCTestFailure
+    {
+        XSCTestStringRef expression;
+        XSCTestStringRef evaluated;
+        XSCTestStringRef expected;
+        XSCTestStringRef actual;
+        XSCTestStringRef file;
+        int              line;
+    };
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* XSCTEST_PRIVATE_FAILURE_H */

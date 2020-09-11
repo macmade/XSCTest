@@ -37,7 +37,10 @@
 extern "C" {
 #endif
 
-    XSCTestStringRef XSCTestCreateFailureString( const char * expression, const char * evaluated, const char * expected, const char * actual, const char * file, size_t line );
+    typedef struct XSCTestFailure * XSCTestFailureRef;
+
+    XSCTestFailureRef XSCTestFailureCreate( const char * expression, const char * evaluated, const char * expected, const char * actual, const char * file, int line );
+    void              XSCTestFailureDelete( XSCTestFailureRef failure );
 
 #ifdef __cplusplus
 }

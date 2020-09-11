@@ -32,27 +32,16 @@
 #include <stdio.h>
 #include <unistd.h>
 
+void test( void );
+void test( void )
+{
+    AssertTrue( true );
+    AssertTrue( false );
+}
+
 int main( void )
 {
-    XSCTestStopWatchRef sw;
-    XSCTestStringRef    str;
-
-    sw = XSCTestStopWatchCreate();
-
-    XSCTestStopWatchStart( sw );
-
-    str = XSCTestStringCreateWithFormat( "%s", "hello" );
-
-    XSCTestStringAppendFormat( str, ", %s", "world" );
-    XSCTestStringAppendCString( str, "\n" );
-    printf( "%s", XSCTestStringGetCString( str ) );
-    XSCTestStringDelete( str );
-
-    usleep( 1000 );
-
-    XSCTestStopWatchStop( sw );
-    XSCTestColorPrint( stdout, XSCTestTermColorBlue, "Elapsed: %s\n", XSCTestStopWatchGetString( sw ) );
-    XSCTestStopWatchDelete( sw );
+    test();
 
     return 0;
 }

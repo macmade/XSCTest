@@ -35,8 +35,25 @@
 extern "C" {
 #endif
 
-#define XSCTestAssertTrue( _e_ )  XSCTestAssertBoolean( _e_, true, XSCTestInternalXString( _e_ ), __FILE__, __LINE__ )
-#define XSCTestAssertFalse( _e_ ) XSCTestAssertBoolean( _e_, false, XSCTestInternalXString( _e_ ), __FILE__, __LINE__ )
+#define AssertTrue( _e_ )                                                                                       \
+    do                                                                                                          \
+    {                                                                                                           \
+        if( XSCTestAssertBoolean( ( _e_ ), true, XSCTestInternalXString( _e_ ), __FILE__, __LINE__ ) == false ) \
+        {                                                                                                       \
+            return;                                                                                             \
+        }                                                                                                       \
+    }                                                                                                           \
+    while( 0 )
+
+#define AssertFalse( _e_ )                                                                                       \
+    do                                                                                                           \
+    {                                                                                                            \
+        if( XSCTestAssertBoolean( ( _e_ ), false, XSCTestInternalXString( _e_ ), __FILE__, __LINE__ ) == false ) \
+        {                                                                                                        \
+            return;                                                                                              \
+        }                                                                                                        \
+    }                                                                                                            \
+    while( 0 )
 
 #define XSCTestInternalXString( _s_ ) XSCTestInternalString( _s_ )
 #define XSCTestInternalString( _s_ )  #_s_
