@@ -23,17 +23,20 @@
  ******************************************************************************/
 
 /*!
- * @header      XSCTest.h
+ * @file        XSCTestStringDelete.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_H
-#define XSCTEST_H
+#include <XSCTest/XSCTest.h>
+#include <XSCTest/Private/String.h>
+#include <stdlib.h>
 
-#include <XSCTest/FloatingPoint.h>
-#include <XSCTest/TermColor.h>
-#include <XSCTest/StopWatch.h>
-#include <XSCTest/String.h>
-
-#endif /* XSCTEST_H */
+void XSCTestStringDelete( XSCTestStringRef string )
+{
+    if( string != NULL )
+    {
+        free( string->cstr );
+        free( string );
+    }
+}

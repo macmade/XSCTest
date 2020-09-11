@@ -23,17 +23,36 @@
  ******************************************************************************/
 
 /*!
- * @header      XSCTest.h
+ * @header      String.h
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_H
-#define XSCTEST_H
+#ifndef XSCTEST_STRING_H
+#define XSCTEST_STRING_H
 
-#include <XSCTest/FloatingPoint.h>
-#include <XSCTest/TermColor.h>
-#include <XSCTest/StopWatch.h>
-#include <XSCTest/String.h>
+#include <stddef.h>
+#include <stdarg.h>
 
-#endif /* XSCTEST_H */
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+    typedef struct XSCTestString * XSCTestStringRef;
+
+    XSCTestStringRef XSCTestStringCreateWithCString( const char * s );
+    XSCTestStringRef XSCTestStringCreateWithFormat( const char * fmt, ... ) __attribute__( ( format( printf, 1, 2 ) ) );
+    XSCTestStringRef XSCTestStringCreateWithFormatAndArgs( const char * fmt, va_list ap );
+    void             XSCTestStringDelete( XSCTestStringRef string );
+    size_t           XSCTestStringGetLength( XSCTestStringRef string );
+    const char *     XSCTestStringGetCString( XSCTestStringRef string );
+    void             XSCTestStringAppendString( XSCTestStringRef string, XSCTestStringRef append );
+    void             XSCTestStringAppendCString( XSCTestStringRef string, const char * append );
+    void             XSCTestStringAppendFormat( XSCTestStringRef string, const char * fmt, ... ) __attribute__( ( format( printf, 2, 3 ) ) );
+    void             XSCTestStringAppendFormatAndArgs( XSCTestStringRef string, const char * fmt, va_list ap );
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* XSCTEST_STRING_H */

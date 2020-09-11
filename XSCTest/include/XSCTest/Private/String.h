@@ -23,17 +23,37 @@
  ******************************************************************************/
 
 /*!
- * @header      XSCTest.h
+ * @header      String.h
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_H
-#define XSCTEST_H
+#ifndef XSCTEST_PRIVATE_STRING_H
+#define XSCTEST_PRIVATE_STRING_H
 
-#include <XSCTest/FloatingPoint.h>
-#include <XSCTest/TermColor.h>
-#include <XSCTest/StopWatch.h>
-#include <XSCTest/String.h>
+#include <stddef.h>
 
-#endif /* XSCTEST_H */
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpadded"
+#endif
+
+    struct XSCTestString
+    {
+        size_t length;
+        char * cstr;
+    };
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* XSCTEST_PRIVATE_STRING_H */

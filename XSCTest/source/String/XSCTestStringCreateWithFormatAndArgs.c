@@ -23,17 +23,65 @@
  ******************************************************************************/
 
 /*!
- * @header      XSCTest.h
+ * @file        XSCTestStringCreateWithFormatAndArgs.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_H
-#define XSCTEST_H
+#include <XSCTest/XSCTest.h>
+#include <XSCTest/Private/String.h>
+#include <string.h>
+#include <stdlib.h>
 
-#include <XSCTest/FloatingPoint.h>
-#include <XSCTest/TermColor.h>
-#include <XSCTest/StopWatch.h>
-#include <XSCTest/String.h>
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wformat-nonliteral"
+#endif
 
-#endif /* XSCTEST_H */
+XSCTestStringRef XSCTestStringCreateWithFormatAndArgs( const char * fmt, va_list ap )
+{
+    XSCTestStringRef string;
+    int              length;
+    va_list          ap2;
+
+    va_copy( ap2, ap );
+
+    if( fmt == NULL || strlen( fmt ) == 0 )
+    {
+        return XSCTestStringCreateWithCString( "" );
+    }
+
+    string = calloc( 1, sizeof( struct XSCTestString ) );
+
+    if( string == NULL )
+    {
+        return NULL;
+    }
+
+    length = vsnprintf( NULL, 0, fmt, ap );
+
+    if( length < 0 )
+    {
+        free( string );
+
+        return XSCTestStringCreateWithCString( "" );
+    }
+
+    string->length = ( size_t )length;
+    string->cstr   = calloc( 1, string->length + 1 );
+
+    if( string->cstr == NULL )
+    {
+        free( string );
+
+        return NULL;
+    }
+
+    vsnprintf( string->cstr, string->length, fmt, ap2 );
+
+    return string;
+}
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif

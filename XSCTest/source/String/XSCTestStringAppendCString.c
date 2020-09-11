@@ -23,17 +23,37 @@
  ******************************************************************************/
 
 /*!
- * @header      XSCTest.h
+ * @file        XSCTestStringAppendCString.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_H
-#define XSCTEST_H
+#include <XSCTest/XSCTest.h>
+#include <XSCTest/Private/String.h>
+#include <string.h>
+#include <stdlib.h>
 
-#include <XSCTest/FloatingPoint.h>
-#include <XSCTest/TermColor.h>
-#include <XSCTest/StopWatch.h>
-#include <XSCTest/String.h>
+void XSCTestStringAppendCString( XSCTestStringRef string, const char * append )
+{
+    char * s;
+    size_t length;
 
-#endif /* XSCTEST_H */
+    if( string == NULL || append == NULL || ( length = strlen( append ) ) == 0 )
+    {
+        return;
+    }
+
+    s = calloc( 1, length + string->length + 1 );
+
+    if( s == NULL )
+    {
+        return;
+    }
+
+    memcpy( s, string->cstr, string->length );
+    memcpy( s + string->length, append, length );
+    free( string->cstr );
+
+    string->cstr = s;
+    string->length += length;
+}

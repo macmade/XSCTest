@@ -23,17 +23,43 @@
  ******************************************************************************/
 
 /*!
- * @header      XSCTest.h
+ * @file        XSCTestStringCreateWithCString.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_H
-#define XSCTEST_H
+#include <XSCTest/XSCTest.h>
+#include <XSCTest/Private/String.h>
+#include <string.h>
+#include <stdlib.h>
 
-#include <XSCTest/FloatingPoint.h>
-#include <XSCTest/TermColor.h>
-#include <XSCTest/StopWatch.h>
-#include <XSCTest/String.h>
+XSCTestStringRef XSCTestStringCreateWithCString( const char * s )
+{
+    size_t           length;
+    XSCTestStringRef string;
 
-#endif /* XSCTEST_H */
+    string = calloc( 1, sizeof( struct XSCTestString ) );
+    length = ( s == NULL ) ? 0 : strlen( s );
+
+    if( string == NULL )
+    {
+        return NULL;
+    }
+
+    string->cstr   = calloc( 1, length + 1 );
+    string->length = length;
+
+    if( string->cstr == NULL )
+    {
+        free( string );
+
+        return NULL;
+    }
+
+    if( length > 0 )
+    {
+        memcpy( string->cstr, s, length );
+    }
+
+    return string;
+}

@@ -23,17 +23,19 @@
  ******************************************************************************/
 
 /*!
- * @header      XSCTest.h
+ * @file        XSCTestStringAppendFormat.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_H
-#define XSCTEST_H
+#include <XSCTest/XSCTest.h>
+#include <XSCTest/Private/String.h>
 
-#include <XSCTest/FloatingPoint.h>
-#include <XSCTest/TermColor.h>
-#include <XSCTest/StopWatch.h>
-#include <XSCTest/String.h>
+void XSCTestStringAppendFormat( XSCTestStringRef string, const char * fmt, ... )
+{
+    va_list ap;
 
-#endif /* XSCTEST_H */
+    va_start( ap, fmt );
+    XSCTestStringAppendFormatAndArgs( string, fmt, ap );
+    va_end( ap );
+}

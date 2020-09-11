@@ -23,17 +23,24 @@
  ******************************************************************************/
 
 /*!
- * @header      XSCTest.h
+ * @file        XSCTestStringCreateWithFormat.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_H
-#define XSCTEST_H
+#include <XSCTest/XSCTest.h>
+#include <XSCTest/Private/String.h>
 
-#include <XSCTest/FloatingPoint.h>
-#include <XSCTest/TermColor.h>
-#include <XSCTest/StopWatch.h>
-#include <XSCTest/String.h>
+XSCTestStringRef XSCTestStringCreateWithFormat( const char * fmt, ... )
+{
+    va_list          ap;
+    XSCTestStringRef string;
 
-#endif /* XSCTEST_H */
+    va_start( ap, fmt );
+
+    string = XSCTestStringCreateWithFormatAndArgs( fmt, ap );
+
+    va_end( ap );
+
+    return string;
+}
