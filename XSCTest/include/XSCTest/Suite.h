@@ -42,7 +42,7 @@ extern "C" {
     bool             XSCTestSuiteRunAllSuites( void );
     XSCTestSuiteRef  XSCTestSuiteGetSuiteNamed( const char * name );
     XSCTestSuiteRef  XSCTestSuiteCreate( const char * name );
-    void             XSCTestSuiteAddTestCase( XSCTestSuiteRef suite, const char * name, void ( *func )( void ) );
+    void             XSCTestSuiteAddTestCase( XSCTestSuiteRef suite, const char * name, void ( *func )( XSCTestCaseRef ) );
     XSCTestStringRef XSCTestSuiteGetName( XSCTestSuiteRef suite );
     bool             XSCTestSuiteRun( XSCTestSuiteRef suite );
 

@@ -30,7 +30,7 @@
 
 #include <XSCTest/XSCTest.h>
 
-bool XSCTestAssertBoolean( bool value, bool expected, const char * expression, const char * file, int line )
+bool XSCTestAssertBoolean( XSCTestCaseRef testCase, bool value, bool expected, const char * expression, const char * file, int line )
 {
     XSCTestFailureRef failure;
 
@@ -50,6 +50,8 @@ bool XSCTestAssertBoolean( bool value, bool expected, const char * expression, c
     }
 
     XSCTestLogTestCaseResult( stderr, "foo", "bar", failure, NULL );
+
+    ( void )testCase;
 
     return failure == NULL;
 }

@@ -32,7 +32,7 @@
 #include <XSCTest/Private/Suite.h>
 #include <stdlib.h>
 
-void XSCTestSuiteAddTestCase( XSCTestSuiteRef suite, const char * name, void ( *func )( void ) )
+void XSCTestSuiteAddTestCase( XSCTestSuiteRef suite, const char * name, void ( *func )( XSCTestCaseRef ) )
 {
     struct XSCTestSuiteTestCaseList * list;
 

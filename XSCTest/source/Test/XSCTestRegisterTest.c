@@ -30,7 +30,7 @@
 
 #include <XSCTest/XSCTest.h>
 
-void XSCTestRegisterTest( const char * suite, const char * name, void ( *func )( void ) )
+void XSCTestRegisterTest( const char * suite, const char * name, void ( *func )( XSCTestCaseRef ) )
 {
     XSCTestSuiteRef testSuite;
 

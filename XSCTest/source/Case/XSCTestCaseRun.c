@@ -31,10 +31,9 @@
 #include <XSCTest/XSCTest.h>
 #include <XSCTest/Private/Case.h>
 
-bool XSCTestCaseRun( XSCTestCaseRef testCase, XSCTestSuiteRef suite )
+bool XSCTestCaseRun( XSCTestCaseRef testCase )
 {
-    ( void )testCase;
-    ( void )suite;
+    testCase->func( testCase );
 
     return false;
 }

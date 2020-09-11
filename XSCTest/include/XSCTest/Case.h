@@ -37,9 +37,9 @@ extern "C" {
 
     typedef struct XSCTestCase * XSCTestCaseRef;
 
-    XSCTestCaseRef   XSCTestCaseCreate( const char * name, void ( *func )( void ) );
+    XSCTestCaseRef   XSCTestCaseCreate( const char * name, void ( *func )( XSCTestCaseRef ) );
     XSCTestStringRef XSCTestCaseGetName( XSCTestCaseRef testCase );
-    bool             XSCTestCaseRun( XSCTestCaseRef testCase, XSCTestSuiteRef suite );
+    bool             XSCTestCaseRun( XSCTestCaseRef testCase );
 
 #ifdef __cplusplus
 }

@@ -31,12 +31,14 @@
 #ifndef XSCTEST_TEST_H
 #define XSCTEST_TEST_H
 
+#include <XSCTest/Case.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
     int  XSCTestRun( void );
-    void XSCTestRegisterTest( const char * suite, const char * name, void ( *func )( void ) );
+    void XSCTestRegisterTest( const char * suite, const char * name, void ( *func )( XSCTestCaseRef ) );
 
 #ifdef __cplusplus
 }

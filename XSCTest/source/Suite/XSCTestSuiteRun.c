@@ -46,7 +46,7 @@ bool XSCTestSuiteRun( XSCTestSuiteRef suite )
 
     while( list != NULL )
     {
-        if( XSCTestCaseRun( list->testCase, suite ) == false )
+        if( XSCTestCaseRun( list->testCase ) == false )
         {
             ret = false;
         }

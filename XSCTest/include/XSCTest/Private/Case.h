@@ -44,7 +44,7 @@ extern "C" {
 
     struct XSCTestCase
     {
-        void ( *func )( void );
+        void ( *func )( XSCTestCaseRef );
         XSCTestStringRef name;
     };
 
