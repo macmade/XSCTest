@@ -29,11 +29,22 @@
  */
 
 #include <XSCTest/XSCTest.h>
+#include <string.h>
 
 uint64_t XSCTestDoubleDistance( double v1, double v2 )
 {
-    ( void )v1;
-    ( void )v2;
+    int64_t i1;
+    int64_t i2;
+    int64_t signMask;
+    int64_t diff;
 
-    return 0;
+    memcpy( &i1, &v1, 8 );
+    memcpy( &i2, &v2, 8 );
+
+    signMask = ( int64_t )( ( uint64_t )1 << 63 );
+    i1       = ( i1 >= 0 ) ? i1 : signMask - i1;
+    i2       = ( i2 >= 0 ) ? i2 : signMask - i2;
+    diff     = i1 - i2;
+
+    return ( uint64_t )( ( diff >= 0 ) ? diff : -diff );
 }

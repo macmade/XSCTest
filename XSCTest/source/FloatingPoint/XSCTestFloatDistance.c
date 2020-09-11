@@ -29,11 +29,22 @@
  */
 
 #include <XSCTest/XSCTest.h>
+#include <string.h>
 
 uint64_t XSCTestFloatDistance( float v1, float v2 )
 {
-    ( void )v1;
-    ( void )v2;
+    int32_t i1;
+    int32_t i2;
+    int32_t signMask;
+    int32_t diff;
 
-    return 0;
+    memcpy( &i1, &v1, 4 );
+    memcpy( &i2, &v2, 4 );
+
+    signMask = ( int32_t )( ( uint32_t )1 << 31 );
+    i1       = ( i1 >= 0 ) ? i1 : signMask - i1;
+    i2       = ( i2 >= 0 ) ? i2 : signMask - i2;
+    diff     = i1 - i2;
+
+    return ( uint32_t )( ( diff >= 0 ) ? diff : -diff );
 }
