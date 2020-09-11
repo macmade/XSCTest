@@ -30,7 +30,7 @@
 .DEFAULT_GOAL := all
 
 # Declaration for phony targets, to avoid problems with local files
-.PHONY: all clean build lib
+.PHONY: all clean build lib example
 
 # Declaration for precious targets, to avoid cleaning of intermediate files
 .PRECIOUS: $(DIR_BUILD_TEMP)%$(EXT_O)
@@ -40,7 +40,7 @@
 #-------------------------------------------------------------------------------
 
 # Main Target
-all: lib
+all: build example
 	
 	@:
 
@@ -68,6 +68,14 @@ endif
 #-------------------------------------------------------------------------------
 
 .SECONDEXPANSION:
+
+# Example executable
+example: _EXEC = $(DIR_BUILD_PRODUCTS)example
+example: $$(_FILES_EXAMPLE_C_BUILD)
+
+	$(call PRINT_ARCH,$(_HOST_ARCH),"Creating example executable"): $(COLOR_BLUE)$(notdir $(_EXEC))$(COLOR_NONE)
+	@$(_CC) -o $(_EXEC) -L $(DIR_BUILD_PRODUCTS) -lxsctest $(_FILES_EXAMPLE_C_BUILD)
+
 
 # Static library
 lib: _OBJ = $(DIR_BUILD_TEMP)XSCTest$(EXT_O)

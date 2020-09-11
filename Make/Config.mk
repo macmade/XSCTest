@@ -37,8 +37,9 @@ DIR_BUILD_PRODUCTS := $(DIR_BUILD)Products/
 DIR_BUILD_TEMP     := $(DIR_BUILD)Intermediates/
 
 # Source directories
-DIR_INC := $(DIR)XSCTest/include/
-DIR_SRC := $(DIR)XSCTest/source/
+DIR_INC         := $(DIR)XSCTest/include/
+DIR_SRC         := $(DIR)XSCTest/source/
+DIR_EXAMPLE_SRC := $(DIR)Example/source/
 
 #-------------------------------------------------------------------------------
 # Search paths
@@ -50,6 +51,7 @@ vpath
 
 # Define the search paths for source files
 vpath %$(EXT_C) $(DIR_SRC)
+vpath %$(EXT_C) $(DIR_EXAMPLE_SRC)
 
 #-------------------------------------------------------------------------------
 # File suffixes
@@ -76,13 +78,16 @@ EXT_LIB       := .a
 GET_C_FILES = $(foreach dir,$(1), $(wildcard $(dir)*$(EXT_C)))
 
 # Gets only the file name of the C files
-_FILES_C_REL = $(subst $(DIR_SRC),,$(FILES_C))
+_FILES_C_REL         = $(subst $(DIR_SRC),,$(FILES_C))
+_FILES_EXAMPLE_C_REL = $(subst $(DIR_EXAMPLE_SRC),,$(FILES_EXAMPLE_C))
 
 # Replace the code extension by the object one
-_FILES_C_OBJ = $(subst $(EXT_C),$(EXT_O),$(_FILES_C_REL))
+_FILES_C_OBJ         = $(subst $(EXT_C),$(EXT_O),$(_FILES_C_REL))
+_FILES_EXAMPLE_C_OBJ = $(subst $(EXT_C),$(EXT_O),$(_FILES_EXAMPLE_C_REL))
 
 # Prefix all object files with the build directory
-_FILES_C_BUILD = $(addprefix $(DIR_BUILD_TEMP),$(_FILES_C_OBJ))
+_FILES_C_BUILD         = $(addprefix $(DIR_BUILD_TEMP),$(_FILES_C_OBJ))
+_FILES_EXAMPLE_C_BUILD = $(addprefix $(DIR_BUILD_TEMP),$(_FILES_EXAMPLE_C_OBJ))
 
 #-------------------------------------------------------------------------------
 # Commands configuration
@@ -131,7 +136,7 @@ PRINT_ARCH = $(call PRINT,,$(2) [ $(COLOR_RED)$(1)$(COLOR_NONE) ])
 # @param    The message
 # @param    The file
 # 
-PRINT_FILE = $(call PRINT_ARCH,$(1),$(2)): $(COLOR_YELLOW)$(patsubst %.,%,$(subst /,.,$(dir $(patsubst $(DIR_SRC)%,%,$3))))$(COLOR_NONE).$(COLOR_GRAY)"$(notdir $(3))"$(COLOR_NONE)
+PRINT_FILE = $(call PRINT_ARCH,$(1),$(2)): $(COLOR_YELLOW)$(subst .$(COLOR_NONE).,,$(patsubst %.,%,$(subst /,.,$(dir $(patsubst $(DIR_EXAMPLE_SRC)%,%,$(patsubst $(DIR_SRC)%,%,$3)))))$(COLOR_NONE).)$(COLOR_GRAY)"$(notdir $(3))"$(COLOR_NONE)
 
 #-------------------------------------------------------------------------------
 # Tools
