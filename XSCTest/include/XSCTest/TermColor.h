@@ -23,15 +23,40 @@
  ******************************************************************************/
 
 /*!
- * @header      XSCTest.h
+ * @header      TermColor.h
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_H
-#define XSCTEST_H
+#ifndef XSCTEST_TERM_COLOR_H
+#define XSCTEST_TERM_COLOR_H
 
-#include <XSCTest/FloatingPoint.h>
-#include <XSCTest/TermColor.h>
+#include <stdbool.h>
+#include <stdio.h>
 
-#endif /* XSCTEST_H */
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+    typedef enum
+    {
+        XSCTestTermColorNone,
+        XSCTestTermColorGray,
+        XSCTestTermColorRed,
+        XSCTestTermColorGreen,
+        XSCTestTermColorYellow,
+        XSCTestTermColorBlue,
+        XSCTestTermColorMagenta,
+        XSCTestTermColorCyan,
+        XSCTestTermColorWhite
+    } XSCTestTermColor;
+
+    bool         XSCTestSupportsANSISequences( FILE * fh );
+    const char * XSCTestANSISequence( XSCTestTermColor foreground );
+    void         XSCTestColorPrint( FILE * fh, XSCTestTermColor foreground, const char * fmt, ... ) __attribute__( ( format( printf, 3, 4 ) ) );
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* XSCTEST_TERM_COLOR_H */

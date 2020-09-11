@@ -23,15 +23,29 @@
  ******************************************************************************/
 
 /*!
- * @header      XSCTest.h
+ * @file        XSCTestColorPrint.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_H
-#define XSCTEST_H
+#include <XSCTest/XSCTest.h>
+#include <stdarg.h>
 
-#include <XSCTest/FloatingPoint.h>
-#include <XSCTest/TermColor.h>
+void XSCTestColorPrint( FILE * fh, XSCTestTermColor foreground, const char * fmt, ... )
+{
+    va_list ap;
 
-#endif /* XSCTEST_H */
+    va_start( ap, fmt );
+
+    if( XSCTestSupportsANSISequences( fh ) )
+    {
+        fprintf( fh, "%s", XSCTestANSISequence( foreground ) );
+    }
+
+    if( fmt != NULL )
+    {
+        vfprintf( fh, fmt, ap );
+    }
+
+    va_end( ap );
+}

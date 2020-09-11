@@ -23,15 +23,30 @@
  ******************************************************************************/
 
 /*!
- * @header      XSCTest.h
+ * @file        XSCTestSupportsANSISequences.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_H
-#define XSCTEST_H
+#include <XSCTest/XSCTest.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-#include <XSCTest/FloatingPoint.h>
-#include <XSCTest/TermColor.h>
+bool XSCTestSupportsANSISequences( FILE * fh )
+{
+    if( getenv( "TERM" ) == NULL )
+    {
+        return false;
+    }
 
-#endif /* XSCTEST_H */
+    if( fh == stdout )
+    {
+        return isatty( fileno( stdout ) );
+    }
+    else if( fh == stderr )
+    {
+        return isatty( fileno( stderr ) );
+    }
+
+    return false;
+}

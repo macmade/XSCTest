@@ -23,15 +23,25 @@
  ******************************************************************************/
 
 /*!
- * @header      XSCTest.h
+ * @file        XSCTestANSISequence.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_H
-#define XSCTEST_H
+#include <XSCTest/XSCTest.h>
 
-#include <XSCTest/FloatingPoint.h>
-#include <XSCTest/TermColor.h>
-
-#endif /* XSCTEST_H */
+const char * XSCTestANSISequence( XSCTestTermColor foreground )
+{
+    switch( foreground )
+    {
+        case XSCTestTermColorNone: return "\033[00m";
+        case XSCTestTermColorGray: return "\033[30m";
+        case XSCTestTermColorRed: return "\033[31m";
+        case XSCTestTermColorGreen: return "\033[32m";
+        case XSCTestTermColorYellow: return "\033[33m";
+        case XSCTestTermColorBlue: return "\033[34m";
+        case XSCTestTermColorMagenta: return "\033[35m";
+        case XSCTestTermColorCyan: return "\033[36m";
+        case XSCTestTermColorWhite: return "\033[37m";
+    }
+}
