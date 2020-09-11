@@ -60,7 +60,7 @@ const char * XSCTestStopWatchGetString( XSCTestStopWatchRef watch )
             return "";
         }
 
-        snprintf( watch->string, size + 1, "%llu", msec );
+        snprintf( watch->string, size + 1, "%llu ms", msec );
     }
 
     return watch->string;

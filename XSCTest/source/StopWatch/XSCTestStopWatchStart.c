@@ -33,6 +33,7 @@
 #include <time.h>
 #include <string.h>
 #include <sys/time.h>
+#include <stdlib.h>
 
 void XSCTestStopWatchStart( XSCTestStopWatchRef watch )
 {
@@ -43,6 +44,9 @@ void XSCTestStopWatchStart( XSCTestStopWatchRef watch )
         return;
     }
 
+    free( watch->string );
+
+    watch->string = NULL;
     watch->end    = 0;
     watch->status = XSCTestStopWatchStatusStarted;
 

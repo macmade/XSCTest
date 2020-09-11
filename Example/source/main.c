@@ -30,10 +30,16 @@
 
 #include <XSCTest/XSCTest.h>
 #include <stdio.h>
+#include <unistd.h>
 
 int main( void )
 {
-    XSCTestStringRef str;
+    XSCTestStopWatchRef sw;
+    XSCTestStringRef    str;
+
+    sw = XSCTestStopWatchCreate();
+
+    XSCTestStopWatchStart( sw );
 
     str = XSCTestStringCreateWithFormat( "%s", "hello" );
 
@@ -41,6 +47,12 @@ int main( void )
     XSCTestStringAppendCString( str, "\n" );
     printf( "%s", XSCTestStringGetCString( str ) );
     XSCTestStringDelete( str );
+
+    usleep( 1000 );
+
+    XSCTestStopWatchStop( sw );
+    XSCTestColorPrint( stdout, XSCTestTermColorBlue, "Elapsed: %s\n", XSCTestStopWatchGetString( sw ) );
+    XSCTestStopWatchDelete( sw );
 
     return 0;
 }
