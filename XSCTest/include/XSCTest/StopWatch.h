@@ -23,16 +23,32 @@
  ******************************************************************************/
 
 /*!
- * @header      XSCTest.h
+ * @header      StopWatch.h
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_H
-#define XSCTEST_H
+#ifndef XSCTEST_STOP_WATCH_H
+#define XSCTEST_STOP_WATCH_H
 
-#include <XSCTest/FloatingPoint.h>
-#include <XSCTest/TermColor.h>
-#include <XSCTest/StopWatch.h>
+#include <stdint.h>
 
-#endif /* XSCTEST_H */
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+    typedef struct XSCTestStopWatch * XSCTestStopWatchRef;
+
+    XSCTestStopWatchRef XSCTestStopWatchCreate( void );
+    void                XSCTestStopWatchDelete( XSCTestStopWatchRef watch );
+    void                XSCTestStopWatchStart( XSCTestStopWatchRef watch );
+    void                XSCTestStopWatchStop( XSCTestStopWatchRef watch );
+    uint64_t            XSCTestStopWatchGetSeconds( XSCTestStopWatchRef watch );
+    uint64_t            XSCTestStopWatchGetMilliseconds( XSCTestStopWatchRef watch );
+    const char *        XSCTestStopWatchGetString( XSCTestStopWatchRef watch );
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* XSCTEST_STOP_WATCH_H */

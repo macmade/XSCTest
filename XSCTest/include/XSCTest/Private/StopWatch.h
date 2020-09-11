@@ -23,16 +23,46 @@
  ******************************************************************************/
 
 /*!
- * @header      XSCTest.h
+ * @header      StopWatch.h
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_H
-#define XSCTEST_H
+#ifndef XSCTEST_PRIVATE_STOP_WATCH_H
+#define XSCTEST_PRIVATE_STOP_WATCH_H
 
-#include <XSCTest/FloatingPoint.h>
-#include <XSCTest/TermColor.h>
-#include <XSCTest/StopWatch.h>
+#include <stdint.h>
 
-#endif /* XSCTEST_H */
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+    typedef enum
+    {
+        XSCTestStopWatchStatusUnknown,
+        XSCTestStopWatchStatusStarted,
+        XSCTestStopWatchStatusStopped
+    } XSCTestStopWatchStatus;
+
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpadded"
+#endif
+
+    struct XSCTestStopWatch
+    {
+        XSCTestStopWatchStatus status;
+        uint64_t               start;
+        uint64_t               end;
+        char *                 string;
+    };
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* XSCTEST_PRIVATE_STOP_WATCH_H */

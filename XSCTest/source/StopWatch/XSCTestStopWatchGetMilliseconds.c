@@ -23,16 +23,20 @@
  ******************************************************************************/
 
 /*!
- * @header      XSCTest.h
+ * @file        XSCTestStopWatchDelete.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_H
-#define XSCTEST_H
+#include <XSCTest/XSCTest.h>
+#include <XSCTest/Private/StopWatch.h>
 
-#include <XSCTest/FloatingPoint.h>
-#include <XSCTest/TermColor.h>
-#include <XSCTest/StopWatch.h>
+uint64_t XSCTestStopWatchGetMilliseconds( XSCTestStopWatchRef watch )
+{
+    if( watch == NULL || watch->status != XSCTestStopWatchStatusStopped )
+    {
+        return 0;
+    }
 
-#endif /* XSCTEST_H */
+    return watch->end - watch->start;
+}

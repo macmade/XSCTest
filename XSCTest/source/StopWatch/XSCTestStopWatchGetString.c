@@ -23,16 +23,45 @@
  ******************************************************************************/
 
 /*!
- * @header      XSCTest.h
+ * @file        XSCTestStopWatchGetSeconds.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_H
-#define XSCTEST_H
+#include <XSCTest/XSCTest.h>
+#include <XSCTest/Private/StopWatch.h>
+#include <string.h>
+#include <stdlib.h>
 
-#include <XSCTest/FloatingPoint.h>
-#include <XSCTest/TermColor.h>
-#include <XSCTest/StopWatch.h>
+const char * XSCTestStopWatchGetString( XSCTestStopWatchRef watch )
+{
+    if( watch == NULL || watch->status != XSCTestStopWatchStatusStopped )
+    {
+        return "";
+    }
 
-#endif /* XSCTEST_H */
+    if( watch->string == NULL )
+    {
+        int      size;
+        uint64_t msec;
+
+        msec = XSCTestStopWatchGetMilliseconds( watch );
+        size = snprintf( NULL, 0, "%llu ms", msec );
+
+        if( size <= 0 )
+        {
+            return "";
+        }
+
+        watch->string = calloc( ( size_t )size + 1, 1 );
+
+        if( watch->string == NULL )
+        {
+            return "";
+        }
+
+        snprintf( watch->string, size + 1, "%llu", msec );
+    }
+
+    return watch->string;
+}

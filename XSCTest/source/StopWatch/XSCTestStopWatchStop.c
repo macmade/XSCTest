@@ -23,16 +23,30 @@
  ******************************************************************************/
 
 /*!
- * @header      XSCTest.h
+ * @file        XSCTestStopWatchStop.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_H
-#define XSCTEST_H
+#include <XSCTest/XSCTest.h>
+#include <XSCTest/Private/StopWatch.h>
+#include <time.h>
+#include <string.h>
+#include <sys/time.h>
 
-#include <XSCTest/FloatingPoint.h>
-#include <XSCTest/TermColor.h>
-#include <XSCTest/StopWatch.h>
+void XSCTestStopWatchStop( XSCTestStopWatchRef watch )
+{
+    struct timeval tv;
 
-#endif /* XSCTEST_H */
+    if( watch == NULL || watch->status != XSCTestStopWatchStatusStarted )
+    {
+        return;
+    }
+
+    watch->status = XSCTestStopWatchStatusStopped;
+
+    gettimeofday( &tv, NULL );
+
+    watch->end = ( uint64_t )( tv.tv_sec * 1000 );
+    watch->end += ( uint64_t )( tv.tv_usec / 1000 );
+}
