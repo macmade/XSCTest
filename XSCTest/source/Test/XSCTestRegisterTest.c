@@ -23,34 +23,23 @@
  ******************************************************************************/
 
 /*!
- * @file        main.c
+ * @file        XSCTestRegisterTest.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
 #include <XSCTest/XSCTest.h>
-#include <stdio.h>
-#include <unistd.h>
 
-Test( Foo, Bar )
+void XSCTestRegisterTest( const char * suite, const char * name, void ( *func )( void ) )
 {
-    AssertTrue( true );
-    AssertTrue( false );
-}
+    XSCTestSuiteRef testSuite;
 
-Test( Foo, Foobar )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
+    testSuite = XSCTestSuiteGetSuiteNamed( suite );
 
-Test( Bar, Foo )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
+    if( testSuite == NULL )
+    {
+        return;
+    }
 
-int main( void )
-{
-    return XSCTestRun();
+    XSCTestSuiteAddTestCase( testSuite, name, func );
 }

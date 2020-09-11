@@ -23,34 +23,23 @@
  ******************************************************************************/
 
 /*!
- * @file        main.c
+ * @header      Test.h
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#include <XSCTest/XSCTest.h>
-#include <stdio.h>
-#include <unistd.h>
+#ifndef XSCTEST_TEST_H
+#define XSCTEST_TEST_H
 
-Test( Foo, Bar )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-Test( Foo, Foobar )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
+    int  XSCTestRun( void );
+    void XSCTestRegisterTest( const char * suite, const char * name, void ( *func )( void ) );
 
-Test( Bar, Foo )
-{
-    AssertTrue( true );
-    AssertTrue( false );
+#ifdef __cplusplus
 }
+#endif
 
-int main( void )
-{
-    return XSCTestRun();
-}
+#endif /* XSCTEST_TEST_H */

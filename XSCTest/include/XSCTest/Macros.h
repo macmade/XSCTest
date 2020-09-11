@@ -55,6 +55,18 @@ extern "C" {
     }                                                                                                            \
     while( 0 )
 
+#define Test( _case_, _name_ )                                                     \
+    void Test_##_case_##_##_name_##_Init( void ) __attribute__( ( constructor ) ); \
+    void Test_##_case_##_##_name_( void );                                         \
+    void Test_##_case_##_##_name_##_Init( void )                                   \
+    {                                                                              \
+        XSCTestRegisterTest(                                                       \
+            XSCTestInternalString( _case_ ),                                       \
+            XSCTestInternalString( _name_ ),                                       \
+            Test_##_case_##_##_name_ );                                            \
+    }                                                                              \
+    void Test_##_case_##_##_name_( void )
+
 #define XSCTestInternalXString( _s_ ) XSCTestInternalString( _s_ )
 #define XSCTestInternalString( _s_ )  #_s_
 

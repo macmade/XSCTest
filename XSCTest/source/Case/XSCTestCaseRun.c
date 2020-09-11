@@ -23,34 +23,18 @@
  ******************************************************************************/
 
 /*!
- * @file        main.c
+ * @file        XSCTestCaseRun.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
 #include <XSCTest/XSCTest.h>
-#include <stdio.h>
-#include <unistd.h>
+#include <XSCTest/Private/Case.h>
 
-Test( Foo, Bar )
+bool XSCTestCaseRun( XSCTestCaseRef testCase, XSCTestSuiteRef suite )
 {
-    AssertTrue( true );
-    AssertTrue( false );
-}
+    ( void )testCase;
+    ( void )suite;
 
-Test( Foo, Foobar )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
-
-Test( Bar, Foo )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
-
-int main( void )
-{
-    return XSCTestRun();
+    return false;
 }

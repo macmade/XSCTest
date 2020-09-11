@@ -23,34 +23,28 @@
  ******************************************************************************/
 
 /*!
- * @file        main.c
+ * @file        XSCTestCaseCreate.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
 #include <XSCTest/XSCTest.h>
-#include <stdio.h>
-#include <unistd.h>
+#include <XSCTest/Private/Case.h>
+#include <stdlib.h>
 
-Test( Foo, Bar )
+XSCTestCaseRef XSCTestCaseCreate( const char * name, void ( *func )( void ) )
 {
-    AssertTrue( true );
-    AssertTrue( false );
-}
+    XSCTestCaseRef testCase;
 
-Test( Foo, Foobar )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
+    testCase = calloc( 1, sizeof( struct XSCTestCase ) );
 
-Test( Bar, Foo )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
+    if( testCase == NULL )
+    {
+        return NULL;
+    }
 
-int main( void )
-{
-    return XSCTestRun();
+    testCase->func = func;
+    testCase->name = XSCTestStringCreateWithCString( name );
+
+    return testCase;
 }

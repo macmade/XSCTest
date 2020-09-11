@@ -23,34 +23,20 @@
  ******************************************************************************/
 
 /*!
- * @file        main.c
+ * @file        XSCTestSuiteGetName.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
 #include <XSCTest/XSCTest.h>
-#include <stdio.h>
-#include <unistd.h>
+#include <XSCTest/Private/Suite.h>
 
-Test( Foo, Bar )
+XSCTestStringRef XSCTestSuiteGetName( XSCTestSuiteRef suite )
 {
-    AssertTrue( true );
-    AssertTrue( false );
-}
+    if( suite == NULL )
+    {
+        return NULL;
+    }
 
-Test( Foo, Foobar )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
-
-Test( Bar, Foo )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
-
-int main( void )
-{
-    return XSCTestRun();
+    return suite->name;
 }

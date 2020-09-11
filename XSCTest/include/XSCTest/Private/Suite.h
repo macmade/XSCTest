@@ -23,34 +23,52 @@
  ******************************************************************************/
 
 /*!
- * @file        main.c
+ * @header      Suite.h
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#include <XSCTest/XSCTest.h>
-#include <stdio.h>
-#include <unistd.h>
+#ifndef XSCTEST_PRIVATE_SUITE_H
+#define XSCTEST_PRIVATE_SUITE_H
 
-Test( Foo, Bar )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
+#include <XSCTest/String.h>
+#include <XSCTest/Case.h>
 
-Test( Foo, Foobar )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-Test( Bar, Foo )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpadded"
+#endif
 
-int main( void )
-{
-    return XSCTestRun();
+    struct XSCTestSuiteTestCaseList
+    {
+        XSCTestCaseRef                    testCase;
+        struct XSCTestSuiteTestCaseList * next;
+    };
+
+    struct XSCTestSuite
+    {
+        XSCTestStringRef                  name;
+        struct XSCTestSuiteTestCaseList * tests;
+    };
+
+    struct XSCTestSuiteList
+    {
+        struct XSCTestSuite *     suite;
+        struct XSCTestSuiteList * next;
+    };
+
+    extern struct XSCTestSuiteList * XSCTestSuites;
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
+
+#ifdef __cplusplus
 }
+#endif
+
+#endif /* XSCTEST_PRIVATE_SUITE_H */

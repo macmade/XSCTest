@@ -23,34 +23,56 @@
  ******************************************************************************/
 
 /*!
- * @file        main.c
+ * @file        XSCTestSuiteAddTestCase.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
 #include <XSCTest/XSCTest.h>
-#include <stdio.h>
-#include <unistd.h>
+#include <XSCTest/Private/Suite.h>
+#include <stdlib.h>
 
-Test( Foo, Bar )
+void XSCTestSuiteAddTestCase( XSCTestSuiteRef suite, const char * name, void ( *func )( void ) )
 {
-    AssertTrue( true );
-    AssertTrue( false );
-}
+    struct XSCTestSuiteTestCaseList * list;
 
-Test( Foo, Foobar )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
+    if( suite == NULL )
+    {
+        return;
+    }
 
-Test( Bar, Foo )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
+    list = suite->tests;
 
-int main( void )
-{
-    return XSCTestRun();
+    if( list == NULL )
+    {
+        suite->tests = calloc( 1, sizeof( struct XSCTestSuiteTestCaseList ) );
+
+        if( suite->tests == NULL )
+        {
+            return;
+        }
+
+        suite->tests->testCase = XSCTestCaseCreate( name, func );
+
+        return;
+    }
+
+    while( 1 )
+    {
+        if( list->next == NULL )
+        {
+            list->next = calloc( 1, sizeof( struct XSCTestSuiteTestCaseList ) );
+
+            if( list->next == NULL )
+            {
+                return;
+            }
+
+            list->next->testCase = XSCTestCaseCreate( name, func );
+
+            return;
+        }
+
+        list = list->next;
+    }
 }

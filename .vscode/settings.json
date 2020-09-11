@@ -22,6 +22,8 @@
         "utility": "c",
         "vector": "c",
         "iosfwd": "cpp",
-        "system_error": "c"
+        "system_error": "c",
+        "complex": "c",
+        "memory": "c"
     }
 }

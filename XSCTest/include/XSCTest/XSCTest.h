@@ -39,5 +39,8 @@
 #include <XSCTest/Assert.h>
 #include <XSCTest/Logging.h>
 #include <XSCTest/Macros.h>
+#include <XSCTest/Test.h>
+#include <XSCTest/Suite.h>
+#include <XSCTest/Case.h>
 
 #endif /* XSCTEST_H */

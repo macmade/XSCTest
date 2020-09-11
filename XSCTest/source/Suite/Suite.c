@@ -23,34 +23,12 @@
  ******************************************************************************/
 
 /*!
- * @file        main.c
+ * @file        Suite.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
 #include <XSCTest/XSCTest.h>
-#include <stdio.h>
-#include <unistd.h>
+#include <XSCTest/Private/Suite.h>
 
-Test( Foo, Bar )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
-
-Test( Foo, Foobar )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
-
-Test( Bar, Foo )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
-
-int main( void )
-{
-    return XSCTestRun();
-}
+struct XSCTestSuiteList * XSCTestSuites = NULL;

@@ -23,34 +23,37 @@
  ******************************************************************************/
 
 /*!
- * @file        main.c
+ * @header      Case.h
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#include <XSCTest/XSCTest.h>
-#include <stdio.h>
-#include <unistd.h>
+#ifndef XSCTEST_PRIVATE_CASE_H
+#define XSCTEST_PRIVATE_CASE_H
 
-Test( Foo, Bar )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
+#include <XSCTest/String.h>
 
-Test( Foo, Foobar )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-Test( Bar, Foo )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpadded"
+#endif
 
-int main( void )
-{
-    return XSCTestRun();
+    struct XSCTestCase
+    {
+        void ( *func )( void );
+        XSCTestStringRef name;
+    };
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
+
+#ifdef __cplusplus
 }
+#endif
+
+#endif /* XSCTEST_PRIVATE_CASE_H */

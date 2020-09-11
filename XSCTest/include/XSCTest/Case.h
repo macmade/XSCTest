@@ -23,34 +23,26 @@
  ******************************************************************************/
 
 /*!
- * @file        main.c
+ * @header      Case.h
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#include <XSCTest/XSCTest.h>
-#include <stdio.h>
-#include <unistd.h>
+#ifndef XSCTEST_CASE_H
+#define XSCTEST_CASE_H
 
-Test( Foo, Bar )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-Test( Foo, Foobar )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
+    typedef struct XSCTestCase * XSCTestCaseRef;
 
-Test( Bar, Foo )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
+    XSCTestCaseRef   XSCTestCaseCreate( const char * name, void ( *func )( void ) );
+    XSCTestStringRef XSCTestCaseGetName( XSCTestCaseRef testCase );
+    bool             XSCTestCaseRun( XSCTestCaseRef testCase, XSCTestSuiteRef suite );
 
-int main( void )
-{
-    return XSCTestRun();
+#ifdef __cplusplus
 }
+#endif
+
+#endif /* XSCTEST_CASE_H */

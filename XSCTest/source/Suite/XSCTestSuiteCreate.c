@@ -23,34 +23,27 @@
  ******************************************************************************/
 
 /*!
- * @file        main.c
+ * @file        XSCTestSuiteCreate.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
 #include <XSCTest/XSCTest.h>
-#include <stdio.h>
-#include <unistd.h>
+#include <XSCTest/Private/Suite.h>
+#include <stdlib.h>
 
-Test( Foo, Bar )
+XSCTestSuiteRef XSCTestSuiteCreate( const char * name )
 {
-    AssertTrue( true );
-    AssertTrue( false );
-}
+    XSCTestSuiteRef suite;
 
-Test( Foo, Foobar )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
+    suite = calloc( 1, sizeof( struct XSCTestSuite ) );
 
-Test( Bar, Foo )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
+    if( suite == NULL )
+    {
+        return NULL;
+    }
 
-int main( void )
-{
-    return XSCTestRun();
+    suite->name = XSCTestStringCreateWithCString( name );
+
+    return suite;
 }

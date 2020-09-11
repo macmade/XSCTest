@@ -23,34 +23,56 @@
  ******************************************************************************/
 
 /*!
- * @file        main.c
+ * @file        XSCTestSuiteGetSuiteNamed.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
 #include <XSCTest/XSCTest.h>
-#include <stdio.h>
-#include <unistd.h>
+#include <XSCTest/Private/Suite.h>
+#include <stdlib.h>
 
-Test( Foo, Bar )
+XSCTestSuiteRef XSCTestSuiteGetSuiteNamed( const char * name )
 {
-    AssertTrue( true );
-    AssertTrue( false );
-}
+    struct XSCTestSuiteList * list;
 
-Test( Foo, Foobar )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
+    list = XSCTestSuites;
 
-Test( Bar, Foo )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
+    if( list == NULL )
+    {
+        XSCTestSuites = calloc( 1, sizeof( struct XSCTestSuiteList ) );
 
-int main( void )
-{
-    return XSCTestRun();
+        if( XSCTestSuites == NULL )
+        {
+            return NULL;
+        }
+
+        XSCTestSuites->suite = XSCTestSuiteCreate( name );
+
+        return XSCTestSuites->suite;
+    }
+
+    while( 1 )
+    {
+        if( XSCTestStringIsEqualToCString( XSCTestSuiteGetName( list->suite ), name ) )
+        {
+            return list->suite;
+        }
+
+        if( list->next == NULL )
+        {
+            list->next = calloc( 1, sizeof( struct XSCTestSuiteList ) );
+
+            if( list->next == NULL )
+            {
+                return NULL;
+            }
+
+            list->next->suite = XSCTestSuiteCreate( name );
+
+            return list->next->suite;
+        }
+
+        list = list->next;
+    }
 }

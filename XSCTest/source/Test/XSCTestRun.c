@@ -23,34 +23,15 @@
  ******************************************************************************/
 
 /*!
- * @file        main.c
+ * @file        XSCTestRun.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
 #include <XSCTest/XSCTest.h>
-#include <stdio.h>
-#include <unistd.h>
+#include <stdlib.h>
 
-Test( Foo, Bar )
+int XSCTestRun( void )
 {
-    AssertTrue( true );
-    AssertTrue( false );
-}
-
-Test( Foo, Foobar )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
-
-Test( Bar, Foo )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
-
-int main( void )
-{
-    return XSCTestRun();
+    return ( XSCTestSuiteRunAllSuites() ) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
