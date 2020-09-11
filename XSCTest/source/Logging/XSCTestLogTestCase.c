@@ -23,21 +23,23 @@
  ******************************************************************************/
 
 /*!
- * @header      XSCTest.h
+ * @file        XSCTestLogTestCase.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_H
-#define XSCTEST_H
+#include <XSCTest/XSCTest.h>
 
-#include <XSCTest/FloatingPoint.h>
-#include <XSCTest/TermColor.h>
-#include <XSCTest/StopWatch.h>
-#include <XSCTest/String.h>
-#include <XSCTest/Failure.h>
-#include <XSCTest/Assert.h>
-#include <XSCTest/Logging.h>
-#include <XSCTest/Macros.h>
+void XSCTestLogTestCase( FILE * fh, const char * testSuite, const char * testCase, const char * prefix )
+{
+    if( fh == NULL )
+    {
+        return;
+    }
 
-#endif /* XSCTEST_H */
+    XSCTestColorPrint( fh, XSCTestTermColorNone, "%s", prefix );
+    XSCTestColorPrint( fh, XSCTestTermColorBlue, "%s", testSuite );
+    XSCTestColorPrint( fh, XSCTestTermColorNone, "." );
+    XSCTestColorPrint( fh, XSCTestTermColorMagenta, "%s", testCase );
+    XSCTestColorPrint( fh, XSCTestTermColorNone, "\n" );
+}

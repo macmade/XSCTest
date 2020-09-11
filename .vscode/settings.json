@@ -21,6 +21,7 @@
         "unordered_map": "c",
         "utility": "c",
         "vector": "c",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "system_error": "c"
     }
 }

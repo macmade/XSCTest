@@ -45,6 +45,7 @@ FILES_C += $(call GET_C_FILES, $(DIR_SRC)StopWatch/)
 FILES_C += $(call GET_C_FILES, $(DIR_SRC)String/)
 FILES_C += $(call GET_C_FILES, $(DIR_SRC)Failure/)
 FILES_C += $(call GET_C_FILES, $(DIR_SRC)Assert/)
+FILES_C += $(call GET_C_FILES, $(DIR_SRC)Logging/)
 
 # Gets every C file in the source directories (example)
 FILES_EXAMPLE_C += $(call GET_C_FILES, $(DIR_EXAMPLE_SRC))

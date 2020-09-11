@@ -49,5 +49,7 @@ bool XSCTestAssertBoolean( bool value, bool expected, const char * expression, c
             line );
     }
 
+    XSCTestLogTestCaseResult( stderr, "foo", "bar", failure, NULL );
+
     return failure == NULL;
 }
