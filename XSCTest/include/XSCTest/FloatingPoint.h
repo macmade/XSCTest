@@ -38,10 +38,10 @@
 extern "C" {
 #endif
 
-bool     XSCTestFloatEqual( float v1, float v2 );
-bool     XSCTestDoubleEqual( double v1, double v2 );
-uint64_t XSCTestFloatDistance( float v1, float v2 );
-uint64_t XSCTestDoubleDistance( double v1, double v2 );
+    bool     XSCTestFloatEqual( float v1, float v2 );
+    bool     XSCTestDoubleEqual( double v1, double v2 );
+    uint64_t XSCTestFloatDistance( float v1, float v2 );
+    uint64_t XSCTestDoubleDistance( double v1, double v2 );
 
 #ifdef __cplusplus
 }
