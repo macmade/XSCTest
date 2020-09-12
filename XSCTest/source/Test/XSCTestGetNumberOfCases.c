@@ -23,7 +23,7 @@
  ******************************************************************************/
 
 /*!
- * @file        XSCTestRunAllSuites.c
+ * @file        XSCTestGetNumberOfCases.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
@@ -31,66 +31,19 @@
 #include <XSCTest/XSCTest.h>
 #include <XSCTest/Private/Test.h>
 
-bool XSCTestRunAllSuites( FILE * fh )
+size_t XSCTestGetNumberOfCases( void )
 {
+    size_t                    size;
     struct XSCTestSuiteList * list;
-    bool                      ret;
-    XSCTestStopWatchRef       time;
-    size_t                    suites;
-    size_t                    cases;
 
-    ret    = true;
-    list   = XSCTestSuites;
-    time   = XSCTestStopWatchCreate();
-    suites = XSCTestGetNumberOfSuites();
-    cases  = XSCTestGetNumberOfCases();
-
-    if( suites == 0 || cases == 0 )
-    {
-        XSCTestLog( fh, XSCTestTermColorNone, XSCTestLogStyleFailure, 0, "No test to run..." );
-
-        return false;
-    }
-
-    {
-        XSCTestStringRef casesString;
-        XSCTestStringRef suitesString;
-
-        casesString  = XSCTestCreateNumberedString( "test case", cases );
-        suitesString = XSCTestCreateNumberedString( "test suite", suites );
-
-        XSCTestLog(
-            fh,
-            XSCTestTermColorNone,
-            XSCTestLogStyleNone,
-            0,
-            "Running %zu %s from %zu %s",
-            cases,
-            XSCTestStringGetCString( casesString ),
-            suites,
-            XSCTestStringGetCString( suitesString ) );
-
-        XSCTestStringDelete( casesString );
-        XSCTestStringDelete( suitesString );
-    }
-
+    size = 0;
     list = XSCTestSuites;
-
-    XSCTestStopWatchStart( time );
 
     while( list != NULL )
     {
-        if( XSCTestSuiteRun( list->suite, fh ) == false )
-        {
-            ret = false;
-        }
-
+        size += XSCTestSuiteGetNumberOfTestCases( list->suite );
         list = list->next;
     }
 
-    XSCTestStopWatchStop( time );
-
-    XSCTestStopWatchDelete( time );
-
-    return ret;
+    return size;
 }
