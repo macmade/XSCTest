@@ -59,6 +59,13 @@ extern "C" {
     if( XSCTestAssertStringEquality( _xscFailure_, ( _s1_ ), ( _s2_ ), false, true, XSCTestInternalXString( _s1_ ), XSCTestInternalXString( _s2_ ), __FILE__, __LINE__ ) == false ) \
     return
 
+#define AssertEqual( _v1_, _v2_ )
+#define AssertNotEqual( _v1_, _v2_ )
+#define AssertLess( _v1_, _v2_ )
+#define AssertLessOrEqual( _v1_, _v2_ )
+#define AssertGreater( _v1_, _v2_ )
+#define AssertGreaterOrEqual( _v1_, _v2_ )
+
 #define Test( _case_, _name_ )                                                     \
     void Test_##_case_##_##_name_##_Init( void ) __attribute__( ( constructor ) ); \
     void Test_##_case_##_##_name_( XSCTestFailureRef * _xscFailure_ );             \
