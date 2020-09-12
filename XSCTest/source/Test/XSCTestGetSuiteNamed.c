@@ -23,33 +23,56 @@
  ******************************************************************************/
 
 /*!
- * @header      Test.h
+ * @file        XSCTestGetSuiteNamed.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_TEST_H
-#define XSCTEST_TEST_H
+#include <XSCTest/XSCTest.h>
+#include <XSCTest/Private/Test.h>
+#include <stdlib.h>
 
-#include <XSCTest/Case.h>
-#include <XSCTest/Suite.h>
-#include <XSCTest/Failure.h>
-#include <stddef.h>
-#include <stdio.h>
-#include <stdio.h>
+XSCTestSuiteRef XSCTestGetSuiteNamed( const char * name )
+{
+    struct XSCTestSuiteList * list;
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+    list = XSCTestSuites;
 
-    int             XSCTestRun( FILE * fh );
-    void            XSCTestRegisterTest( const char * suite, const char * name, void ( *func )( XSCTestFailureRef * ) );
-    bool            XSCTestRunAllSuites( FILE * fh );
-    size_t          XSCTestGetNumberOfSuites( void );
-    XSCTestSuiteRef XSCTestGetSuiteNamed( const char * name );
+    if( list == NULL )
+    {
+        XSCTestSuites = calloc( 1, sizeof( struct XSCTestSuiteList ) );
 
-#ifdef __cplusplus
+        if( XSCTestSuites == NULL )
+        {
+            return NULL;
+        }
+
+        XSCTestSuites->suite = XSCTestSuiteCreate( name );
+
+        return XSCTestSuites->suite;
+    }
+
+    while( 1 )
+    {
+        if( XSCTestStringIsEqualToCString( XSCTestSuiteGetName( list->suite ), name ) )
+        {
+            return list->suite;
+        }
+
+        if( list->next == NULL )
+        {
+            list->next = calloc( 1, sizeof( struct XSCTestSuiteList ) );
+
+            if( list->next == NULL )
+            {
+                return NULL;
+            }
+
+            list->next->suite = XSCTestSuiteCreate( name );
+
+            return list->next->suite;
+        }
+
+        list = list->next;
+    }
 }
-#endif
-
-#endif /* XSCTEST_TEST_H */

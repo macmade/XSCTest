@@ -41,12 +41,11 @@ extern "C" {
 
     typedef struct XSCTestSuite * XSCTestSuiteRef;
 
-    bool             XSCTestSuiteRunAllSuites( FILE * fh );
-    XSCTestSuiteRef  XSCTestSuiteGetSuiteNamed( const char * name );
     XSCTestSuiteRef  XSCTestSuiteCreate( const char * name );
     void             XSCTestSuiteAddTestCase( XSCTestSuiteRef suite, const char * name, void ( *func )( XSCTestFailureRef * ) );
     XSCTestStringRef XSCTestSuiteGetName( XSCTestSuiteRef suite );
     bool             XSCTestSuiteRun( XSCTestSuiteRef suite, FILE * fh );
+    size_t           XSCTestSuiteGetNumberOfTestCases( XSCTestSuiteRef suite );
 
 #ifdef __cplusplus
 }

@@ -23,56 +23,27 @@
  ******************************************************************************/
 
 /*!
- * @file        XSCTestSuiteGetSuiteNamed.c
+ * @file        XSCTestGetNumberOfSuites.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
 #include <XSCTest/XSCTest.h>
-#include <XSCTest/Private/Suite.h>
-#include <stdlib.h>
+#include <XSCTest/Private/Test.h>
 
-XSCTestSuiteRef XSCTestSuiteGetSuiteNamed( const char * name )
+size_t XSCTestGetNumberOfSuites( void )
 {
+    size_t                    size;
     struct XSCTestSuiteList * list;
 
+    size = 0;
     list = XSCTestSuites;
 
-    if( list == NULL )
+    while( list != NULL )
     {
-        XSCTestSuites = calloc( 1, sizeof( struct XSCTestSuiteList ) );
-
-        if( XSCTestSuites == NULL )
-        {
-            return NULL;
-        }
-
-        XSCTestSuites->suite = XSCTestSuiteCreate( name );
-
-        return XSCTestSuites->suite;
-    }
-
-    while( 1 )
-    {
-        if( XSCTestStringIsEqualToCString( XSCTestSuiteGetName( list->suite ), name ) )
-        {
-            return list->suite;
-        }
-
-        if( list->next == NULL )
-        {
-            list->next = calloc( 1, sizeof( struct XSCTestSuiteList ) );
-
-            if( list->next == NULL )
-            {
-                return NULL;
-            }
-
-            list->next->suite = XSCTestSuiteCreate( name );
-
-            return list->next->suite;
-        }
-
+        size += 1;
         list = list->next;
     }
+
+    return size;
 }

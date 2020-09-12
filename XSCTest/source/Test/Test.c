@@ -23,31 +23,12 @@
  ******************************************************************************/
 
 /*!
- * @file        XSCTestSuiteRunAllSuites.c
+ * @file        Test.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
 #include <XSCTest/XSCTest.h>
-#include <XSCTest/Private/Suite.h>
+#include <XSCTest/Private/Test.h>
 
-bool XSCTestSuiteRunAllSuites( FILE * fh )
-{
-    struct XSCTestSuiteList * list;
-    bool                      ret;
-
-    ret  = true;
-    list = XSCTestSuites;
-
-    while( list != NULL )
-    {
-        if( XSCTestSuiteRun( list->suite, fh ) == false )
-        {
-            ret = false;
-        }
-
-        list = list->next;
-    }
-
-    return ret;
-}
+struct XSCTestSuiteList * XSCTestSuites = NULL;

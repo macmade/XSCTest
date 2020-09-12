@@ -34,7 +34,7 @@ void XSCTestRegisterTest( const char * suite, const char * name, void ( *func )(
 {
     XSCTestSuiteRef testSuite;
 
-    testSuite = XSCTestSuiteGetSuiteNamed( suite );
+    testSuite = XSCTestGetSuiteNamed( suite );
 
     if( testSuite == NULL )
     {

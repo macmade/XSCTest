@@ -55,14 +55,6 @@ extern "C" {
         struct XSCTestSuiteTestCaseList * tests;
     };
 
-    struct XSCTestSuiteList
-    {
-        struct XSCTestSuite *     suite;
-        struct XSCTestSuiteList * next;
-    };
-
-    extern struct XSCTestSuiteList * XSCTestSuites;
-
 #ifdef __clang__
 #pragma clang diagnostic pop
 #endif

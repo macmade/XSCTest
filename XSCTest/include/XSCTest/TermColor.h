@@ -33,6 +33,7 @@
 
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdarg.h>
 
 #ifdef __cplusplus
 extern "C" {

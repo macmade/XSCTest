@@ -33,5 +33,5 @@
 
 int XSCTestRun( FILE * fh )
 {
-    return ( XSCTestSuiteRunAllSuites( fh ) ) ? EXIT_SUCCESS : EXIT_FAILURE;
+    return ( XSCTestRunAllSuites( fh ) ) ? EXIT_SUCCESS : EXIT_FAILURE;
 }

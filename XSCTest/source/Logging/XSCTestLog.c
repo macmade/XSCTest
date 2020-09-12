@@ -29,13 +29,19 @@
  */
 
 #include <XSCTest/XSCTest.h>
+#include <stdarg.h>
 
-void XSCTestLogMessage( FILE * fh, const char * message, XSCTestTermColor color, XSCTestLogStyle style, unsigned int options )
+void XSCTestLog( FILE * fh, XSCTestTermColor color, XSCTestLogStyle style, unsigned int options, const char * fmt, ... )
 {
+    va_list          ap;
+    XSCTestStringRef message;
+
     if( fh == NULL )
     {
         return;
     }
+
+    va_start( ap, fmt );
 
     if( ( options & XSCTestLogOptionNewLineBefore ) != 0 )
     {
@@ -55,11 +61,16 @@ void XSCTestLogMessage( FILE * fh, const char * message, XSCTestTermColor color,
         XSCTestLogPrompt( fh );
     }
 
-    XSCTestColorPrint( fh, color, "%s", message );
+    message = XSCTestStringCreateWithFormatAndArgs( fmt, ap );
+
+    XSCTestColorPrint( fh, color, "%s", XSCTestStringGetCString( message ) );
     XSCTestColorPrint( fh, XSCTestTermColorNone, "\n" );
 
     if( ( options & XSCTestLogOptionNewLineAfter ) != 0 )
     {
         XSCTestColorPrint( fh, XSCTestTermColorNone, "\n" );
     }
+
+    XSCTestStringDelete( message );
+    va_end( ap );
 }

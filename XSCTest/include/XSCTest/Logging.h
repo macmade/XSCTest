@@ -57,7 +57,7 @@ extern "C" {
     void XSCTestLogFailedPrompt( FILE * fh );
     void XSCTestLogPrompt( FILE * fh );
 
-    void XSCTestLogMessage( FILE * fh, const char * message, XSCTestTermColor color, XSCTestLogStyle style, unsigned int options );
+    void XSCTestLog( FILE * fh, XSCTestTermColor color, XSCTestLogStyle style, unsigned int options, const char * fmt, ... ) __attribute__( ( format( printf, 5, 6 ) ) );
     void XSCTestLogTestCase( FILE * fh, const char * testSuite, const char * testCase, const char * prefix );
     void XSCTestLogTestCaseResult( FILE * fh, const char * testSuite, const char * testCase, XSCTestFailureRef failure, XSCTestStopWatchRef time );
 
