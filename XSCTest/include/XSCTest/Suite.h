@@ -32,6 +32,7 @@
 #define XSCTEST_SUITE_H
 
 #include <XSCTest/String.h>
+#include <XSCTest/Case.h>
 
 #ifdef __cplusplus
 extern "C" {

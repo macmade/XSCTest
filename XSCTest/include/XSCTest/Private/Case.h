@@ -32,6 +32,7 @@
 #define XSCTEST_PRIVATE_CASE_H
 
 #include <XSCTest/String.h>
+#include <XSCTest/Case.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -46,6 +47,7 @@ extern "C" {
     {
         void ( *func )( XSCTestCaseRef );
         XSCTestStringRef name;
+        XSCTestStringRef suiteName;
     };
 
 #ifdef __clang__

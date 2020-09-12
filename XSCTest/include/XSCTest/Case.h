@@ -37,7 +37,7 @@ extern "C" {
 
     typedef struct XSCTestCase * XSCTestCaseRef;
 
-    XSCTestCaseRef   XSCTestCaseCreate( const char * name, void ( *func )( XSCTestCaseRef ) );
+    XSCTestCaseRef   XSCTestCaseCreate( const char * suiteName, const char * name, void ( *func )( XSCTestCaseRef ) );
     XSCTestStringRef XSCTestCaseGetName( XSCTestCaseRef testCase );
     bool             XSCTestCaseRun( XSCTestCaseRef testCase );
 

@@ -32,7 +32,7 @@
 #include <XSCTest/Private/Case.h>
 #include <stdlib.h>
 
-XSCTestCaseRef XSCTestCaseCreate( const char * name, void ( *func )( XSCTestCaseRef ) )
+XSCTestCaseRef XSCTestCaseCreate( const char * suiteName, const char * name, void ( *func )( XSCTestCaseRef ) )
 {
     XSCTestCaseRef testCase;
 
@@ -43,8 +43,9 @@ XSCTestCaseRef XSCTestCaseCreate( const char * name, void ( *func )( XSCTestCase
         return NULL;
     }
 
-    testCase->func = func;
-    testCase->name = XSCTestStringCreateWithCString( name );
+    testCase->func      = func;
+    testCase->name      = XSCTestStringCreateWithCString( name );
+    testCase->suiteName = XSCTestStringCreateWithCString( suiteName );
 
     return testCase;
 }

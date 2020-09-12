@@ -52,7 +52,7 @@ void XSCTestSuiteAddTestCase( XSCTestSuiteRef suite, const char * name, void ( *
             return;
         }
 
-        suite->tests->testCase = XSCTestCaseCreate( name, func );
+        suite->tests->testCase = XSCTestCaseCreate( XSCTestStringGetCString( suite->name ), name, func );
 
         return;
     }
@@ -68,7 +68,7 @@ void XSCTestSuiteAddTestCase( XSCTestSuiteRef suite, const char * name, void ( *
                 return;
             }
 
-            list->next->testCase = XSCTestCaseCreate( name, func );
+            list->next->testCase = XSCTestCaseCreate( XSCTestStringGetCString( suite->name ), name, func );
 
             return;
         }

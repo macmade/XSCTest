@@ -35,25 +35,13 @@
 extern "C" {
 #endif
 
-#define AssertTrue( _e_ )                                                                                                      \
-    do                                                                                                                         \
-    {                                                                                                                          \
-        if( XSCTestAssertBoolean( _xscTestCase_, ( _e_ ), true, XSCTestInternalXString( _e_ ), __FILE__, __LINE__ ) == false ) \
-        {                                                                                                                      \
-            return;                                                                                                            \
-        }                                                                                                                      \
-    }                                                                                                                          \
-    while( 0 )
+#define AssertTrue( _e_ )                                                                                                  \
+    if( XSCTestAssertBoolean( _xscTestCase_, ( _e_ ), true, XSCTestInternalXString( _e_ ), __FILE__, __LINE__ ) == false ) \
+    return
 
-#define AssertFalse( _e_ )                                                                                                      \
-    do                                                                                                                          \
-    {                                                                                                                           \
-        if( XSCTestAssertBoolean( _xscTestCase_, ( _e_ ), false, XSCTestInternalXString( _e_ ), __FILE__, __LINE__ ) == false ) \
-        {                                                                                                                       \
-            return;                                                                                                             \
-        }                                                                                                                       \
-    }                                                                                                                           \
-    while( 0 )
+#define AssertFalse( _e_ )                                                                                                  \
+    if( XSCTestAssertBoolean( _xscTestCase_, ( _e_ ), false, XSCTestInternalXString( _e_ ), __FILE__, __LINE__ ) == false ) \
+    return
 
 #define Test( _case_, _name_ )                                                     \
     void Test_##_case_##_##_name_##_Init( void ) __attribute__( ( constructor ) ); \
