@@ -23,25 +23,24 @@
  ******************************************************************************/
 
 /*!
- * @header      XSCTest.h
+ * @header      Utility.h
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_H
-#define XSCTEST_H
+#ifndef XSCTEST_UTILITY_H
+#define XSCTEST_UTILITY_H
 
-#include <XSCTest/FloatingPoint.h>
-#include <XSCTest/TermColor.h>
-#include <XSCTest/StopWatch.h>
 #include <XSCTest/String.h>
-#include <XSCTest/Failure.h>
-#include <XSCTest/Assert.h>
-#include <XSCTest/Logging.h>
-#include <XSCTest/Macros.h>
-#include <XSCTest/Test.h>
-#include <XSCTest/Suite.h>
-#include <XSCTest/Case.h>
-#include <XSCTest/Utility.h>
 
-#endif /* XSCTEST_H */
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+    XSCTestStringRef XSCTestCreateNumberedString( const char * str, size_t count );
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* XSCTEST_UTILITY_H */

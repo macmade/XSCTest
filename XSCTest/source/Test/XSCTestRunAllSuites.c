@@ -59,21 +59,26 @@ bool XSCTestRunAllSuites( FILE * fh )
         return false;
     }
 
-    if( suites == 1 && cases == 1 )
     {
-        XSCTestLog( fh, XSCTestTermColorNone, XSCTestLogStyleNone, 0, "Running %zu test cases from %zu test suites", cases, suites );
-    }
-    else if( suites == 1 )
-    {
-        XSCTestLog( fh, XSCTestTermColorNone, XSCTestLogStyleNone, 0, "Running %zu test cases from %zu test suite", cases, suites );
-    }
-    else if( cases == 1 )
-    {
-        XSCTestLog( fh, XSCTestTermColorNone, XSCTestLogStyleNone, 0, "Running %zu test case from %zu test suites", cases, suites );
-    }
-    else
-    {
-        XSCTestLog( fh, XSCTestTermColorNone, XSCTestLogStyleNone, 0, "Running %zu test cases from %zu test suites", cases, suites );
+        XSCTestStringRef casesString;
+        XSCTestStringRef suitesString;
+
+        casesString  = XSCTestCreateNumberedString( "test case", cases );
+        suitesString = XSCTestCreateNumberedString( "test suite", suites );
+
+        XSCTestLog(
+            fh,
+            XSCTestTermColorNone,
+            XSCTestLogStyleNone,
+            0,
+            "Running %zu %s from %zu %s",
+            cases,
+            XSCTestStringGetCString( casesString ),
+            suites,
+            XSCTestStringGetCString( suitesString ) );
+
+        XSCTestStringDelete( casesString );
+        XSCTestStringDelete( suitesString );
     }
 
     list = XSCTestSuites;

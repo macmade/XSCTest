@@ -23,25 +23,23 @@
  ******************************************************************************/
 
 /*!
- * @header      XSCTest.h
+ * @file        XSCTestCreateNumberedString.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_H
-#define XSCTEST_H
+#include <XSCTest/XSCTest.h>
 
-#include <XSCTest/FloatingPoint.h>
-#include <XSCTest/TermColor.h>
-#include <XSCTest/StopWatch.h>
-#include <XSCTest/String.h>
-#include <XSCTest/Failure.h>
-#include <XSCTest/Assert.h>
-#include <XSCTest/Logging.h>
-#include <XSCTest/Macros.h>
-#include <XSCTest/Test.h>
-#include <XSCTest/Suite.h>
-#include <XSCTest/Case.h>
-#include <XSCTest/Utility.h>
+XSCTestStringRef XSCTestCreateNumberedString( const char * str, size_t count )
+{
+    XSCTestStringRef string;
 
-#endif /* XSCTEST_H */
+    string = XSCTestStringCreateWithCString( str );
+
+    if( count > 1 )
+    {
+        XSCTestStringAppendCString( string, "s" );
+    }
+
+    return string;
+}
