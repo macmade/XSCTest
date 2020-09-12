@@ -29,6 +29,7 @@
  */
 
 #include <XSCTest/XSCTest.h>
+#include <string.h>
 
 void XSCTestLogTestCaseResult( FILE * fh, const char * testSuite, const char * testCase, XSCTestFailureRef failure, XSCTestStopWatchRef time )
 {
@@ -59,5 +60,60 @@ void XSCTestLogTestCaseResult( FILE * fh, const char * testSuite, const char * t
 
     if( failure != NULL )
     {
+        const char * file;
+        const char * expression;
+        const char * evaluated;
+        const char * expected;
+        const char * actual;
+
+        file       = XSCTestFailureGetFile( failure );
+        expression = XSCTestFailureGetExpression( failure );
+        evaluated  = XSCTestFailureGetEvaluated( failure );
+        expected   = XSCTestFailureGetExpected( failure );
+        actual     = XSCTestFailureGetActual( failure );
+
+        if( file == NULL || strlen( file ) == 0 )
+        {
+            file = "<unknown>";
+        }
+
+        XSCTestColorPrint( fh, XSCTestTermColorNone, "            - File:       " );
+        XSCTestColorPrint( fh, XSCTestTermColorYellow, "%s:%i", file, XSCTestFailureGetLine( failure ) );
+
+        if( expression != NULL && strlen( expression ) > 0 )
+        {
+            XSCTestColorPrint( fh, XSCTestTermColorNone, "\n" );
+            XSCTestColorPrint( fh, XSCTestTermColorNone, "            - Expression: " );
+            XSCTestColorPrint( fh, XSCTestTermColorCyan, "%s", expression );
+
+            if( evaluated != NULL && strlen( evaluated ) > 0 && strcmp( expression, evaluated ) != 0 )
+            {
+                XSCTestColorPrint( fh, XSCTestTermColorNone, "\n" );
+                XSCTestColorPrint( fh, XSCTestTermColorNone, "            - Evaluated:  " );
+                XSCTestColorPrint( fh, XSCTestTermColorBlue, "%s", evaluated );
+            }
+
+            if( expected != NULL && strlen( expected ) > 0 )
+            {
+                XSCTestColorPrint( fh, XSCTestTermColorNone, "\n" );
+                XSCTestColorPrint( fh, XSCTestTermColorNone, "            - Expected:   " );
+                XSCTestColorPrint( fh, XSCTestTermColorGreen, "%s", expected );
+            }
+
+            if( actual != NULL && strlen( actual ) > 0 )
+            {
+                XSCTestColorPrint( fh, XSCTestTermColorNone, "\n" );
+                XSCTestColorPrint( fh, XSCTestTermColorNone, "            - Actual:     " );
+                XSCTestColorPrint( fh, XSCTestTermColorRed, "%s", actual );
+            }
+        }
+        else
+        {
+            XSCTestColorPrint( fh, XSCTestTermColorNone, "\n" );
+            XSCTestColorPrint( fh, XSCTestTermColorNone, "            - Reason:     " );
+            XSCTestColorPrint( fh, XSCTestTermColorRed, "%s", XSCTestFailureGetDescription( failure ) );
+        }
+
+        XSCTestColorPrint( fh, XSCTestTermColorNone, "\n" );
     }
 }

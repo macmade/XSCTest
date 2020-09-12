@@ -23,42 +23,20 @@
  ******************************************************************************/
 
 /*!
- * @header      Failure.h
+ * @file        XSCTestFailureGetExpected.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_PRIVATE_FAILURE_H
-#define XSCTEST_PRIVATE_FAILURE_H
+#include <XSCTest/XSCTest.h>
+#include <XSCTest/Private/Failure.h>
 
-#include <XSCTest/Private/String.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#ifdef __clang__
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wpadded"
-#endif
-
-    struct XSCTestFailure
+const char * XSCTestFailureGetExpected( XSCTestFailureRef failure )
+{
+    if( failure == NULL )
     {
-        XSCTestStringRef description;
-        XSCTestStringRef expression;
-        XSCTestStringRef evaluated;
-        XSCTestStringRef expected;
-        XSCTestStringRef actual;
-        XSCTestStringRef file;
-        int              line;
-    };
+        return NULL;
+    }
 
-#ifdef __clang__
-#pragma clang diagnostic pop
-#endif
-
-#ifdef __cplusplus
+    return XSCTestStringGetCString( failure->expected );
 }
-#endif
-
-#endif /* XSCTEST_PRIVATE_FAILURE_H */

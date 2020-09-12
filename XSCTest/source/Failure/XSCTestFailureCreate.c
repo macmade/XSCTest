@@ -31,6 +31,7 @@
 #include <XSCTest/XSCTest.h>
 #include <XSCTest/Private/Failure.h>
 #include <stdlib.h>
+#include <string.h>
 
 XSCTestFailureRef XSCTestFailureCreate( const char * expression, const char * evaluated, const char * expected, const char * actual, const char * file, int line )
 {
@@ -43,12 +44,48 @@ XSCTestFailureRef XSCTestFailureCreate( const char * expression, const char * ev
         return NULL;
     }
 
-    failure->expression = XSCTestStringCreateWithCString( expression );
-    failure->evaluated  = XSCTestStringCreateWithCString( evaluated );
-    failure->expected   = XSCTestStringCreateWithCString( expected );
-    failure->actual     = XSCTestStringCreateWithCString( actual );
-    failure->file       = XSCTestStringCreateWithCString( file );
-    failure->line       = line;
+    failure->expression  = XSCTestStringCreateWithCString( expression );
+    failure->evaluated   = XSCTestStringCreateWithCString( evaluated );
+    failure->expected    = XSCTestStringCreateWithCString( expected );
+    failure->actual      = XSCTestStringCreateWithCString( actual );
+    failure->file        = XSCTestStringCreateWithCString( file );
+    failure->line        = line;
+    failure->description = XSCTestStringCreateWithCString( "" );
+
+    if( expression != NULL && strlen( expression ) != 0 )
+    {
+        XSCTestStringAppendFormat( failure->description, "Expression: %s", expression );
+    }
+
+    if( evaluated != NULL && strlen( evaluated ) != 0 && strcmp( expression, evaluated ) != 0 )
+    {
+        if( XSCTestStringGetLength( failure->description ) > 0 )
+        {
+            XSCTestStringAppendCString( failure->description, " | " );
+        }
+
+        XSCTestStringAppendFormat( failure->description, "Evaluated: %s", evaluated );
+    }
+
+    if( expected != NULL && strlen( expected ) != 0 )
+    {
+        if( XSCTestStringGetLength( failure->description ) > 0 )
+        {
+            XSCTestStringAppendCString( failure->description, " | " );
+        }
+
+        XSCTestStringAppendFormat( failure->description, "Expected: %s", expected );
+    }
+
+    if( actual != NULL && strlen( actual ) != 0 )
+    {
+        if( XSCTestStringGetLength( failure->description ) > 0 )
+        {
+            XSCTestStringAppendCString( failure->description, " | " );
+        }
+
+        XSCTestStringAppendFormat( failure->description, "Actual: %s", actual );
+    }
 
     return failure;
 }

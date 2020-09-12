@@ -41,6 +41,13 @@ extern "C" {
 
     XSCTestFailureRef XSCTestFailureCreate( const char * expression, const char * evaluated, const char * expected, const char * actual, const char * file, int line );
     void              XSCTestFailureDelete( XSCTestFailureRef failure );
+    const char *      XSCTestFailureGetDescription( XSCTestFailureRef failure );
+    const char *      XSCTestFailureGetExpression( XSCTestFailureRef failure );
+    const char *      XSCTestFailureGetEvaluated( XSCTestFailureRef failure );
+    const char *      XSCTestFailureGetExpected( XSCTestFailureRef failure );
+    const char *      XSCTestFailureGetActual( XSCTestFailureRef failure );
+    const char *      XSCTestFailureGetFile( XSCTestFailureRef failure );
+    int               XSCTestFailureGetLine( XSCTestFailureRef failure );
 
 #ifdef __cplusplus
 }
