@@ -23,26 +23,34 @@
  ******************************************************************************/
 
 /*!
- * @header      Assert.h
+ * @file        foo.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_ASSERT_H
-#define XSCTEST_ASSERT_H
+#include <XSCTest/XSCTest.h>
+#include <unistd.h>
 
-#include <XSCTest/Failure.h>
-#include <stdbool.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-    bool XSCTestAssertBoolean( XSCTestFailureRef * failure, bool value, bool expected, const char * expression, const char * file, int line );
-    bool XSCTestAssertStringEquality( XSCTestFailureRef * failure, const char * cp1, const char * cp2, bool expected, bool caseInsensitive, const char * expression1, const char * expression2, const char * file, int line );
-
-#ifdef __cplusplus
+static const char * GetString1( void );
+static const char * GetString1( void )
+{
+    return "hello, world";
 }
-#endif
 
-#endif /* XSCTEST_ASSERT_H */
+static const char * GetString2( void );
+static const char * GetString2( void )
+{
+    return "hello, universe";
+}
+
+Test( Foo, Test1 )
+{
+    usleep( 10000 );
+    AssertStringNotEqual( GetString1(), GetString2() );
+}
+
+Test( Foo, Test2 )
+{
+    usleep( 10000 );
+    AssertStringEqual( GetString1(), GetString2() );
+}

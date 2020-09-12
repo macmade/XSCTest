@@ -23,26 +23,34 @@
  ******************************************************************************/
 
 /*!
- * @header      Assert.h
+ * @file        bar.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_ASSERT_H
-#define XSCTEST_ASSERT_H
+#include <XSCTest/XSCTest.h>
+#include <unistd.h>
 
-#include <XSCTest/Failure.h>
-#include <stdbool.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-    bool XSCTestAssertBoolean( XSCTestFailureRef * failure, bool value, bool expected, const char * expression, const char * file, int line );
-    bool XSCTestAssertStringEquality( XSCTestFailureRef * failure, const char * cp1, const char * cp2, bool expected, bool caseInsensitive, const char * expression1, const char * expression2, const char * file, int line );
-
-#ifdef __cplusplus
+static bool GetBool1( void );
+static bool GetBool1( void )
+{
+    return true;
 }
-#endif
 
-#endif /* XSCTEST_ASSERT_H */
+static bool GetBool2( void );
+static bool GetBool2( void )
+{
+    return false;
+}
+
+Test( Bar, Test1 )
+{
+    usleep( 10000 );
+    AssertTrue( GetBool1() );
+}
+
+Test( Bar, Test2 )
+{
+    usleep( 10000 );
+    AssertTrue( GetBool2() );
+}

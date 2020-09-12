@@ -30,24 +30,6 @@
 
 #include <XSCTest/XSCTest.h>
 
-Test( Foo, Bar )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
-
-Test( Foo, Foobar )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
-
-Test( Bar, Foo )
-{
-    AssertTrue( true );
-    AssertTrue( false );
-}
-
 int main( void )
 {
     return XSCTestRun( stdout );

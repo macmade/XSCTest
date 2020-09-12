@@ -43,6 +43,22 @@ extern "C" {
     if( XSCTestAssertBoolean( _xscFailure_, ( _e_ ), false, XSCTestInternalXString( _e_ ), __FILE__, __LINE__ ) == false ) \
     return
 
+#define AssertStringEqual( _s1_, _s2_ )                                                                                                                                             \
+    if( XSCTestAssertStringEquality( _xscFailure_, ( _s1_ ), ( _s2_ ), true, false, XSCTestInternalXString( _s1_ ), XSCTestInternalXString( _s2_ ), __FILE__, __LINE__ ) == false ) \
+    return
+
+#define AssertStringNotEqual( _s1_, _s2_ )                                                                                                                                           \
+    if( XSCTestAssertStringEquality( _xscFailure_, ( _s1_ ), ( _s2_ ), false, false, XSCTestInternalXString( _s1_ ), XSCTestInternalXString( _s2_ ), __FILE__, __LINE__ ) == false ) \
+    return
+
+#define AssertStringEqualCaseInsensitive( _s1_, _s2_ )                                                                                                                             \
+    if( XSCTestAssertStringEquality( _xscFailure_, ( _s1_ ), ( _s2_ ), true, true, XSCTestInternalXString( _s1_ ), XSCTestInternalXString( _s2_ ), __FILE__, __LINE__ ) == false ) \
+    return
+
+#define AssertStringNotEqualCaseInsensitive( _s1_, _s2_ )                                                                                                                           \
+    if( XSCTestAssertStringEquality( _xscFailure_, ( _s1_ ), ( _s2_ ), false, true, XSCTestInternalXString( _s1_ ), XSCTestInternalXString( _s2_ ), __FILE__, __LINE__ ) == false ) \
+    return
+
 #define Test( _case_, _name_ )                                                     \
     void Test_##_case_##_##_name_##_Init( void ) __attribute__( ( constructor ) ); \
     void Test_##_case_##_##_name_( XSCTestFailureRef * _xscFailure_ );             \
