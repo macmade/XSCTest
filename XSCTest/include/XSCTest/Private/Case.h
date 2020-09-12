@@ -33,6 +33,7 @@
 
 #include <XSCTest/String.h>
 #include <XSCTest/Case.h>
+#include <XSCTest/Failure.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -45,9 +46,10 @@ extern "C" {
 
     struct XSCTestCase
     {
-        void ( *func )( XSCTestCaseRef );
-        XSCTestStringRef name;
-        XSCTestStringRef suiteName;
+        void ( *func )( XSCTestFailureRef * );
+        XSCTestStringRef  name;
+        XSCTestStringRef  suiteName;
+        XSCTestFailureRef failure;
     };
 
 #ifdef __clang__

@@ -33,7 +33,16 @@
 
 bool XSCTestCaseRun( XSCTestCaseRef testCase )
 {
-    testCase->func( testCase );
+    if( testCase == NULL )
+    {
+        return false;
+    }
+
+    XSCTestFailureDelete( testCase->failure );
+
+    testCase->failure = NULL;
+
+    testCase->func( &( testCase->failure ) );
 
     return false;
 }

@@ -31,15 +31,18 @@
 #ifndef XSCTEST_CASE_H
 #define XSCTEST_CASE_H
 
+#include <XSCTest/Failure.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
     typedef struct XSCTestCase * XSCTestCaseRef;
 
-    XSCTestCaseRef   XSCTestCaseCreate( const char * suiteName, const char * name, void ( *func )( XSCTestCaseRef ) );
-    XSCTestStringRef XSCTestCaseGetName( XSCTestCaseRef testCase );
-    bool             XSCTestCaseRun( XSCTestCaseRef testCase );
+    XSCTestCaseRef    XSCTestCaseCreate( const char * suiteName, const char * name, void ( *func )( XSCTestFailureRef * ) );
+    XSCTestStringRef  XSCTestCaseGetName( XSCTestCaseRef testCase );
+    bool              XSCTestCaseRun( XSCTestCaseRef testCase );
+    XSCTestFailureRef XSCTestCaseGetFailure( XSCTestCaseRef testCase );
 
 #ifdef __cplusplus
 }

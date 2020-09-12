@@ -32,7 +32,7 @@
 #include <XSCTest/Private/Case.h>
 #include <stdlib.h>
 
-XSCTestCaseRef XSCTestCaseCreate( const char * suiteName, const char * name, void ( *func )( XSCTestCaseRef ) )
+XSCTestCaseRef XSCTestCaseCreate( const char * suiteName, const char * name, void ( *func )( XSCTestFailureRef * ) )
 {
     XSCTestCaseRef testCase;
 

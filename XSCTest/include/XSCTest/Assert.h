@@ -31,14 +31,14 @@
 #ifndef XSCTEST_ASSERT_H
 #define XSCTEST_ASSERT_H
 
-#include <XSCTest/Case.h>
+#include <XSCTest/Failure.h>
 #include <stdbool.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-    bool XSCTestAssertBoolean( XSCTestCaseRef testCase, bool value, bool expected, const char * expression, const char * file, int line );
+    bool XSCTestAssertBoolean( XSCTestFailureRef * failure, bool value, bool expected, const char * expression, const char * file, int line );
 
 #ifdef __cplusplus
 }

@@ -23,30 +23,20 @@
  ******************************************************************************/
 
 /*!
- * @file        XSCTestAssertBoolean.c
+ * @file        XSCTestCaseGetFailure.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
 #include <XSCTest/XSCTest.h>
+#include <XSCTest/Private/Case.h>
 
-bool XSCTestAssertBoolean( XSCTestFailureRef * failure, bool value, bool expected, const char * expression, const char * file, int line )
+XSCTestFailureRef XSCTestCaseGetFailure( XSCTestCaseRef testCase )
 {
-    if( value == expected )
+    if( testCase == NULL )
     {
-        return true;
+        return NULL;
     }
 
-    if( failure != NULL )
-    {
-        *( failure ) = XSCTestFailureCreate(
-            expression,
-            NULL,
-            ( expected ) ? "True" : "False",
-            ( value ) ? "True" : "False",
-            file,
-            line );
-    }
-
-    return false;
+    return testCase->failure;
 }
