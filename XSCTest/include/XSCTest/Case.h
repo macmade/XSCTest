@@ -32,6 +32,7 @@
 #define XSCTEST_CASE_H
 
 #include <XSCTest/Failure.h>
+#include <stdio.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -41,7 +42,7 @@ extern "C" {
 
     XSCTestCaseRef    XSCTestCaseCreate( const char * suiteName, const char * name, void ( *func )( XSCTestFailureRef * ) );
     XSCTestStringRef  XSCTestCaseGetName( XSCTestCaseRef testCase );
-    bool              XSCTestCaseRun( XSCTestCaseRef testCase );
+    bool              XSCTestCaseRun( XSCTestCaseRef testCase, FILE * fh );
     XSCTestFailureRef XSCTestCaseGetFailure( XSCTestCaseRef testCase );
 
 #ifdef __cplusplus

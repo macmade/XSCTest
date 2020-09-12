@@ -33,6 +33,7 @@
 
 #include <XSCTest/String.h>
 #include <XSCTest/Case.h>
+#include <stdio.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -40,12 +41,12 @@ extern "C" {
 
     typedef struct XSCTestSuite * XSCTestSuiteRef;
 
-    bool             XSCTestSuiteRunAllSuites( void );
+    bool             XSCTestSuiteRunAllSuites( FILE * fh );
     XSCTestSuiteRef  XSCTestSuiteGetSuiteNamed( const char * name );
     XSCTestSuiteRef  XSCTestSuiteCreate( const char * name );
     void             XSCTestSuiteAddTestCase( XSCTestSuiteRef suite, const char * name, void ( *func )( XSCTestFailureRef * ) );
     XSCTestStringRef XSCTestSuiteGetName( XSCTestSuiteRef suite );
-    bool             XSCTestSuiteRun( XSCTestSuiteRef suite );
+    bool             XSCTestSuiteRun( XSCTestSuiteRef suite, FILE * fh );
 
 #ifdef __cplusplus
 }

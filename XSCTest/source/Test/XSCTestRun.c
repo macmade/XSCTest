@@ -31,7 +31,7 @@
 #include <XSCTest/XSCTest.h>
 #include <stdlib.h>
 
-int XSCTestRun( void )
+int XSCTestRun( FILE * fh )
 {
-    return ( XSCTestSuiteRunAllSuites() ) ? EXIT_SUCCESS : EXIT_FAILURE;
+    return ( XSCTestSuiteRunAllSuites( fh ) ) ? EXIT_SUCCESS : EXIT_FAILURE;
 }

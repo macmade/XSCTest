@@ -31,8 +31,10 @@
 #include <XSCTest/XSCTest.h>
 #include <XSCTest/Private/Case.h>
 
-bool XSCTestCaseRun( XSCTestCaseRef testCase )
+bool XSCTestCaseRun( XSCTestCaseRef testCase, FILE * fh )
 {
+    XSCTestStopWatchRef time;
+
     if( testCase == NULL )
     {
         return false;
@@ -41,8 +43,18 @@ bool XSCTestCaseRun( XSCTestCaseRef testCase )
     XSCTestFailureDelete( testCase->failure );
 
     testCase->failure = NULL;
+    time              = XSCTestStopWatchCreate();
 
+    XSCTestStopWatchStart( time );
     testCase->func( &( testCase->failure ) );
+    XSCTestStopWatchStop( time );
 
-    return false;
+    XSCTestLogTestCaseResult(
+        fh,
+        XSCTestStringGetCString( testCase->suiteName ),
+        XSCTestStringGetCString( testCase->name ),
+        testCase->failure,
+        time );
+
+    return testCase->failure == NULL;
 }

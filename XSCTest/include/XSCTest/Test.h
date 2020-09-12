@@ -37,7 +37,7 @@
 extern "C" {
 #endif
 
-    int  XSCTestRun( void );
+    int  XSCTestRun( FILE * fh );
     void XSCTestRegisterTest( const char * suite, const char * name, void ( *func )( XSCTestFailureRef * ) );
 
 #ifdef __cplusplus

@@ -31,7 +31,7 @@
 #include <XSCTest/XSCTest.h>
 #include <XSCTest/Private/Suite.h>
 
-bool XSCTestSuiteRunAllSuites( void )
+bool XSCTestSuiteRunAllSuites( FILE * fh )
 {
     struct XSCTestSuiteList * list;
     bool                      ret;
@@ -41,7 +41,7 @@ bool XSCTestSuiteRunAllSuites( void )
 
     while( list != NULL )
     {
-        if( XSCTestSuiteRun( list->suite ) == false )
+        if( XSCTestSuiteRun( list->suite, fh ) == false )
         {
             ret = false;
         }

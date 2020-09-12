@@ -50,5 +50,5 @@ Test( Bar, Foo )
 
 int main( void )
 {
-    return XSCTestRun();
+    return XSCTestRun( stdout );
 }
