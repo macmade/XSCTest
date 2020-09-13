@@ -23,26 +23,31 @@
  ******************************************************************************/
 
 /*!
- * @header      XSCTest.h
+ * @file        XSCTestArrayShuffle.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_H
-#define XSCTEST_H
+#include <XSCTest/XSCTest.h>
+#include <XSCTest/Private/Array.h>
+#include <stdlib.h>
 
-#include <XSCTest/FloatingPoint.h>
-#include <XSCTest/TermColor.h>
-#include <XSCTest/StopWatch.h>
-#include <XSCTest/String.h>
-#include <XSCTest/Array.h>
-#include <XSCTest/Failure.h>
-#include <XSCTest/Assert.h>
-#include <XSCTest/Logging.h>
-#include <XSCTest/Macros.h>
-#include <XSCTest/Test.h>
-#include <XSCTest/Suite.h>
-#include <XSCTest/Case.h>
-#include <XSCTest/Utility.h>
+void XSCTestArrayShuffle( XSCTestArrayRef array )
+{
+    size_t i;
+    size_t j;
+    void * temp;
 
-#endif /* XSCTEST_H */
+    if( array == NULL || array->count <= 1 )
+    {
+        return;
+    }
+
+    for( i = 0; i < array->count - 1; i++ )
+    {
+        j                  = i + ( size_t )rand() / ( RAND_MAX / ( array->count - i ) + 1 );
+        temp               = array->values[ i ];
+        array->values[ i ] = array->values[ j ];
+        array->values[ j ] = temp;
+    }
+}

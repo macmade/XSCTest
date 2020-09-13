@@ -23,26 +23,32 @@
  ******************************************************************************/
 
 /*!
- * @header      XSCTest.h
+ * @header      Array.h
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_H
-#define XSCTEST_H
+#ifndef XSCTEST_ARRAY_H
+#define XSCTEST_ARRAY_H
 
-#include <XSCTest/FloatingPoint.h>
-#include <XSCTest/TermColor.h>
-#include <XSCTest/StopWatch.h>
-#include <XSCTest/String.h>
-#include <XSCTest/Array.h>
-#include <XSCTest/Failure.h>
-#include <XSCTest/Assert.h>
-#include <XSCTest/Logging.h>
-#include <XSCTest/Macros.h>
-#include <XSCTest/Test.h>
-#include <XSCTest/Suite.h>
-#include <XSCTest/Case.h>
-#include <XSCTest/Utility.h>
+#include <stddef.h>
 
-#endif /* XSCTEST_H */
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+    typedef struct XSCTestArray * XSCTestArrayRef;
+
+    XSCTestArrayRef XSCTestArrayCreate( void );
+    void            XSCTestArrayDelete( XSCTestArrayRef array );
+    size_t          XSCTestArrayGetCount( XSCTestArrayRef array );
+    void *          XSCTestArrayGetValueAtIndex( XSCTestArrayRef array, size_t index );
+    void            XSCTestArrayAddValue( XSCTestArrayRef array, void * value );
+    void            XSCTestArrayShuffle( XSCTestArrayRef array );
+    void            XSCTestArrayEnumerate( XSCTestArrayRef array, void ( *func )( void *, void * ), void * context );
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* XSCTEST_ARRAY_H */

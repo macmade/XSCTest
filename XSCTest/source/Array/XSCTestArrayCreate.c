@@ -23,26 +23,37 @@
  ******************************************************************************/
 
 /*!
- * @header      XSCTest.h
+ * @file        XSCTestArrayCreate.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_H
-#define XSCTEST_H
+#include <XSCTest/XSCTest.h>
+#include <XSCTest/Private/Array.h>
+#include <stdlib.h>
 
-#include <XSCTest/FloatingPoint.h>
-#include <XSCTest/TermColor.h>
-#include <XSCTest/StopWatch.h>
-#include <XSCTest/String.h>
-#include <XSCTest/Array.h>
-#include <XSCTest/Failure.h>
-#include <XSCTest/Assert.h>
-#include <XSCTest/Logging.h>
-#include <XSCTest/Macros.h>
-#include <XSCTest/Test.h>
-#include <XSCTest/Suite.h>
-#include <XSCTest/Case.h>
-#include <XSCTest/Utility.h>
+XSCTestArrayRef XSCTestArrayCreate( void )
+{
+    XSCTestArrayRef array;
 
-#endif /* XSCTEST_H */
+    array = calloc( 1, sizeof( struct XSCTestArray ) );
+
+    if( array == NULL )
+    {
+        return NULL;
+    }
+
+    array->values = calloc( 10, sizeof( void * ) );
+
+    if( array->values == NULL )
+    {
+        free( array );
+
+        return NULL;
+    }
+
+    array->capacity = 10;
+    array->count    = 0;
+
+    return array;
+}

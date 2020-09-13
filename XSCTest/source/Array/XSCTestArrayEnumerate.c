@@ -23,26 +23,23 @@
  ******************************************************************************/
 
 /*!
- * @header      XSCTest.h
+ * @file        XSCTestArrayEnumerate.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_H
-#define XSCTEST_H
+#include <XSCTest/XSCTest.h>
+#include <XSCTest/Private/Array.h>
 
-#include <XSCTest/FloatingPoint.h>
-#include <XSCTest/TermColor.h>
-#include <XSCTest/StopWatch.h>
-#include <XSCTest/String.h>
-#include <XSCTest/Array.h>
-#include <XSCTest/Failure.h>
-#include <XSCTest/Assert.h>
-#include <XSCTest/Logging.h>
-#include <XSCTest/Macros.h>
-#include <XSCTest/Test.h>
-#include <XSCTest/Suite.h>
-#include <XSCTest/Case.h>
-#include <XSCTest/Utility.h>
+void XSCTestArrayEnumerate( XSCTestArrayRef array, void ( *func )( void *, void * ), void * context )
+{
+    if( array == NULL || func == NULL )
+    {
+        return;
+    }
 
-#endif /* XSCTEST_H */
+    for( size_t i = 0; i < array->count; i++ )
+    {
+        func( array->values[ i ], context );
+    }
+}

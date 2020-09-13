@@ -24,6 +24,17 @@
         "iosfwd": "cpp",
         "system_error": "c",
         "complex": "c",
-        "memory": "c"
+        "memory": "c",
+        "__tuple": "c",
+        "__bit_reference": "c",
+        "__functional_base": "c",
+        "__node_handle": "c",
+        "atomic": "c",
+        "__memory": "c",
+        "functional": "c",
+        "locale": "c",
+        "optional": "c",
+        "tuple": "c",
+        "type_traits": "c"
     }
 }

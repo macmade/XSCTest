@@ -23,26 +23,38 @@
  ******************************************************************************/
 
 /*!
- * @header      XSCTest.h
+ * @header      Array.h
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_H
-#define XSCTEST_H
+#ifndef XSCTEST_PRIVATE_ARRAY_H
+#define XSCTEST_PRIVATE_ARRAY_H
 
-#include <XSCTest/FloatingPoint.h>
-#include <XSCTest/TermColor.h>
-#include <XSCTest/StopWatch.h>
-#include <XSCTest/String.h>
-#include <XSCTest/Array.h>
-#include <XSCTest/Failure.h>
-#include <XSCTest/Assert.h>
-#include <XSCTest/Logging.h>
-#include <XSCTest/Macros.h>
-#include <XSCTest/Test.h>
-#include <XSCTest/Suite.h>
-#include <XSCTest/Case.h>
-#include <XSCTest/Utility.h>
+#include <stddef.h>
 
-#endif /* XSCTEST_H */
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wpadded"
+#endif
+
+    struct XSCTestArray
+    {
+        size_t  capacity;
+        size_t  count;
+        void ** values;
+    };
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* XSCTEST_PRIVATE_ARRAY_H */

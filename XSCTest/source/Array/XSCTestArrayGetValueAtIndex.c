@@ -23,26 +23,20 @@
  ******************************************************************************/
 
 /*!
- * @header      XSCTest.h
+ * @file        XSCTestArrayGetValueAtIndex.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_H
-#define XSCTEST_H
+#include <XSCTest/XSCTest.h>
+#include <XSCTest/Private/Array.h>
 
-#include <XSCTest/FloatingPoint.h>
-#include <XSCTest/TermColor.h>
-#include <XSCTest/StopWatch.h>
-#include <XSCTest/String.h>
-#include <XSCTest/Array.h>
-#include <XSCTest/Failure.h>
-#include <XSCTest/Assert.h>
-#include <XSCTest/Logging.h>
-#include <XSCTest/Macros.h>
-#include <XSCTest/Test.h>
-#include <XSCTest/Suite.h>
-#include <XSCTest/Case.h>
-#include <XSCTest/Utility.h>
+void * XSCTestArrayGetValueAtIndex( XSCTestArrayRef array, size_t index )
+{
+    if( array == NULL || index >= array->count )
+    {
+        return NULL;
+    }
 
-#endif /* XSCTEST_H */
+    return array->values[ index ];
+}
