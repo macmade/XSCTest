@@ -33,19 +33,17 @@
 
 bool XSCTestRunAllSuites( FILE * fh )
 {
-    struct XSCTestSuiteList * list;
-    bool                      ret;
-    XSCTestStopWatchRef       time;
-    size_t                    suites;
-    size_t                    cases;
-    XSCTestStringRef          casesString;
-    XSCTestStringRef          suitesString;
+    bool                ret;
+    XSCTestStopWatchRef time;
+    size_t              suites;
+    size_t              cases;
+    XSCTestStringRef    casesString;
+    XSCTestStringRef    suitesString;
 
     ret          = true;
-    list         = XSCTestSuites;
     time         = XSCTestStopWatchCreate();
     suites       = XSCTestGetNumberOfSuites();
-    cases        = XSCTestGetNumberOfCases();
+    cases        = XSCTestGetNumberOfTestCases();
     casesString  = XSCTestCreateNumberedString( "test case", cases );
     suitesString = XSCTestCreateNumberedString( "test suite", suites );
 
@@ -65,18 +63,14 @@ bool XSCTestRunAllSuites( FILE * fh )
         XSCTestStringGetCString( casesString ),
         XSCTestStringGetCString( suitesString ) );
 
-    list = XSCTestSuites;
-
     XSCTestStopWatchStart( time );
 
-    while( list != NULL )
+    for( size_t i = 0; i < XSCTestArrayGetCount( XSCTestSuites ); i++ )
     {
-        if( XSCTestSuiteRun( list->suite, fh ) == false )
+        if( XSCTestSuiteRun( XSCTestArrayGetValueAtIndex( XSCTestSuites, i ), fh ) == false )
         {
             ret = false;
         }
-
-        list = list->next;
     }
 
     XSCTestStopWatchStop( time );

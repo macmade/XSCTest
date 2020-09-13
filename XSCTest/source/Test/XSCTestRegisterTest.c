@@ -36,10 +36,5 @@ void XSCTestRegisterTest( const char * suite, const char * name, void ( *func )(
 
     testSuite = XSCTestGetSuiteNamed( suite );
 
-    if( testSuite == NULL )
-    {
-        return;
-    }
-
     XSCTestSuiteAddTestCase( testSuite, name, func );
 }

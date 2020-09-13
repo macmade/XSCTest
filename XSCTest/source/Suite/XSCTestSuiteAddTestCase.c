@@ -34,45 +34,14 @@
 
 void XSCTestSuiteAddTestCase( XSCTestSuiteRef suite, const char * name, void ( *func )( XSCTestFailureRef * ) )
 {
-    struct XSCTestSuiteTestCaseList * list;
+    XSCTestCaseRef testCase;
 
     if( suite == NULL )
     {
         return;
     }
 
-    list = suite->tests;
+    testCase = XSCTestCaseCreate( XSCTestStringGetCString( suite->name ), name, func );
 
-    if( list == NULL )
-    {
-        suite->tests = calloc( 1, sizeof( struct XSCTestSuiteTestCaseList ) );
-
-        if( suite->tests == NULL )
-        {
-            return;
-        }
-
-        suite->tests->testCase = XSCTestCaseCreate( XSCTestStringGetCString( suite->name ), name, func );
-
-        return;
-    }
-
-    while( 1 )
-    {
-        if( list->next == NULL )
-        {
-            list->next = calloc( 1, sizeof( struct XSCTestSuiteTestCaseList ) );
-
-            if( list->next == NULL )
-            {
-                return;
-            }
-
-            list->next->testCase = XSCTestCaseCreate( XSCTestStringGetCString( suite->name ), name, func );
-
-            return;
-        }
-
-        list = list->next;
-    }
+    XSCTestArrayAddValue( suite->tests, testCase );
 }

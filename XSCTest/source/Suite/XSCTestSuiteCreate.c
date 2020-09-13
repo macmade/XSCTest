@@ -43,7 +43,8 @@ XSCTestSuiteRef XSCTestSuiteCreate( const char * name )
         return NULL;
     }
 
-    suite->name = XSCTestStringCreateWithCString( name );
+    suite->name  = XSCTestStringCreateWithCString( name );
+    suite->tests = XSCTestArrayCreate();
 
     return suite;
 }

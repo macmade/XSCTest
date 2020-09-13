@@ -31,4 +31,4 @@
 #include <XSCTest/XSCTest.h>
 #include <XSCTest/Private/Test.h>
 
-struct XSCTestSuiteList * XSCTestSuites = NULL;
+XSCTestArrayRef XSCTestSuites = NULL;

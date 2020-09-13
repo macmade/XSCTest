@@ -33,22 +33,20 @@
 
 void XSCTestSuiteEnumeratePassedTestCases( XSCTestSuiteRef suite, void ( *func )( XSCTestCaseRef, void * ), void * context )
 {
-    struct XSCTestSuiteTestCaseList * list;
-
     if( suite == NULL || func == NULL )
     {
         return;
     }
 
-    list = suite->tests;
-
-    while( list != NULL )
+    for( size_t i = 0; i < XSCTestArrayGetCount( suite->tests ); i++ )
     {
-        if( XSCTestCaseGetFailure( list->testCase ) == NULL )
-        {
-            func( list->testCase, context );
-        }
+        XSCTestCaseRef testCase;
 
-        list = list->next;
+        testCase = XSCTestArrayGetValueAtIndex( suite->tests, i );
+
+        if( XSCTestCaseGetFailure( testCase ) == NULL )
+        {
+            func( testCase, context );
+        }
     }
 }

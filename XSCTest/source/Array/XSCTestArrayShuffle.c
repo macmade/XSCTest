@@ -31,6 +31,7 @@
 #include <XSCTest/XSCTest.h>
 #include <XSCTest/Private/Array.h>
 #include <stdlib.h>
+#include <time.h>
 
 void XSCTestArrayShuffle( XSCTestArrayRef array )
 {
@@ -43,9 +44,11 @@ void XSCTestArrayShuffle( XSCTestArrayRef array )
         return;
     }
 
-    for( i = 0; i < array->count - 1; i++ )
+    srand( ( unsigned int )time( NULL ) );
+
+    for( i = array->count - 1; i > 0; i-- )
     {
-        j                  = i + ( size_t )rand() / ( RAND_MAX / ( array->count - i ) + 1 );
+        j                  = ( size_t )rand() % ( i + 1 );
         temp               = array->values[ i ];
         array->values[ i ] = array->values[ j ];
         array->values[ j ] = temp;

@@ -46,7 +46,7 @@ extern "C" {
     void            XSCTestRegisterTest( const char * suite, const char * name, void ( *func )( XSCTestFailureRef * ) );
     bool            XSCTestRunAllSuites( FILE * fh );
     size_t          XSCTestGetNumberOfSuites( void );
-    size_t          XSCTestGetNumberOfCases( void );
+    size_t          XSCTestGetNumberOfTestCases( void );
     XSCTestSuiteRef XSCTestGetSuiteNamed( const char * name );
     size_t          XSCTestGetNumberOfPassedTestCases( void );
     size_t          XSCTestGetNumberOfFailedTestCases( void );

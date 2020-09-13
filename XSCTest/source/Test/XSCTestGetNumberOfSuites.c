@@ -33,17 +33,5 @@
 
 size_t XSCTestGetNumberOfSuites( void )
 {
-    size_t                    size;
-    struct XSCTestSuiteList * list;
-
-    size = 0;
-    list = XSCTestSuites;
-
-    while( list != NULL )
-    {
-        size += 1;
-        list = list->next;
-    }
-
-    return size;
+    return XSCTestArrayGetCount( XSCTestSuites );
 }

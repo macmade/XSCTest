@@ -23,7 +23,7 @@
  ******************************************************************************/
 
 /*!
- * @file        XSCTestGetNumberOfCases.c
+ * @file        XSCTestGetNumberOfTestCases.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
@@ -31,19 +31,16 @@
 #include <XSCTest/XSCTest.h>
 #include <XSCTest/Private/Test.h>
 
-size_t XSCTestGetNumberOfCases( void )
+size_t XSCTestGetNumberOfTestCases( void )
 {
-    size_t                    size;
-    struct XSCTestSuiteList * list;
+    size_t n;
 
-    size = 0;
-    list = XSCTestSuites;
+    n = 0;
 
-    while( list != NULL )
+    for( size_t i = 0; i < XSCTestArrayGetCount( XSCTestSuites ); i++ )
     {
-        size += XSCTestSuiteGetNumberOfTestCases( list->suite );
-        list = list->next;
+        n += XSCTestSuiteGetNumberOfTestCases( XSCTestArrayGetValueAtIndex( XSCTestSuites, i ) );
     }
 
-    return size;
+    return n;
 }

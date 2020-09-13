@@ -31,9 +31,8 @@
 #ifndef XSCTEST_PRIVATE_TEST_H
 #define XSCTEST_PRIVATE_TEST_H
 
-#include <XSCTest/String.h>
 #include <XSCTest/Case.h>
-#include <XSCTest/Suite.h>
+#include <XSCTest/Array.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -44,13 +43,7 @@ extern "C" {
 #pragma clang diagnostic ignored "-Wpadded"
 #endif
 
-    struct XSCTestSuiteList
-    {
-        XSCTestSuiteRef           suite;
-        struct XSCTestSuiteList * next;
-    };
-
-    extern struct XSCTestSuiteList * XSCTestSuites;
+    extern XSCTestArrayRef XSCTestSuites;
 
     void XSCTestPrintPassedTestCase( XSCTestCaseRef testCase, void * context );
     void XSCTestPrintFailedTestCase( XSCTestCaseRef testCase, void * context );

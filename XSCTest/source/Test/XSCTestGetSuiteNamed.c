@@ -34,45 +34,26 @@
 
 XSCTestSuiteRef XSCTestGetSuiteNamed( const char * name )
 {
-    struct XSCTestSuiteList * list;
+    XSCTestSuiteRef suite;
 
-    list = XSCTestSuites;
-
-    if( list == NULL )
+    if( XSCTestSuites == NULL )
     {
-        XSCTestSuites = calloc( 1, sizeof( struct XSCTestSuiteList ) );
-
-        if( XSCTestSuites == NULL )
-        {
-            return NULL;
-        }
-
-        XSCTestSuites->suite = XSCTestSuiteCreate( name );
-
-        return XSCTestSuites->suite;
+        XSCTestSuites = XSCTestArrayCreate();
     }
 
-    while( 1 )
+    for( size_t i = 0; i < XSCTestArrayGetCount( XSCTestSuites ); i++ )
     {
-        if( XSCTestStringIsEqualToCString( XSCTestSuiteGetName( list->suite ), name ) )
+        suite = XSCTestArrayGetValueAtIndex( XSCTestSuites, i );
+
+        if( XSCTestStringIsEqualToCString( XSCTestSuiteGetName( suite ), name ) )
         {
-            return list->suite;
+            return suite;
         }
-
-        if( list->next == NULL )
-        {
-            list->next = calloc( 1, sizeof( struct XSCTestSuiteList ) );
-
-            if( list->next == NULL )
-            {
-                return NULL;
-            }
-
-            list->next->suite = XSCTestSuiteCreate( name );
-
-            return list->next->suite;
-        }
-
-        list = list->next;
     }
+
+    suite = XSCTestSuiteCreate( name );
+
+    XSCTestArrayAddValue( XSCTestSuites, suite );
+
+    return suite;
 }

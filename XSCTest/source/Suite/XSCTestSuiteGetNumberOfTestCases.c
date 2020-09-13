@@ -33,22 +33,10 @@
 
 size_t XSCTestSuiteGetNumberOfTestCases( XSCTestSuiteRef suite )
 {
-    size_t                            size;
-    struct XSCTestSuiteTestCaseList * list;
-
     if( suite == NULL )
     {
         return 0;
     }
 
-    size = 0;
-    list = suite->tests;
-
-    while( list != NULL )
-    {
-        size += 1;
-        list = list->next;
-    }
-
-    return size;
+    return XSCTestArrayGetCount( suite->tests );
 }

@@ -33,17 +33,14 @@
 
 size_t XSCTestGetNumberOfPassedTestCases( void )
 {
-    size_t                    size;
-    struct XSCTestSuiteList * list;
+    size_t n;
 
-    size = 0;
-    list = XSCTestSuites;
+    n = 0;
 
-    while( list != NULL )
+    for( size_t i = 0; i < XSCTestArrayGetCount( XSCTestSuites ); i++ )
     {
-        size += XSCTestSuiteGetNumberOfPassedTestCases( list->suite );
-        list = list->next;
+        n += XSCTestSuiteGetNumberOfPassedTestCases( XSCTestArrayGetValueAtIndex( XSCTestSuites, i ) );
     }
 
-    return size;
+    return n;
 }

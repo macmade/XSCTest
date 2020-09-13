@@ -33,22 +33,26 @@
 
 size_t XSCTestSuiteGetNumberOfFailedTestCases( XSCTestSuiteRef suite )
 {
-    size_t                            size;
-    struct XSCTestSuiteTestCaseList * list;
+    size_t n;
 
     if( suite == NULL )
     {
         return 0;
     }
 
-    size = 0;
-    list = suite->tests;
+    n = 0;
 
-    while( list != NULL )
+    for( size_t i = 0; i < XSCTestArrayGetCount( suite->tests ); i++ )
     {
-        size += ( XSCTestCaseGetFailure( list->testCase ) != NULL ) ? 1 : 0;
-        list = list->next;
+        XSCTestCaseRef testCase;
+
+        testCase = XSCTestArrayGetValueAtIndex( suite->tests, i );
+
+        if( XSCTestCaseGetFailure( testCase ) != NULL )
+        {
+            n++;
+        }
     }
 
-    return size;
+    return n;
 }
