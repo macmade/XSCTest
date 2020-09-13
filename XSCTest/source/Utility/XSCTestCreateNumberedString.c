@@ -32,14 +32,15 @@
 
 XSCTestStringRef XSCTestCreateNumberedString( const char * str, size_t count )
 {
-    XSCTestStringRef string;
-
-    string = XSCTestStringCreateWithCString( str );
+    if( str == NULL )
+    {
+        return NULL;
+    }
 
     if( count > 1 )
     {
-        XSCTestStringAppendCString( string, "s" );
+        return XSCTestStringCreateWithFormat( "%zu %ss", count, str );
     }
 
-    return string;
+    return XSCTestStringCreateWithFormat( "%zu %s", count, str );
 }

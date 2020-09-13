@@ -31,12 +31,12 @@
 #include <XSCTest/XSCTest.h>
 #include <XSCTest/Private/Case.h>
 
-XSCTestStringRef XSCTestCaseGetName( XSCTestCaseRef testCase )
+const char * XSCTestCaseGetName( XSCTestCaseRef testCase )
 {
     if( testCase == NULL )
     {
         return NULL;
     }
 
-    return testCase->name;
+    return XSCTestStringGetCString( testCase->name );
 }

@@ -23,24 +23,20 @@
  ******************************************************************************/
 
 /*!
- * @file        XSCTestEnumerateFailedTestCases.c
+ * @file        XSCTestCaseGetSuiteName.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
 #include <XSCTest/XSCTest.h>
-#include <XSCTest/Private/Test.h>
+#include <XSCTest/Private/Case.h>
 
-void XSCTestEnumerateFailedTestCases( void ( *func )( XSCTestCaseRef, void * ), void * context )
+const char * XSCTestCaseGetSuiteName( XSCTestCaseRef testCase )
 {
-    struct XSCTestSuiteList * list;
-
-    list = XSCTestSuites;
-
-    while( list != NULL )
+    if( testCase == NULL )
     {
-        XSCTestSuiteEnumerateFailedTestCases( list->suite, func, context );
-
-        list = list->next;
+        return NULL;
     }
+
+    return XSCTestStringGetCString( testCase->suiteName );
 }

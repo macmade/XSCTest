@@ -38,12 +38,16 @@ bool XSCTestRunAllSuites( FILE * fh )
     XSCTestStopWatchRef       time;
     size_t                    suites;
     size_t                    cases;
+    XSCTestStringRef          casesString;
+    XSCTestStringRef          suitesString;
 
-    ret    = true;
-    list   = XSCTestSuites;
-    time   = XSCTestStopWatchCreate();
-    suites = XSCTestGetNumberOfSuites();
-    cases  = XSCTestGetNumberOfCases();
+    ret          = true;
+    list         = XSCTestSuites;
+    time         = XSCTestStopWatchCreate();
+    suites       = XSCTestGetNumberOfSuites();
+    cases        = XSCTestGetNumberOfCases();
+    casesString  = XSCTestCreateNumberedString( "test case", cases );
+    suitesString = XSCTestCreateNumberedString( "test suite", suites );
 
     if( suites == 0 || cases == 0 )
     {
@@ -52,27 +56,14 @@ bool XSCTestRunAllSuites( FILE * fh )
         return false;
     }
 
-    {
-        XSCTestStringRef casesString;
-        XSCTestStringRef suitesString;
-
-        casesString  = XSCTestCreateNumberedString( "test case", cases );
-        suitesString = XSCTestCreateNumberedString( "test suite", suites );
-
-        XSCTestLog(
-            fh,
-            XSCTestTermColorNone,
-            XSCTestLogStyleNone,
-            0,
-            "Running %zu %s from %zu %s",
-            cases,
-            XSCTestStringGetCString( casesString ),
-            suites,
-            XSCTestStringGetCString( suitesString ) );
-
-        XSCTestStringDelete( casesString );
-        XSCTestStringDelete( suitesString );
-    }
+    XSCTestLog(
+        fh,
+        XSCTestTermColorNone,
+        XSCTestLogStyleNone,
+        0,
+        "Running %s from %s",
+        XSCTestStringGetCString( casesString ),
+        XSCTestStringGetCString( suitesString ) );
 
     list = XSCTestSuites;
 
@@ -90,7 +81,63 @@ bool XSCTestRunAllSuites( FILE * fh )
 
     XSCTestStopWatchStop( time );
 
+    {
+        size_t           passed;
+        size_t           failed;
+        XSCTestStringRef passedString;
+        XSCTestStringRef failedString;
+
+        passed       = XSCTestGetNumberOfPassedTestCases();
+        failed       = XSCTestGetNumberOfFailedTestCases();
+        passedString = XSCTestCreateNumberedString( "test", passed );
+        failedString = XSCTestCreateNumberedString( "test", failed );
+
+        XSCTestLog(
+            fh,
+            XSCTestTermColorNone,
+            XSCTestLogStyleNone,
+            XSCTestLogOptionNewLineBefore,
+            "%s from %s ran (%s total)",
+            XSCTestStringGetCString( casesString ),
+            XSCTestStringGetCString( suitesString ),
+            XSCTestStopWatchGetString( time ) );
+
+        XSCTestLog(
+            fh,
+            ( passed > 0 ) ? XSCTestTermColorGreen : XSCTestTermColorRed,
+            XSCTestLogStyleNone,
+            0,
+            "%s passed:",
+            XSCTestStringGetCString( passedString ) );
+
+        XSCTestEnumeratePassedTestCases( XSCTestPrintPassedTestCase, fh );
+
+        if( failed > 0 )
+        {
+            XSCTestLog(
+                fh,
+                XSCTestTermColorRed,
+                XSCTestLogStyleNone,
+                0,
+                "%s failed:",
+                XSCTestStringGetCString( failedString ) );
+
+            XSCTestEnumerateFailedTestCases( XSCTestPrintFailedTestCase, fh );
+
+            XSCTestLog( fh, XSCTestTermColorRed, XSCTestLogStyleNone, XSCTestLogOptionNewLineBefore, "TESTING FAILED" );
+        }
+        else
+        {
+            XSCTestLog( fh, XSCTestTermColorGreen, XSCTestLogStyleNone, XSCTestLogOptionNewLineBefore, "TESTING PASSED" );
+        }
+
+        XSCTestStringDelete( passedString );
+        XSCTestStringDelete( failedString );
+    }
+
     XSCTestStopWatchDelete( time );
+    XSCTestStringDelete( casesString );
+    XSCTestStringDelete( suitesString );
 
     return ret;
 }

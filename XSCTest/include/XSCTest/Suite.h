@@ -48,8 +48,8 @@ extern "C" {
     size_t           XSCTestSuiteGetNumberOfTestCases( XSCTestSuiteRef suite );
     size_t           XSCTestSuiteGetNumberOfPassedTestCases( XSCTestSuiteRef suite );
     size_t           XSCTestSuiteGetNumberOfFailedTestCases( XSCTestSuiteRef suite );
-    void             XSCTestSuiteEnumeratePassedTestCases( XSCTestSuiteRef suite, void ( * )( XSCTestCaseRef ) );
-    void             XSCTestSuiteEnumerateFailedTestCases( XSCTestSuiteRef suite, void ( * )( XSCTestCaseRef ) );
+    void             XSCTestSuiteEnumeratePassedTestCases( XSCTestSuiteRef suite, void ( * )( XSCTestCaseRef, void * ), void * context );
+    void             XSCTestSuiteEnumerateFailedTestCases( XSCTestSuiteRef suite, void ( * )( XSCTestCaseRef, void * ), void * context );
 
 #ifdef __cplusplus
 }

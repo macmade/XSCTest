@@ -52,6 +52,9 @@ extern "C" {
 
     extern struct XSCTestSuiteList * XSCTestSuites;
 
+    void XSCTestPrintPassedTestCase( XSCTestCaseRef testCase, void * context );
+    void XSCTestPrintFailedTestCase( XSCTestCaseRef testCase, void * context );
+
 #ifdef __clang__
 #pragma clang diagnostic pop
 #endif

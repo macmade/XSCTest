@@ -41,7 +41,8 @@ extern "C" {
     typedef struct XSCTestCase * XSCTestCaseRef;
 
     XSCTestCaseRef    XSCTestCaseCreate( const char * suiteName, const char * name, void ( *func )( XSCTestFailureRef * ) );
-    XSCTestStringRef  XSCTestCaseGetName( XSCTestCaseRef testCase );
+    const char *      XSCTestCaseGetName( XSCTestCaseRef testCase );
+    const char *      XSCTestCaseGetSuiteName( XSCTestCaseRef testCase );
     bool              XSCTestCaseRun( XSCTestCaseRef testCase, FILE * fh );
     XSCTestFailureRef XSCTestCaseGetFailure( XSCTestCaseRef testCase );
 

@@ -31,7 +31,7 @@
 #include <XSCTest/XSCTest.h>
 #include <XSCTest/Private/Suite.h>
 
-void XSCTestSuiteEnumeratePassedTestCases( XSCTestSuiteRef suite, void ( *func )( XSCTestCaseRef ) )
+void XSCTestSuiteEnumeratePassedTestCases( XSCTestSuiteRef suite, void ( *func )( XSCTestCaseRef, void * ), void * context )
 {
     struct XSCTestSuiteTestCaseList * list;
 
@@ -46,7 +46,7 @@ void XSCTestSuiteEnumeratePassedTestCases( XSCTestSuiteRef suite, void ( *func )
     {
         if( XSCTestCaseGetFailure( list->testCase ) == NULL )
         {
-            func( list->testCase );
+            func( list->testCase, context );
         }
 
         list = list->next;
