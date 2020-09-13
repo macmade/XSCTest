@@ -99,4 +99,4 @@ lib: $$(_FILES_C_BUILD)
 $(DIR_BUILD_TEMP)%$(EXT_O): $$(shell mkdir -p $$(dir $$@)) %$(EXT_C)
 	
 	$(call PRINT_FILE,$(_HOST_ARCH),"Compiling C file",$<)
-	@$(_CC) -o $@ -c $<
+	@$(_CC) -o $@ -c $(abspath $<)
