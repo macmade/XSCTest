@@ -23,38 +23,32 @@
  ******************************************************************************/
 
 /*!
- * @header      Test.h
+ * @file        XSCTestSuiteGetNumberOfFailedTestCases.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_TEST_H
-#define XSCTEST_TEST_H
+#include <XSCTest/XSCTest.h>
+#include <XSCTest/Private/Suite.h>
 
-#include <XSCTest/Case.h>
-#include <XSCTest/Suite.h>
-#include <XSCTest/Failure.h>
-#include <stddef.h>
-#include <stdio.h>
-#include <stdio.h>
+size_t XSCTestSuiteGetNumberOfFailedTestCases( XSCTestSuiteRef suite )
+{
+    size_t                            size;
+    struct XSCTestSuiteTestCaseList * list;
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+    if( suite == NULL )
+    {
+        return 0;
+    }
 
-    int             XSCTestRun( FILE * fh );
-    void            XSCTestRegisterTest( const char * suite, const char * name, void ( *func )( XSCTestFailureRef * ) );
-    bool            XSCTestRunAllSuites( FILE * fh );
-    size_t          XSCTestGetNumberOfSuites( void );
-    size_t          XSCTestGetNumberOfCases( void );
-    XSCTestSuiteRef XSCTestGetSuiteNamed( const char * name );
-    size_t          XSCTestGetNumberOfPassedTestCases( void );
-    size_t          XSCTestGetNumberOfFailedTestCases( void );
-    void            XSCTestEnumeratePassedTestCases( void ( * )( XSCTestCaseRef ) );
-    void            XSCTestEnumerateFailedTestCases( void ( * )( XSCTestCaseRef ) );
+    size = 0;
+    list = suite->tests;
 
-#ifdef __cplusplus
+    while( list != NULL )
+    {
+        size += ( XSCTestCaseGetFailure( list->testCase ) != NULL ) ? 1 : 0;
+        list = list->next;
+    }
+
+    return size;
 }
-#endif
-
-#endif /* XSCTEST_TEST_H */

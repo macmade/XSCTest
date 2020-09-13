@@ -23,7 +23,7 @@
  ******************************************************************************/
 
 /*!
- * @file        XSCTestSuiteGetName.c
+ * @file        XSCTestSuiteGetNumberOfTestCases.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */

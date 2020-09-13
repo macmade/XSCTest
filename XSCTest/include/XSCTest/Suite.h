@@ -46,6 +46,10 @@ extern "C" {
     XSCTestStringRef XSCTestSuiteGetName( XSCTestSuiteRef suite );
     bool             XSCTestSuiteRun( XSCTestSuiteRef suite, FILE * fh );
     size_t           XSCTestSuiteGetNumberOfTestCases( XSCTestSuiteRef suite );
+    size_t           XSCTestSuiteGetNumberOfPassedTestCases( XSCTestSuiteRef suite );
+    size_t           XSCTestSuiteGetNumberOfFailedTestCases( XSCTestSuiteRef suite );
+    void             XSCTestSuiteEnumeratePassedTestCases( XSCTestSuiteRef suite, void ( * )( XSCTestCaseRef ) );
+    void             XSCTestSuiteEnumerateFailedTestCases( XSCTestSuiteRef suite, void ( * )( XSCTestCaseRef ) );
 
 #ifdef __cplusplus
 }
