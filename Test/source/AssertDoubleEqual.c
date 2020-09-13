@@ -103,7 +103,7 @@ Test( Failure, AssertDoubleEqual_NAN )
 {
     usleep( 10000 );
 
-    AssertDoubleEqual( NAN, NAN );
+    AssertDoubleEqual( ( double )NAN, ( double )NAN );
 }
 
 Test( Failure, AssertDoubleEqual_Sign )

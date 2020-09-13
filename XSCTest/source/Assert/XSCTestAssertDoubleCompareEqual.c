@@ -23,27 +23,40 @@
  ******************************************************************************/
 
 /*!
- * @header      Assert.h
+ * @file        XSCTestAssertBoolean.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_ASSERT_H
-#define XSCTEST_ASSERT_H
+#include <XSCTest/XSCTest.h>
+#include <string.h>
 
-#include <XSCTest/Failure.h>
-#include <stdbool.h>
+bool XSCTestAssertDoubleCompareEqual( XSCTestFailureRef * failure, double v1, double v2, const char * expression1, const char * expression2, const char * file, int line )
+{
+    XSCTestStringRef expression;
+    XSCTestStringRef evaluated;
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+    if( XSCTestDoubleEqual( v1, v2 ) )
+    {
+        return true;
+    }
 
-    bool XSCTestAssertBoolean( XSCTestFailureRef * failure, bool value, bool expected, const char * expression, const char * file, int line );
-    bool XSCTestAssertStringEquality( XSCTestFailureRef * failure, const char * cp1, const char * cp2, bool expected, bool caseInsensitive, const char * expression1, const char * expression2, const char * file, int line );
-    bool XSCTestAssertDoubleCompareEqual( XSCTestFailureRef * failure, double v1, double v2, const char * expression1, const char * expression2, const char * file, int line );
+    expression = XSCTestStringCreateWithFormat( "%s == %s", expression1, expression2 );
+    evaluated  = XSCTestStringCreateWithFormat( "%f == %f", v1, v2 );
 
-#ifdef __cplusplus
+    if( failure != NULL )
+    {
+        *( failure ) = XSCTestFailureCreate(
+            XSCTestStringGetCString( expression ),
+            XSCTestStringGetCString( evaluated ),
+            "True",
+            "False",
+            file,
+            line );
+    }
+
+    XSCTestStringDelete( expression );
+    XSCTestStringDelete( evaluated );
+
+    return false;
 }
-#endif
-
-#endif /* XSCTEST_ASSERT_H */
