@@ -67,25 +67,21 @@ extern "C" {
     if( XSCTestAssertNotEqualGeneric( _v1_ )( _xscFailure_, ( _v1_ ), ( _v2_ ), XSCTestInternalXString( _v1_ ), XSCTestInternalXString( _v2_ ), __FILE__, __LINE__ ) == false ) \
     return
 
-#define AssertLess( _v1_, _v2_ ) \
-    ( void )_xscFailure_;        \
-    ( void )( _v1_ );            \
-    ( void )( _v2_ );
+#define AssertLess( _v1_, _v2_ )                                                                                                                                            \
+    if( XSCTestAssertLessGeneric( _v1_ )( _xscFailure_, ( _v1_ ), ( _v2_ ), XSCTestInternalXString( _v1_ ), XSCTestInternalXString( _v2_ ), __FILE__, __LINE__ ) == false ) \
+    return
 
-#define AssertLessOrEqual( _v1_, _v2_ ) \
-    ( void )_xscFailure_;               \
-    ( void )( _v1_ );                   \
-    ( void )( _v2_ );
+#define AssertLessOrEqual( _v1_, _v2_ )                                                                                                                                            \
+    if( XSCTestAssertLessOrEqualGeneric( _v1_ )( _xscFailure_, ( _v1_ ), ( _v2_ ), XSCTestInternalXString( _v1_ ), XSCTestInternalXString( _v2_ ), __FILE__, __LINE__ ) == false ) \
+    return
 
-#define AssertGreater( _v1_, _v2_ ) \
-    ( void )_xscFailure_;           \
-    ( void )( _v1_ );               \
-    ( void )( _v2_ );
+#define AssertGreater( _v1_, _v2_ )                                                                                                                                            \
+    if( XSCTestAssertGreaterGeneric( _v1_ )( _xscFailure_, ( _v1_ ), ( _v2_ ), XSCTestInternalXString( _v1_ ), XSCTestInternalXString( _v2_ ), __FILE__, __LINE__ ) == false ) \
+    return
 
-#define AssertGreaterOrEqual( _v1_, _v2_ ) \
-    ( void )_xscFailure_;                  \
-    ( void )( _v1_ );                      \
-    ( void )( _v2_ );
+#define AssertGreaterOrEqual( _v1_, _v2_ )                                                                                                                                            \
+    if( XSCTestAssertGreaterOrEqualGeneric( _v1_ )( _xscFailure_, ( _v1_ ), ( _v2_ ), XSCTestInternalXString( _v1_ ), XSCTestInternalXString( _v2_ ), __FILE__, __LINE__ ) == false ) \
+    return
 
 #define Test( _case_, _name_ )                                                     \
     void Test_##_case_##_##_name_##_Init( void ) __attribute__( ( constructor ) ); \
@@ -155,6 +151,114 @@ extern "C" {
     : XSCTestAssertFloatCompareNotEqual,              \
       double                                          \
     : XSCTestAssertDoubleCompareNotEqual )
+
+#define XSCTestAssertLessGeneric( _v_ ) _Generic( \
+    ( _v_ ),                                      \
+    signed char                                   \
+    : XSCTestAssertIntegerCompareLess,            \
+      signed short                                \
+    : XSCTestAssertIntegerCompareLess,            \
+      signed int                                  \
+    : XSCTestAssertIntegerCompareLess,            \
+      signed long                                 \
+    : XSCTestAssertIntegerCompareLess,            \
+      signed long long                            \
+    : XSCTestAssertIntegerCompareLess,            \
+      unsigned char                               \
+    : XSCTestAssertUnsignedIntegerCompareLess,    \
+      unsigned short                              \
+    : XSCTestAssertUnsignedIntegerCompareLess,    \
+      unsigned int                                \
+    : XSCTestAssertUnsignedIntegerCompareLess,    \
+      unsigned long                               \
+    : XSCTestAssertUnsignedIntegerCompareLess,    \
+      unsigned long long                          \
+    : XSCTestAssertUnsignedIntegerCompareLess,    \
+      float                                       \
+    : XSCTestAssertFloatCompareLess,              \
+      double                                      \
+    : XSCTestAssertDoubleCompareLess )
+
+#define XSCTestAssertLessOrEqualGeneric( _v_ ) _Generic( \
+    ( _v_ ),                                             \
+    signed char                                          \
+    : XSCTestAssertIntegerCompareLessOrEqual,            \
+      signed short                                       \
+    : XSCTestAssertIntegerCompareLessOrEqual,            \
+      signed int                                         \
+    : XSCTestAssertIntegerCompareLessOrEqual,            \
+      signed long                                        \
+    : XSCTestAssertIntegerCompareLessOrEqual,            \
+      signed long long                                   \
+    : XSCTestAssertIntegerCompareLessOrEqual,            \
+      unsigned char                                      \
+    : XSCTestAssertUnsignedIntegerCompareLessOrEqual,    \
+      unsigned short                                     \
+    : XSCTestAssertUnsignedIntegerCompareLessOrEqual,    \
+      unsigned int                                       \
+    : XSCTestAssertUnsignedIntegerCompareLessOrEqual,    \
+      unsigned long                                      \
+    : XSCTestAssertUnsignedIntegerCompareLessOrEqual,    \
+      unsigned long long                                 \
+    : XSCTestAssertUnsignedIntegerCompareLessOrEqual,    \
+      float                                              \
+    : XSCTestAssertFloatCompareLessOrEqual,              \
+      double                                             \
+    : XSCTestAssertDoubleCompareLessOrEqual )
+
+#define XSCTestAssertGreaterGeneric( _v_ ) _Generic( \
+    ( _v_ ),                                         \
+    signed char                                      \
+    : XSCTestAssertIntegerCompareGreater,            \
+      signed short                                   \
+    : XSCTestAssertIntegerCompareGreater,            \
+      signed int                                     \
+    : XSCTestAssertIntegerCompareGreater,            \
+      signed long                                    \
+    : XSCTestAssertIntegerCompareGreater,            \
+      signed long long                               \
+    : XSCTestAssertIntegerCompareGreater,            \
+      unsigned char                                  \
+    : XSCTestAssertUnsignedIntegerCompareGreater,    \
+      unsigned short                                 \
+    : XSCTestAssertUnsignedIntegerCompareGreater,    \
+      unsigned int                                   \
+    : XSCTestAssertUnsignedIntegerCompareGreater,    \
+      unsigned long                                  \
+    : XSCTestAssertUnsignedIntegerCompareGreater,    \
+      unsigned long long                             \
+    : XSCTestAssertUnsignedIntegerCompareGreater,    \
+      float                                          \
+    : XSCTestAssertFloatCompareGreater,              \
+      double                                         \
+    : XSCTestAssertDoubleCompareGreater )
+
+#define XSCTestAssertGreaterOrEqualGeneric( _v_ ) _Generic( \
+    ( _v_ ),                                                \
+    signed char                                             \
+    : XSCTestAssertIntegerCompareGreaterOrEqual,            \
+      signed short                                          \
+    : XSCTestAssertIntegerCompareGreaterOrEqual,            \
+      signed int                                            \
+    : XSCTestAssertIntegerCompareGreaterOrEqual,            \
+      signed long                                           \
+    : XSCTestAssertIntegerCompareGreaterOrEqual,            \
+      signed long long                                      \
+    : XSCTestAssertIntegerCompareGreaterOrEqual,            \
+      unsigned char                                         \
+    : XSCTestAssertUnsignedIntegerCompareGreaterOrEqual,    \
+      unsigned short                                        \
+    : XSCTestAssertUnsignedIntegerCompareGreaterOrEqual,    \
+      unsigned int                                          \
+    : XSCTestAssertUnsignedIntegerCompareGreaterOrEqual,    \
+      unsigned long                                         \
+    : XSCTestAssertUnsignedIntegerCompareGreaterOrEqual,    \
+      unsigned long long                                    \
+    : XSCTestAssertUnsignedIntegerCompareGreaterOrEqual,    \
+      float                                                 \
+    : XSCTestAssertFloatCompareGreaterOrEqual,              \
+      double                                                \
+    : XSCTestAssertDoubleCompareGreaterOrEqual )
 
 #ifdef __cplusplus
 }

@@ -43,12 +43,28 @@ extern "C" {
     bool XSCTestAssertStringEquality( XSCTestFailureRef * failure, const char * cp1, const char * cp2, bool expected, bool caseInsensitive, const char * expression1, const char * expression2, const char * file, int line );
     bool XSCTestAssertIntegerCompareEqual( XSCTestFailureRef * failure, int64_t v1, int64_t v2, const char * expression1, const char * expression2, const char * file, int line );
     bool XSCTestAssertIntegerCompareNotEqual( XSCTestFailureRef * failure, int64_t v1, int64_t v2, const char * expression1, const char * expression2, const char * file, int line );
+    bool XSCTestAssertIntegerCompareLess( XSCTestFailureRef * failure, int64_t v1, int64_t v2, const char * expression1, const char * expression2, const char * file, int line );
+    bool XSCTestAssertIntegerCompareLessOrEqual( XSCTestFailureRef * failure, int64_t v1, int64_t v2, const char * expression1, const char * expression2, const char * file, int line );
+    bool XSCTestAssertIntegerCompareGreater( XSCTestFailureRef * failure, int64_t v1, int64_t v2, const char * expression1, const char * expression2, const char * file, int line );
+    bool XSCTestAssertIntegerCompareGreaterOrEqual( XSCTestFailureRef * failure, int64_t v1, int64_t v2, const char * expression1, const char * expression2, const char * file, int line );
     bool XSCTestAssertUnsignedIntegerCompareEqual( XSCTestFailureRef * failure, uint64_t v1, uint64_t v2, const char * expression1, const char * expression2, const char * file, int line );
     bool XSCTestAssertUnsignedIntegerCompareNotEqual( XSCTestFailureRef * failure, uint64_t v1, uint64_t v2, const char * expression1, const char * expression2, const char * file, int line );
+    bool XSCTestAssertUnsignedIntegerCompareLess( XSCTestFailureRef * failure, uint64_t v1, uint64_t v2, const char * expression1, const char * expression2, const char * file, int line );
+    bool XSCTestAssertUnsignedIntegerCompareLessOrEqual( XSCTestFailureRef * failure, uint64_t v1, uint64_t v2, const char * expression1, const char * expression2, const char * file, int line );
+    bool XSCTestAssertUnsignedIntegerCompareGreater( XSCTestFailureRef * failure, uint64_t v1, uint64_t v2, const char * expression1, const char * expression2, const char * file, int line );
+    bool XSCTestAssertUnsignedIntegerCompareGreaterOrEqual( XSCTestFailureRef * failure, uint64_t v1, uint64_t v2, const char * expression1, const char * expression2, const char * file, int line );
     bool XSCTestAssertFloatCompareEqual( XSCTestFailureRef * failure, float v1, float v2, const char * expression1, const char * expression2, const char * file, int line );
     bool XSCTestAssertFloatCompareNotEqual( XSCTestFailureRef * failure, float v1, float v2, const char * expression1, const char * expression2, const char * file, int line );
+    bool XSCTestAssertFloatCompareLess( XSCTestFailureRef * failure, float v1, float v2, const char * expression1, const char * expression2, const char * file, int line );
+    bool XSCTestAssertFloatCompareLessOrEqual( XSCTestFailureRef * failure, float v1, float v2, const char * expression1, const char * expression2, const char * file, int line );
+    bool XSCTestAssertFloatCompareGreater( XSCTestFailureRef * failure, float v1, float v2, const char * expression1, const char * expression2, const char * file, int line );
+    bool XSCTestAssertFloatCompareGreaterOrEqual( XSCTestFailureRef * failure, float v1, float v2, const char * expression1, const char * expression2, const char * file, int line );
     bool XSCTestAssertDoubleCompareEqual( XSCTestFailureRef * failure, double v1, double v2, const char * expression1, const char * expression2, const char * file, int line );
     bool XSCTestAssertDoubleCompareNotEqual( XSCTestFailureRef * failure, double v1, double v2, const char * expression1, const char * expression2, const char * file, int line );
+    bool XSCTestAssertDoubleCompareLess( XSCTestFailureRef * failure, double v1, double v2, const char * expression1, const char * expression2, const char * file, int line );
+    bool XSCTestAssertDoubleCompareLessOrEqual( XSCTestFailureRef * failure, double v1, double v2, const char * expression1, const char * expression2, const char * file, int line );
+    bool XSCTestAssertDoubleCompareGreater( XSCTestFailureRef * failure, double v1, double v2, const char * expression1, const char * expression2, const char * file, int line );
+    bool XSCTestAssertDoubleCompareGreaterOrEqual( XSCTestFailureRef * failure, double v1, double v2, const char * expression1, const char * expression2, const char * file, int line );
 
 #ifdef __cplusplus
 }
