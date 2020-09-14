@@ -33,6 +33,7 @@
 
 #include <XSCTest/Failure.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -40,6 +41,10 @@ extern "C" {
 
     bool XSCTestAssertBoolean( XSCTestFailureRef * failure, bool value, bool expected, const char * expression, const char * file, int line );
     bool XSCTestAssertStringEquality( XSCTestFailureRef * failure, const char * cp1, const char * cp2, bool expected, bool caseInsensitive, const char * expression1, const char * expression2, const char * file, int line );
+    bool XSCTestAssertIntegerCompareEqual( XSCTestFailureRef * failure, int64_t v1, int64_t v2, const char * expression1, const char * expression2, const char * file, int line );
+    bool XSCTestAssertIntegerCompareNotEqual( XSCTestFailureRef * failure, int64_t v1, int64_t v2, const char * expression1, const char * expression2, const char * file, int line );
+    bool XSCTestAssertUnsignedIntegerCompareEqual( XSCTestFailureRef * failure, uint64_t v1, uint64_t v2, const char * expression1, const char * expression2, const char * file, int line );
+    bool XSCTestAssertUnsignedIntegerCompareNotEqual( XSCTestFailureRef * failure, uint64_t v1, uint64_t v2, const char * expression1, const char * expression2, const char * file, int line );
     bool XSCTestAssertFloatCompareEqual( XSCTestFailureRef * failure, float v1, float v2, const char * expression1, const char * expression2, const char * file, int line );
     bool XSCTestAssertFloatCompareNotEqual( XSCTestFailureRef * failure, float v1, float v2, const char * expression1, const char * expression2, const char * file, int line );
     bool XSCTestAssertDoubleCompareEqual( XSCTestFailureRef * failure, double v1, double v2, const char * expression1, const char * expression2, const char * file, int line );
