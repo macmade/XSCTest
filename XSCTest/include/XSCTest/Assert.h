@@ -40,7 +40,10 @@ extern "C" {
 
     bool XSCTestAssertBoolean( XSCTestFailureRef * failure, bool value, bool expected, const char * expression, const char * file, int line );
     bool XSCTestAssertStringEquality( XSCTestFailureRef * failure, const char * cp1, const char * cp2, bool expected, bool caseInsensitive, const char * expression1, const char * expression2, const char * file, int line );
+    bool XSCTestAssertFloatCompareEqual( XSCTestFailureRef * failure, float v1, float v2, const char * expression1, const char * expression2, const char * file, int line );
+    bool XSCTestAssertFloatCompareNotEqual( XSCTestFailureRef * failure, float v1, float v2, const char * expression1, const char * expression2, const char * file, int line );
     bool XSCTestAssertDoubleCompareEqual( XSCTestFailureRef * failure, double v1, double v2, const char * expression1, const char * expression2, const char * file, int line );
+    bool XSCTestAssertDoubleCompareNotEqual( XSCTestFailureRef * failure, double v1, double v2, const char * expression1, const char * expression2, const char * file, int line );
 
 #ifdef __cplusplus
 }

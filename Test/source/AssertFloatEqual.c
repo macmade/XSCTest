@@ -37,14 +37,14 @@ Test( Success, AssertFloatEqual )
 {
     usleep( 10000 );
 
-    AssertFloatEqual( 0.1, 0.1 );
+    AssertFloatEqual( 0.1f, 0.1f );
 }
 
 Test( Success, AssertFloatNotEqual )
 {
     usleep( 10000 );
 
-    AssertFloatNotEqual( 0.1, 0.2 );
+    AssertFloatNotEqual( 0.1f, 0.2f );
 }
 
 Test( Success, AssertFloatEqual_NextAfter )

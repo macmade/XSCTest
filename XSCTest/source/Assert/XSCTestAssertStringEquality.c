@@ -23,7 +23,7 @@
  ******************************************************************************/
 
 /*!
- * @file        XSCTestAssertBoolean.c
+ * @file        XSCTestAssertStringEquality.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */

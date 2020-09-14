@@ -69,24 +69,21 @@ extern "C" {
     ( void )( _v1_ );                \
     ( void )( _v2_ );
 
-#define AssertFloatEqual( _v1_, _v2_ ) \
-    ( void )_xscFailure_;              \
-    ( void )( _v1_ );                  \
-    ( void )( _v2_ );
+#define AssertFloatEqual( _v1_, _v2_ )                                                                                                                                    \
+    if( XSCTestAssertFloatCompareEqual( _xscFailure_, ( _v1_ ), ( _v2_ ), XSCTestInternalXString( _v1_ ), XSCTestInternalXString( _v2_ ), __FILE__, __LINE__ ) == false ) \
+    return
 
-#define AssertFloatNotEqual( _v1_, _v2_ ) \
-    ( void )_xscFailure_;                 \
-    ( void )( _v1_ );                     \
-    ( void )( _v2_ );
+#define AssertFloatNotEqual( _v1_, _v2_ )                                                                                                                                    \
+    if( XSCTestAssertFloatCompareNotEqual( _xscFailure_, ( _v1_ ), ( _v2_ ), XSCTestInternalXString( _v1_ ), XSCTestInternalXString( _v2_ ), __FILE__, __LINE__ ) == false ) \
+    return
 
 #define AssertDoubleEqual( _v1_, _v2_ )                                                                                                                                    \
     if( XSCTestAssertDoubleCompareEqual( _xscFailure_, ( _v1_ ), ( _v2_ ), XSCTestInternalXString( _v1_ ), XSCTestInternalXString( _v2_ ), __FILE__, __LINE__ ) == false ) \
     return
 
-#define AssertDoubleNotEqual( _v1_, _v2_ ) \
-    ( void )_xscFailure_;                  \
-    ( void )( _v1_ );                      \
-    ( void )( _v2_ );
+#define AssertDoubleNotEqual( _v1_, _v2_ )                                                                                                                                    \
+    if( XSCTestAssertDoubleCompareNotEqual( _xscFailure_, ( _v1_ ), ( _v2_ ), XSCTestInternalXString( _v1_ ), XSCTestInternalXString( _v2_ ), __FILE__, __LINE__ ) == false ) \
+    return
 
 #define AssertLess( _v1_, _v2_ ) \
     ( void )_xscFailure_;        \

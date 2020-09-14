@@ -23,7 +23,7 @@
  ******************************************************************************/
 
 /*!
- * @file        XSCTestAssertDoubleCompareEqual.c
+ * @file        XSCTestAssertFloatCompareNotEqual.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
@@ -31,18 +31,18 @@
 #include <XSCTest/XSCTest.h>
 #include <string.h>
 
-bool XSCTestAssertDoubleCompareEqual( XSCTestFailureRef * failure, double v1, double v2, const char * expression1, const char * expression2, const char * file, int line )
+bool XSCTestAssertFloatCompareNotEqual( XSCTestFailureRef * failure, float v1, float v2, const char * expression1, const char * expression2, const char * file, int line )
 {
     XSCTestStringRef expression;
     XSCTestStringRef evaluated;
 
-    if( XSCTestDoubleEqual( v1, v2 ) )
+    if( XSCTestFloatEqual( v1, v2 ) == false )
     {
         return true;
     }
 
-    expression = XSCTestStringCreateWithFormat( "%s == %s", expression1, expression2 );
-    evaluated  = XSCTestStringCreateWithFormat( "%f == %f", v1, v2 );
+    expression = XSCTestStringCreateWithFormat( "%s != %s", expression1, expression2 );
+    evaluated  = XSCTestStringCreateWithFormat( "%f != %f", ( double )v1, ( double )v2 );
 
     if( failure != NULL )
     {
