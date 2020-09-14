@@ -31,7 +31,15 @@
 #include <XSCTest/XSCTest.h>
 #include <stdlib.h>
 
-int XSCTestRun( FILE * fh )
+int XSCTestRun( FILE * fh, int argc, char * argv[] )
 {
-    return ( XSCTestRunAllSuites( fh ) ) ? EXIT_SUCCESS : EXIT_FAILURE;
+    XSCTestArgumentsRef args;
+    int                 ret;
+
+    args = XSCTestArgumentsCreate( argc, argv );
+    ret  = ( XSCTestRunAllSuites( fh, args ) ) ? EXIT_SUCCESS : EXIT_FAILURE;
+
+    XSCTestArgumentsDelete( args );
+
+    return ret;
 }

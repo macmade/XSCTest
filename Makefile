@@ -51,6 +51,7 @@ FILES_C += $(call GET_C_FILES, $(DIR_SRC)Test/)
 FILES_C += $(call GET_C_FILES, $(DIR_SRC)Suite/)
 FILES_C += $(call GET_C_FILES, $(DIR_SRC)Case/)
 FILES_C += $(call GET_C_FILES, $(DIR_SRC)Utility/)
+FILES_C += $(call GET_C_FILES, $(DIR_SRC)Arguments/)
 
 # Gets every C file in the source directories (test)
 FILES_TEST_C += $(call GET_C_FILES, $(DIR_TEST_SRC))

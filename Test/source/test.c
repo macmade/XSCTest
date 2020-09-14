@@ -30,7 +30,7 @@
 
 #include <XSCTest/XSCTest.h>
 
-int main( void )
+int main( int argc, char * argv[] )
 {
-    return XSCTestRun( stdout );
+    return XSCTestRun( stdout, argc, argv );
 }

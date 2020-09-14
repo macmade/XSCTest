@@ -31,7 +31,7 @@
 #include <XSCTest/XSCTest.h>
 #include <XSCTest/Private/Test.h>
 
-bool XSCTestRunAllSuites( FILE * fh )
+bool XSCTestRunAllSuites( FILE * fh, XSCTestArgumentsRef args )
 {
     bool                ret;
     XSCTestStopWatchRef time;
@@ -39,6 +39,8 @@ bool XSCTestRunAllSuites( FILE * fh )
     size_t              cases;
     XSCTestStringRef    casesString;
     XSCTestStringRef    suitesString;
+
+    ( void )args;
 
     ret          = true;
     time         = XSCTestStopWatchCreate();

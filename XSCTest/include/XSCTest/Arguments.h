@@ -23,39 +23,28 @@
  ******************************************************************************/
 
 /*!
- * @header      Test.h
+ * @header      Arguments.h
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_TEST_H
-#define XSCTEST_TEST_H
+#ifndef XSCTEST_ARGUMENTS_H
+#define XSCTEST_ARGUMENTS_H
 
-#include <XSCTest/Case.h>
-#include <XSCTest/Suite.h>
-#include <XSCTest/Failure.h>
-#include <XSCTest/Arguments.h>
-#include <stddef.h>
-#include <stdio.h>
-#include <stdio.h>
+#include <stdbool.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-    int             XSCTestRun( FILE * fh, int argc, char * argv[] );
-    void            XSCTestRegisterTest( const char * suite, const char * name, void ( *func )( XSCTestFailureRef * ) );
-    bool            XSCTestRunAllSuites( FILE * fh, XSCTestArgumentsRef args );
-    size_t          XSCTestGetNumberOfSuites( void );
-    size_t          XSCTestGetNumberOfTestCases( void );
-    XSCTestSuiteRef XSCTestGetSuiteNamed( const char * name );
-    size_t          XSCTestGetNumberOfPassedTestCases( void );
-    size_t          XSCTestGetNumberOfFailedTestCases( void );
-    void            XSCTestEnumeratePassedTestCases( void ( * )( XSCTestCaseRef, void * ), void * context );
-    void            XSCTestEnumerateFailedTestCases( void ( * )( XSCTestCaseRef, void * ), void * context );
+    typedef struct XSCTestArguments * XSCTestArgumentsRef;
+
+    XSCTestArgumentsRef XSCTestArgumentsCreate( int argc, char * argv[] );
+    void                XSCTestArgumentsDelete( XSCTestArgumentsRef args );
+    bool                XSCTestArgumentsShouldRun( XSCTestArgumentsRef args, const char * suite, const char * test );
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* XSCTEST_TEST_H */
+#endif /* XSCTEST_ARGUMENTS_H */

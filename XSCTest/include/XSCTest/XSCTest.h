@@ -44,5 +44,6 @@
 #include <XSCTest/Suite.h>
 #include <XSCTest/Case.h>
 #include <XSCTest/Utility.h>
+#include <XSCTest/Arguments.h>
 
 #endif /* XSCTEST_H */

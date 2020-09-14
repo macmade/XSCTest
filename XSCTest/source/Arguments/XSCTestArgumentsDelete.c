@@ -23,39 +23,25 @@
  ******************************************************************************/
 
 /*!
- * @header      Test.h
+ * @file        XSCTestArgumentsDelete.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_TEST_H
-#define XSCTEST_TEST_H
+#include <XSCTest/XSCTest.h>
+#include <XSCTest/Private/Arguments.h>
+#include <stdlib.h>
 
-#include <XSCTest/Case.h>
-#include <XSCTest/Suite.h>
-#include <XSCTest/Failure.h>
-#include <XSCTest/Arguments.h>
-#include <stddef.h>
-#include <stdio.h>
-#include <stdio.h>
+void XSCTestArgumentsDelete( XSCTestArgumentsRef args )
+{
+    if( args != NULL )
+    {
+        for( size_t i = 0; i < XSCTestArrayGetCount( args->tests ); i++ )
+        {
+            XSCTestStringDelete( XSCTestArrayGetValueAtIndex( args->tests, i ) );
+        }
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-    int             XSCTestRun( FILE * fh, int argc, char * argv[] );
-    void            XSCTestRegisterTest( const char * suite, const char * name, void ( *func )( XSCTestFailureRef * ) );
-    bool            XSCTestRunAllSuites( FILE * fh, XSCTestArgumentsRef args );
-    size_t          XSCTestGetNumberOfSuites( void );
-    size_t          XSCTestGetNumberOfTestCases( void );
-    XSCTestSuiteRef XSCTestGetSuiteNamed( const char * name );
-    size_t          XSCTestGetNumberOfPassedTestCases( void );
-    size_t          XSCTestGetNumberOfFailedTestCases( void );
-    void            XSCTestEnumeratePassedTestCases( void ( * )( XSCTestCaseRef, void * ), void * context );
-    void            XSCTestEnumerateFailedTestCases( void ( * )( XSCTestCaseRef, void * ), void * context );
-
-#ifdef __cplusplus
+        XSCTestArrayDelete( args->tests );
+        free( args );
+    }
 }
-#endif
-
-#endif /* XSCTEST_TEST_H */

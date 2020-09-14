@@ -23,39 +23,35 @@
  ******************************************************************************/
 
 /*!
- * @header      Test.h
+ * @file        XSCTestArgumentsCreate.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_TEST_H
-#define XSCTEST_TEST_H
+#include <XSCTest/XSCTest.h>
+#include <XSCTest/Private/Arguments.h>
+#include <stdlib.h>
 
-#include <XSCTest/Case.h>
-#include <XSCTest/Suite.h>
-#include <XSCTest/Failure.h>
-#include <XSCTest/Arguments.h>
-#include <stddef.h>
-#include <stdio.h>
-#include <stdio.h>
+XSCTestArgumentsRef XSCTestArgumentsCreate( int argc, char * argv[] )
+{
+    XSCTestArgumentsRef args;
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+    args = calloc( 1, sizeof( struct XSCTestArguments ) );
 
-    int             XSCTestRun( FILE * fh, int argc, char * argv[] );
-    void            XSCTestRegisterTest( const char * suite, const char * name, void ( *func )( XSCTestFailureRef * ) );
-    bool            XSCTestRunAllSuites( FILE * fh, XSCTestArgumentsRef args );
-    size_t          XSCTestGetNumberOfSuites( void );
-    size_t          XSCTestGetNumberOfTestCases( void );
-    XSCTestSuiteRef XSCTestGetSuiteNamed( const char * name );
-    size_t          XSCTestGetNumberOfPassedTestCases( void );
-    size_t          XSCTestGetNumberOfFailedTestCases( void );
-    void            XSCTestEnumeratePassedTestCases( void ( * )( XSCTestCaseRef, void * ), void * context );
-    void            XSCTestEnumerateFailedTestCases( void ( * )( XSCTestCaseRef, void * ), void * context );
+    if( args == NULL )
+    {
+        return NULL;
+    }
 
-#ifdef __cplusplus
+    args->tests = XSCTestArrayCreate();
+
+    if( argv != NULL )
+    {
+        for( int i = 1; i < argc; i++ )
+        {
+            XSCTestArrayAddValue( args->tests, XSCTestStringCreateWithCString( argv[ i ] ) );
+        }
+    }
+
+    return args;
 }
-#endif
-
-#endif /* XSCTEST_TEST_H */
