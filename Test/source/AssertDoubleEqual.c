@@ -37,14 +37,14 @@ Test( Success, AssertDoubleEqual )
 {
     usleep( 10000 );
 
-    AssertDoubleEqual( 0.1, 0.1 );
+    AssertEqual( 0.1, 0.1 );
 }
 
 Test( Success, AssertDoubleNotEqual )
 {
     usleep( 10000 );
 
-    AssertDoubleNotEqual( 0.1, 0.2 );
+    AssertNotEqual( 0.1, 0.2 );
 }
 
 Test( Success, AssertDoubleEqual_NextAfter )
@@ -62,8 +62,8 @@ Test( Success, AssertDoubleEqual_NextAfter )
     AssertNotEqual( i1, i3 );
     AssertNotEqual( i2, i3 );
 
-    AssertDoubleEqual( f1, f2 );
-    AssertDoubleEqual( f1, f3 );
+    AssertEqual( f1, f2 );
+    AssertEqual( f1, f3 );
 }
 
 Test( Success, AssertDoubleEqual_NextToward )
@@ -81,41 +81,41 @@ Test( Success, AssertDoubleEqual_NextToward )
     AssertNotEqual( i1, i3 );
     AssertNotEqual( i2, i3 );
 
-    AssertDoubleEqual( f1, f2 );
-    AssertDoubleEqual( f1, f3 );
+    AssertEqual( f1, f2 );
+    AssertEqual( f1, f3 );
 }
 
 Test( Success, AssertDoubleEqual_INF )
 {
     usleep( 10000 );
 
-    AssertDoubleEqual( HUGE_VAL, HUGE_VAL );
+    AssertEqual( HUGE_VAL, HUGE_VAL );
 }
 
 Test( Failure, AssertDoubleNotEqual )
 {
     usleep( 10000 );
 
-    AssertDoubleNotEqual( 0.1, 0.1 );
+    AssertNotEqual( 0.1, 0.1 );
 }
 
 Test( Failure, AssertDoubleEqual_NAN )
 {
     usleep( 10000 );
 
-    AssertDoubleEqual( ( double )NAN, ( double )NAN );
+    AssertEqual( ( double )NAN, ( double )NAN );
 }
 
 Test( Failure, AssertDoubleEqual_Sign )
 {
     usleep( 10000 );
 
-    AssertDoubleEqual( 0.1, -0.1 );
+    AssertEqual( 0.1, -0.1 );
 }
 
 Test( Failure, AssertDoubleEqual_Epsilon )
 {
     usleep( 10000 );
 
-    AssertDoubleEqual( 0.1, 0.1 + DBL_EPSILON );
+    AssertEqual( 0.1, 0.1 + DBL_EPSILON );
 }

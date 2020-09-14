@@ -37,14 +37,14 @@ Test( Success, AssertFloatEqual )
 {
     usleep( 10000 );
 
-    AssertFloatEqual( 0.1f, 0.1f );
+    AssertEqual( 0.1f, 0.1f );
 }
 
 Test( Success, AssertFloatNotEqual )
 {
     usleep( 10000 );
 
-    AssertFloatNotEqual( 0.1f, 0.2f );
+    AssertNotEqual( 0.1f, 0.2f );
 }
 
 Test( Success, AssertFloatEqual_NextAfter )
@@ -62,8 +62,8 @@ Test( Success, AssertFloatEqual_NextAfter )
     AssertNotEqual( i1, i3 );
     AssertNotEqual( i2, i3 );
 
-    AssertFloatEqual( f1, f2 );
-    AssertFloatEqual( f1, f3 );
+    AssertEqual( f1, f2 );
+    AssertEqual( f1, f3 );
 }
 
 Test( Success, AssertFloatEqual_NextToward )
@@ -81,41 +81,41 @@ Test( Success, AssertFloatEqual_NextToward )
     AssertNotEqual( i1, i3 );
     AssertNotEqual( i2, i3 );
 
-    AssertFloatEqual( f1, f2 );
-    AssertFloatEqual( f1, f3 );
+    AssertEqual( f1, f2 );
+    AssertEqual( f1, f3 );
 }
 
 Test( Success, AssertFloatEqual_INF )
 {
     usleep( 10000 );
 
-    AssertFloatEqual( HUGE_VAL, HUGE_VAL );
+    AssertEqual( HUGE_VAL, HUGE_VAL );
 }
 
 Test( Failure, AssertFloatNotEqual )
 {
     usleep( 10000 );
 
-    AssertFloatNotEqual( 0.1f, 0.1f );
+    AssertNotEqual( 0.1f, 0.1f );
 }
 
 Test( Failure, AssertFloatEqual_NAN )
 {
     usleep( 10000 );
 
-    AssertFloatEqual( NAN, NAN );
+    AssertEqual( NAN, NAN );
 }
 
 Test( Failure, AssertFloatEqual_Sign )
 {
     usleep( 10000 );
 
-    AssertFloatEqual( 0.1f, -0.1f );
+    AssertEqual( 0.1f, -0.1f );
 }
 
 Test( Failure, AssertFloatEqual_Epsilon )
 {
     usleep( 10000 );
 
-    AssertFloatEqual( 0.1f, 0.1f + FLT_EPSILON );
+    AssertEqual( 0.1f, 0.1f + FLT_EPSILON );
 }

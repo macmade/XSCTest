@@ -67,22 +67,6 @@ extern "C" {
     if( XSCTestAssertNotEqualGeneric( _v1_ )( _xscFailure_, ( _v1_ ), ( _v2_ ), XSCTestInternalXString( _v1_ ), XSCTestInternalXString( _v2_ ), __FILE__, __LINE__ ) == false ) \
     return
 
-#define AssertFloatEqual( _v1_, _v2_ )                                                                                                                                    \
-    if( XSCTestAssertFloatCompareEqual( _xscFailure_, ( _v1_ ), ( _v2_ ), XSCTestInternalXString( _v1_ ), XSCTestInternalXString( _v2_ ), __FILE__, __LINE__ ) == false ) \
-    return
-
-#define AssertFloatNotEqual( _v1_, _v2_ )                                                                                                                                    \
-    if( XSCTestAssertFloatCompareNotEqual( _xscFailure_, ( _v1_ ), ( _v2_ ), XSCTestInternalXString( _v1_ ), XSCTestInternalXString( _v2_ ), __FILE__, __LINE__ ) == false ) \
-    return
-
-#define AssertDoubleEqual( _v1_, _v2_ )                                                                                                                                    \
-    if( XSCTestAssertDoubleCompareEqual( _xscFailure_, ( _v1_ ), ( _v2_ ), XSCTestInternalXString( _v1_ ), XSCTestInternalXString( _v2_ ), __FILE__, __LINE__ ) == false ) \
-    return
-
-#define AssertDoubleNotEqual( _v1_, _v2_ )                                                                                                                                    \
-    if( XSCTestAssertDoubleCompareNotEqual( _xscFailure_, ( _v1_ ), ( _v2_ ), XSCTestInternalXString( _v1_ ), XSCTestInternalXString( _v2_ ), __FILE__, __LINE__ ) == false ) \
-    return
-
 #define AssertLess( _v1_, _v2_ ) \
     ( void )_xscFailure_;        \
     ( void )( _v1_ );            \
@@ -139,7 +123,11 @@ extern "C" {
       unsigned long                                \
     : XSCTestAssertUnsignedIntegerCompareEqual,    \
       unsigned long long                           \
-    : XSCTestAssertUnsignedIntegerCompareEqual )
+    : XSCTestAssertUnsignedIntegerCompareEqual,    \
+      float                                        \
+    : XSCTestAssertFloatCompareEqual,              \
+      double                                       \
+    : XSCTestAssertDoubleCompareEqual )
 
 #define XSCTestAssertNotEqualGeneric( _v_ ) _Generic( \
     ( _v_ ),                                          \
@@ -162,7 +150,11 @@ extern "C" {
       unsigned long                                   \
     : XSCTestAssertUnsignedIntegerCompareNotEqual,    \
       unsigned long long                              \
-    : XSCTestAssertUnsignedIntegerCompareNotEqual )
+    : XSCTestAssertUnsignedIntegerCompareNotEqual,    \
+      float                                           \
+    : XSCTestAssertFloatCompareNotEqual,              \
+      double                                          \
+    : XSCTestAssertDoubleCompareNotEqual )
 
 #ifdef __cplusplus
 }
