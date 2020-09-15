@@ -33,6 +33,8 @@
 
 #include <XSCTest/String.h>
 #include <XSCTest/Case.h>
+#include <XSCTest/Array.h>
+#include <XSCTest/Arguments.h>
 #include <stdio.h>
 
 #ifdef __cplusplus
@@ -44,12 +46,9 @@ extern "C" {
     XSCTestSuiteRef  XSCTestSuiteCreate( const char * name );
     void             XSCTestSuiteAddTestCase( XSCTestSuiteRef suite, const char * name, void ( *func )( XSCTestFailureRef * ) );
     XSCTestStringRef XSCTestSuiteGetName( XSCTestSuiteRef suite );
-    bool             XSCTestSuiteRun( XSCTestSuiteRef suite, FILE * fh );
+    bool             XSCTestSuiteRun( XSCTestSuiteRef suite, FILE * fh, XSCTestArgumentsRef args );
     size_t           XSCTestSuiteGetNumberOfTestCases( XSCTestSuiteRef suite );
-    size_t           XSCTestSuiteGetNumberOfPassedTestCases( XSCTestSuiteRef suite );
-    size_t           XSCTestSuiteGetNumberOfFailedTestCases( XSCTestSuiteRef suite );
-    void             XSCTestSuiteEnumeratePassedTestCases( XSCTestSuiteRef suite, void ( * )( XSCTestCaseRef, void * ), void * context );
-    void             XSCTestSuiteEnumerateFailedTestCases( XSCTestSuiteRef suite, void ( * )( XSCTestCaseRef, void * ), void * context );
+    XSCTestArrayRef  XSCTestSuiteCreateListOfRunnableTestCases( XSCTestSuiteRef suite, XSCTestArgumentsRef args );
 
 #ifdef __cplusplus
 }

@@ -23,20 +23,65 @@
  ******************************************************************************/
 
 /*!
- * @file        XSCTestPrintPassedTestCase.c
+ * @file        XSCTestCreateListOfRunnableTestCases.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
 #include <XSCTest/XSCTest.h>
 #include <XSCTest/Private/Test.h>
-#include <stdio.h>
 
-void XSCTestPrintPassedTestCase( XSCTestCaseRef testCase, void * context )
+XSCTestArrayRef XSCTestCreateListOfRunnableTestCases( XSCTestArgumentsRef args, size_t * suiteCount, size_t * caseCount )
 {
-    FILE * fh;
+    XSCTestArrayRef list;
 
-    fh = context;
+    if( suiteCount != NULL )
+    {
+        *( suiteCount ) = 0;
+    }
 
-    XSCTestLogTestCase( fh, XSCTestCaseGetSuiteName( testCase ), XSCTestCaseGetName( testCase ), "  - ✅ " );
+    if( caseCount != NULL )
+    {
+        *( caseCount ) = 0;
+    }
+
+    if( XSCTestSuites == NULL )
+    {
+        return NULL;
+    }
+
+    list = XSCTestArrayCreate();
+
+    for( size_t i = 0; i < XSCTestArrayGetCount( XSCTestSuites ); i++ )
+    {
+        XSCTestSuiteRef suite;
+        XSCTestArrayRef suiteList;
+        size_t          count;
+
+        suite     = XSCTestArrayGetValueAtIndex( XSCTestSuites, i );
+        suiteList = XSCTestSuiteCreateListOfRunnableTestCases( suite, args );
+        count     = XSCTestArrayGetCount( suiteList );
+
+        for( size_t j = 0; j < count; j++ )
+        {
+            XSCTestArrayAddValue( list, XSCTestArrayGetValueAtIndex( suiteList, j ) );
+        }
+
+        if( count > 0 )
+        {
+            if( suiteCount != NULL )
+            {
+                *( suiteCount ) += 1;
+            }
+
+            if( caseCount != NULL )
+            {
+                *( caseCount ) += count;
+            }
+        }
+
+        XSCTestArrayDelete( suiteList );
+    }
+
+    return list;
 }

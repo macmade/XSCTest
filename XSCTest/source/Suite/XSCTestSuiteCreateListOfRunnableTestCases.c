@@ -23,7 +23,7 @@
  ******************************************************************************/
 
 /*!
- * @file        XSCTestSuiteEnumeratePassedTestCases.c
+ * @file        XSCTestSuiteCreateListOfRunnableTestCases.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
@@ -31,12 +31,16 @@
 #include <XSCTest/XSCTest.h>
 #include <XSCTest/Private/Suite.h>
 
-void XSCTestSuiteEnumeratePassedTestCases( XSCTestSuiteRef suite, void ( *func )( XSCTestCaseRef, void * ), void * context )
+XSCTestArrayRef XSCTestSuiteCreateListOfRunnableTestCases( XSCTestSuiteRef suite, XSCTestArgumentsRef args )
 {
-    if( suite == NULL || func == NULL )
+    XSCTestArrayRef list;
+
+    if( suite == NULL )
     {
-        return;
+        return NULL;
     }
+
+    list = XSCTestArrayCreate();
 
     for( size_t i = 0; i < XSCTestArrayGetCount( suite->tests ); i++ )
     {
@@ -44,9 +48,11 @@ void XSCTestSuiteEnumeratePassedTestCases( XSCTestSuiteRef suite, void ( *func )
 
         testCase = XSCTestArrayGetValueAtIndex( suite->tests, i );
 
-        if( XSCTestCaseGetFailure( testCase ) == NULL )
+        if( XSCTestArgumentsShouldRun( args, XSCTestStringGetCString( suite->name ), XSCTestCaseGetName( testCase ) ) )
         {
-            func( testCase, context );
+            XSCTestArrayAddValue( list, testCase );
         }
     }
+
+    return list;
 }

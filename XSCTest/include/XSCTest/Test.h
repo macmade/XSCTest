@@ -49,10 +49,7 @@ extern "C" {
     size_t          XSCTestGetNumberOfSuites( void );
     size_t          XSCTestGetNumberOfTestCases( void );
     XSCTestSuiteRef XSCTestGetSuiteNamed( const char * name );
-    size_t          XSCTestGetNumberOfPassedTestCases( void );
-    size_t          XSCTestGetNumberOfFailedTestCases( void );
-    void            XSCTestEnumeratePassedTestCases( void ( * )( XSCTestCaseRef, void * ), void * context );
-    void            XSCTestEnumerateFailedTestCases( void ( * )( XSCTestCaseRef, void * ), void * context );
+    XSCTestArrayRef XSCTestCreateListOfRunnableTestCases( XSCTestArgumentsRef args, size_t * suiteCount, size_t * caseCount );
 
 #ifdef __cplusplus
 }

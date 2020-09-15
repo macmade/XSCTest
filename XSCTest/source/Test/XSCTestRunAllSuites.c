@@ -39,19 +39,20 @@ bool XSCTestRunAllSuites( FILE * fh, XSCTestArgumentsRef args )
     size_t              cases;
     XSCTestStringRef    casesString;
     XSCTestStringRef    suitesString;
+    XSCTestArrayRef     tests;
 
     ( void )args;
 
     ret          = true;
     time         = XSCTestStopWatchCreate();
-    suites       = XSCTestGetNumberOfSuites();
-    cases        = XSCTestGetNumberOfTestCases();
+    tests        = XSCTestCreateListOfRunnableTestCases( args, &suites, &cases );
     casesString  = XSCTestCreateNumberedString( "test case", cases );
     suitesString = XSCTestCreateNumberedString( "test suite", suites );
 
     if( suites == 0 || cases == 0 )
     {
         XSCTestLog( fh, XSCTestTermColorNone, XSCTestLogStyleFailure, 0, "No test to run..." );
+        XSCTestArrayDelete( tests );
 
         return false;
     }
@@ -69,7 +70,7 @@ bool XSCTestRunAllSuites( FILE * fh, XSCTestArgumentsRef args )
 
     for( size_t i = 0; i < XSCTestArrayGetCount( XSCTestSuites ); i++ )
     {
-        if( XSCTestSuiteRun( XSCTestArrayGetValueAtIndex( XSCTestSuites, i ), fh ) == false )
+        if( XSCTestSuiteRun( XSCTestArrayGetValueAtIndex( XSCTestSuites, i ), fh, args ) == false )
         {
             ret = false;
         }
@@ -83,8 +84,21 @@ bool XSCTestRunAllSuites( FILE * fh, XSCTestArgumentsRef args )
         XSCTestStringRef passedString;
         XSCTestStringRef failedString;
 
-        passed       = XSCTestGetNumberOfPassedTestCases();
-        failed       = XSCTestGetNumberOfFailedTestCases();
+        passed = 0;
+        failed = 0;
+
+        for( size_t i = 0; i < XSCTestArrayGetCount( tests ); i++ )
+        {
+            if( XSCTestCaseGetFailure( XSCTestArrayGetValueAtIndex( tests, i ) ) == NULL )
+            {
+                passed++;
+            }
+            else
+            {
+                failed++;
+            }
+        }
+
         passedString = XSCTestCreateNumberedString( "test", passed );
         failedString = XSCTestCreateNumberedString( "test", failed );
 
@@ -106,7 +120,17 @@ bool XSCTestRunAllSuites( FILE * fh, XSCTestArgumentsRef args )
             "%s passed:",
             XSCTestStringGetCString( passedString ) );
 
-        XSCTestEnumeratePassedTestCases( XSCTestPrintPassedTestCase, fh );
+        for( size_t i = 0; i < XSCTestArrayGetCount( tests ); i++ )
+        {
+            XSCTestCaseRef testCase;
+
+            testCase = XSCTestArrayGetValueAtIndex( tests, i );
+
+            if( XSCTestCaseGetFailure( testCase ) == NULL )
+            {
+                XSCTestLogTestCase( fh, XSCTestCaseGetSuiteName( testCase ), XSCTestCaseGetName( testCase ), "  - ✅ " );
+            }
+        }
 
         if( failed > 0 )
         {
@@ -118,7 +142,17 @@ bool XSCTestRunAllSuites( FILE * fh, XSCTestArgumentsRef args )
                 "%s failed:",
                 XSCTestStringGetCString( failedString ) );
 
-            XSCTestEnumerateFailedTestCases( XSCTestPrintFailedTestCase, fh );
+            for( size_t i = 0; i < XSCTestArrayGetCount( tests ); i++ )
+            {
+                XSCTestCaseRef testCase;
+
+                testCase = XSCTestArrayGetValueAtIndex( tests, i );
+
+                if( XSCTestCaseGetFailure( testCase ) != NULL )
+                {
+                    XSCTestLogTestCase( fh, XSCTestCaseGetSuiteName( testCase ), XSCTestCaseGetName( testCase ), "  - ❌ " );
+                }
+            }
 
             XSCTestLog( fh, XSCTestTermColorRed, XSCTestLogStyleNone, XSCTestLogOptionNewLineBefore, "TESTING FAILED" );
         }
@@ -134,6 +168,7 @@ bool XSCTestRunAllSuites( FILE * fh, XSCTestArgumentsRef args )
     XSCTestStopWatchDelete( time );
     XSCTestStringDelete( casesString );
     XSCTestStringDelete( suitesString );
+    XSCTestArrayDelete( tests );
 
     return ret;
 }

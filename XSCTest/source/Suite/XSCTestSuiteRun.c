@@ -31,15 +31,25 @@
 #include <XSCTest/XSCTest.h>
 #include <XSCTest/Private/Suite.h>
 
-bool XSCTestSuiteRun( XSCTestSuiteRef suite, FILE * fh )
+bool XSCTestSuiteRun( XSCTestSuiteRef suite, FILE * fh, XSCTestArgumentsRef args )
 {
     bool                ret;
     XSCTestStopWatchRef time;
     size_t              cases;
     XSCTestStringRef    casesString;
+    XSCTestArrayRef     tests;
 
-    if( suite == NULL || XSCTestArrayGetCount( suite->tests ) == 0 )
+    if( suite == NULL )
     {
+        return false;
+    }
+
+    tests = XSCTestSuiteCreateListOfRunnableTestCases( suite, args );
+
+    if( XSCTestArrayGetCount( tests ) == 0 )
+    {
+        XSCTestArrayDelete( tests );
+
         return false;
     }
 
@@ -60,11 +70,11 @@ bool XSCTestSuiteRun( XSCTestSuiteRef suite, FILE * fh )
     XSCTestArrayShuffle( suite->tests );
     XSCTestStopWatchStart( time );
 
-    for( size_t i = 0; i < XSCTestArrayGetCount( suite->tests ); i++ )
+    for( size_t i = 0; i < XSCTestArrayGetCount( tests ); i++ )
     {
         XSCTestCaseRef testCase;
 
-        testCase = XSCTestArrayGetValueAtIndex( suite->tests, i );
+        testCase = XSCTestArrayGetValueAtIndex( tests, i );
 
         if( XSCTestCaseRun( testCase, fh ) == false )
         {
@@ -79,13 +89,14 @@ bool XSCTestSuiteRun( XSCTestSuiteRef suite, FILE * fh )
         XSCTestTermColorNone,
         XSCTestLogStyleNone,
         0,
-        "Running %s from %s ran (%s total)",
+        "%s from %s ran (%s total)",
         XSCTestStringGetCString( casesString ),
         XSCTestStringGetCString( suite->name ),
         XSCTestStopWatchGetString( time ) );
 
     XSCTestStopWatchDelete( time );
     XSCTestStringDelete( casesString );
+    XSCTestArrayDelete( tests );
 
     return ret;
 }
