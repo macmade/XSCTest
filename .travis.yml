@@ -5,4 +5,4 @@ script:
  - make test
  - make example
  - ./Build/Products/test Success
- - ! ./Build/Products/test Failure
+ - "! ./Build/Products/test Failure"
