@@ -33,17 +33,17 @@
 
 bool XSCTestRunAllSuites( FILE * fh, XSCTestArgumentsRef args )
 {
-    bool                ret;
     XSCTestStopWatchRef time;
     size_t              suites;
     size_t              cases;
+    size_t              passed;
+    size_t              failed;
     XSCTestStringRef    casesString;
     XSCTestStringRef    suitesString;
     XSCTestArrayRef     tests;
 
-    ( void )args;
-
-    ret          = true;
+    passed       = 0;
+    failed       = 0;
     time         = XSCTestStopWatchCreate();
     tests        = XSCTestCreateListOfRunnableTestCases( args, &suites, &cases );
     casesString  = XSCTestCreateNumberedString( "test case", cases );
@@ -70,22 +70,14 @@ bool XSCTestRunAllSuites( FILE * fh, XSCTestArgumentsRef args )
 
     for( size_t i = 0; i < XSCTestArrayGetCount( XSCTestSuites ); i++ )
     {
-        if( XSCTestSuiteRun( XSCTestArrayGetValueAtIndex( XSCTestSuites, i ), fh, args ) == false )
-        {
-            ret = false;
-        }
+        XSCTestSuiteRun( XSCTestArrayGetValueAtIndex( XSCTestSuites, i ), fh, args );
     }
 
     XSCTestStopWatchStop( time );
 
     {
-        size_t           passed;
-        size_t           failed;
         XSCTestStringRef passedString;
         XSCTestStringRef failedString;
-
-        passed = 0;
-        failed = 0;
 
         for( size_t i = 0; i < XSCTestArrayGetCount( tests ); i++ )
         {
@@ -170,5 +162,5 @@ bool XSCTestRunAllSuites( FILE * fh, XSCTestArgumentsRef args )
     XSCTestStringDelete( suitesString );
     XSCTestArrayDelete( tests );
 
-    return ret;
+    return failed == 0;
 }
