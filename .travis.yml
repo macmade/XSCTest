@@ -1,3 +1,8 @@
 language: objective-c
 compiler: clang
-script: make
+script:
+ - make
+ - make test
+ - make example
+ - ./Build/Products/test Success
+ - ! ./Build/Products/test Failure
