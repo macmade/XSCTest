@@ -102,7 +102,7 @@ _FILES_EXAMPLE_C_BUILD = $(addprefix $(DIR_BUILD_TEMP),$(_FILES_EXAMPLE_C_OBJ))
 _CC_FLAGS = $(OPTIM) -DDEBUG=1 -gfull
 
 # C compiler
-_CC = $(CC) -Werror -Weverything -Wno-poison-system-directories -std=$(STDC) -I$(DIR_INC) $(_CC_FLAGS)
+_CC = $(CC) -Werror -Wno-unknown-warning-option -Weverything -Wno-poison-system-directories -std=$(STDC) -I$(DIR_INC) $(_CC_FLAGS)
 
 #-------------------------------------------------------------------------------
 # Miscellaneous
