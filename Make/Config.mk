@@ -105,6 +105,19 @@ _CC_FLAGS = $(OPTIM) -DDEBUG=1 -gfull
 _CC = $(CC) -Werror -Weverything -std=$(STDC) -I$(DIR_INC) $(_CC_FLAGS)
 
 #-------------------------------------------------------------------------------
+# Miscellaneous
+#-------------------------------------------------------------------------------
+
+# Host architecture
+_HOST_ARCH := $(shell uname -m)
+
+# Host architecture
+_HOST_OS := $(shell uname -s)
+
+# Current GIT branch
+_BRANCH := $(shell git rev-parse --abbrev-ref HEAD 2>/dev/null)
+
+#-------------------------------------------------------------------------------
 # Display
 #-------------------------------------------------------------------------------
 
@@ -118,13 +131,20 @@ COLOR_BLUE                              := "\x1b[34;01m"
 COLOR_PURPLE                            := "\x1b[35;01m"
 COLOR_CYAN                              := "\x1b[36;01m"
 
+# Platform specific
+ifneq (,$(findstring CYGWIN_NT,$(_HOST_OS)))
+_ECHO_ARGS := -e
+else
+_ECHO_ARGS :=
+endif
+
 # 
 # Prints a message to the standard output
 # 
 # @param    The prompt components
 # @param    The message
 # 
-PRINT = @echo "[ "$(COLOR_CYAN)XSCTest$(COLOR_NONE) "]> [ "$(COLOR_PURPLE)$(MAKELEVEL)$(COLOR_NONE) "]> "$(foreach _P,$(_BRANCH) $(1),"[ "$(COLOR_GREEN)$(_P)$(COLOR_NONE)" ]>")" *** "$(2)
+PRINT = @echo $(_ECHO_ARGS) "[ "$(COLOR_CYAN)XSCTest$(COLOR_NONE) "]> [ "$(COLOR_PURPLE)$(MAKELEVEL)$(COLOR_NONE) "]> "$(foreach _P,$(_BRANCH) $(1),"[ "$(COLOR_GREEN)$(_P)$(COLOR_NONE)" ]>")" *** "$(2)
 
 # 
 # Prints an architecture related message to the standard output
@@ -150,13 +170,3 @@ PRINT_FILE = $(call PRINT_ARCH,$(1),$(2)): $(COLOR_YELLOW)$(subst .$(COLOR_NONE)
 # Make version (version 4 allows parallel builds with output sync) 
 _MAKE_VERSION_MAJOR := $(shell echo $(MAKE_VERSION) | cut -f1 -d.)
 _MAKE_4             := $(shell [ $(_MAKE_VERSION_MAJOR) -ge 4 ] && echo true)
-
-#-------------------------------------------------------------------------------
-# Miscellaneous
-#-------------------------------------------------------------------------------
-
-# Host architecture
-_HOST_ARCH := $(shell uname -m)
-
-# Current GIT branch
-_BRANCH := $(shell git rev-parse --abbrev-ref HEAD 2>/dev/null)
