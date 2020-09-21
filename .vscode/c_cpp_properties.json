@@ -1,19 +1,30 @@
 {
     "configurations": [
         {
-            "name": "XSCTest",
+            "name": "Mac",
             "includePath": [
                 "${workspaceFolder}/XSCTest/include/"
             ],
-            "forcedInclude": [],
             "defines": [
                 "DEBUG=1"
             ],
-            "macFrameworkPath": [],
             "compilerPath": "/usr/bin/clang",
             "cStandard": "c11",
             "cppStandard": "c++17",
             "intelliSenseMode": "clang-x64"
+        },
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/XSCTest/include/"
+            ],
+            "defines": [
+                "DEBUG=1"
+            ],
+            "compilerPath": "${default}",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "msvc-x64"
         }
     ],
     "version": 4
