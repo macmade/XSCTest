@@ -117,6 +117,10 @@ _HOST_OS := $(shell uname -s)
 # Current GIT branch
 _BRANCH := $(shell git rev-parse --abbrev-ref HEAD 2>/dev/null)
 
+ifneq (,$(findstring CYGWIN_NT,$(_HOST_OS)))
+_OS_CYGWIN := 1
+endif
+
 #-------------------------------------------------------------------------------
 # Display
 #-------------------------------------------------------------------------------
@@ -132,7 +136,7 @@ COLOR_PURPLE                            := "\x1b[35;01m"
 COLOR_CYAN                              := "\x1b[36;01m"
 
 # Platform specific
-ifneq (,$(findstring CYGWIN_NT,$(_HOST_OS)))
+ifdef _OS_CYGWIN
 _ECHO_ARGS := -e
 else
 _ECHO_ARGS :=
