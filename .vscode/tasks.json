@@ -4,18 +4,10 @@
         {
             "type": "shell",
             "label": "Make - Build All Targets",
-            "osx": {
-                "command": "make",
-                "args": [
-                    "all",
-                ],
-            },
-            "windows": {
-                "command": "make",
-                "args": [
-                    "all",
-                ],
-            },
+            "command": "make",
+            "args": [
+                "all",
+            ],
             "options": {
                 "cwd": "${workspaceFolder}"
             },
@@ -27,14 +19,8 @@
         {
             "type": "shell",
             "label": "Make - Rebuild All Targets",
-            "osx": {
-                "command": "make clean && make all",
-                "args": [],
-            },
-            "windows": {
-                "command": "make clean && make all",
-                "args": [],
-            },
+            "command": "make clean && make all",
+            "args": [],
             "options": {
                 "cwd": "${workspaceFolder}"
             },
@@ -46,18 +32,10 @@
         {
             "type": "shell",
             "label": "Make - Clean",
-            "osx": {
-                "command": "make",
-                "args": [
-                    "clean"
-                ],
-            },
-            "windows": {
-                "command": "make",
-                "args": [
-                    "clean"
-                ],
-            },
+            "command": "make",
+            "args": [
+                "clean"
+            ],
             "options": {
                 "cwd": "${workspaceFolder}"
             },
@@ -69,18 +47,10 @@
         {
             "type": "shell",
             "label": "Make - Test",
-            "osx": {
-                "command": "make",
-                "args": [
-                    "test"
-                ],
-            },
-            "windows": {
-                "command": "make",
-                "args": [
-                    "test"
-                ],
-            },
+            "command": "make",
+            "args": [
+                "test"
+            ],
             "options": {
                 "cwd": "${workspaceFolder}"
             },
@@ -92,18 +62,10 @@
         {
             "type": "shell",
             "label": "Make - Example",
-            "osx": {
-                "command": "make",
-                "args": [
-                    "example"
-                ],
-            },
-            "windows": {
-                "command": "make",
-                "args": [
-                    "example"
-                ],
-            },
+            "command": "make",
+            "args": [
+                "example"
+            ],
             "options": {
                 "cwd": "${workspaceFolder}"
             },
