@@ -95,16 +95,6 @@ _FILES_TEST_C_BUILD    = $(addprefix $(DIR_BUILD_TEMP),$(_FILES_TEST_C_OBJ))
 _FILES_EXAMPLE_C_BUILD = $(addprefix $(DIR_BUILD_TEMP),$(_FILES_EXAMPLE_C_OBJ))
 
 #-------------------------------------------------------------------------------
-# Commands configuration
-#-------------------------------------------------------------------------------
-
-# Build flags
-_CC_FLAGS = $(OPTIM) -DDEBUG=1 -gfull
-
-# C compiler
-_CC = $(CC) -Werror -Wno-unknown-warning-option -Weverything -Wno-poison-system-directories -std=$(STDC) -I$(DIR_INC) $(_CC_FLAGS)
-
-#-------------------------------------------------------------------------------
 # Miscellaneous
 #-------------------------------------------------------------------------------
 
@@ -119,6 +109,24 @@ _BRANCH := $(shell git rev-parse --abbrev-ref HEAD 2>/dev/null)
 
 ifneq (,$(findstring CYGWIN_NT,$(_HOST_OS)))
 _OS_CYGWIN := 1
+endif
+
+#-------------------------------------------------------------------------------
+# Commands configuration
+#-------------------------------------------------------------------------------
+
+ifdef _OS_CYGWIN
+
+_CC = Make/cl.bat
+
+else
+
+# Build flags
+_CC_FLAGS = $(OPTIM) -DDEBUG=1 -gfull
+
+# C compiler
+_CC = $(CC) -Werror -Wno-unknown-warning-option -Weverything -Wno-poison-system-directories -std=$(STDC) -I$(DIR_INC) $(_CC_FLAGS)
+
 endif
 
 #-------------------------------------------------------------------------------
