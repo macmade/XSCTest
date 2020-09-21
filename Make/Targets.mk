@@ -75,6 +75,8 @@ test: build $$(_FILES_TEST_C_BUILD)
 
 	$(call PRINT_ARCH,$(_HOST_ARCH),"Creating test executable"): $(COLOR_BLUE)$(notdir $(_EXEC))$(COLOR_NONE)
 	@$(_CC) -o $(_EXEC) -L $(DIR_BUILD_PRODUCTS) -lxsctest $(_FILES_TEST_C_BUILD)
+	@! $(DIR_BUILD_PRODUCTS)test Failure
+	@$(DIR_BUILD_PRODUCTS)test Success
 
 # Example executable
 example: _EXEC = $(DIR_BUILD_PRODUCTS)example
