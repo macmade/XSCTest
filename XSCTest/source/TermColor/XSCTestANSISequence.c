@@ -44,4 +44,8 @@ const char * XSCTestANSISequence( XSCTestTermColor foreground )
         case XSCTestTermColorCyan: return "\033[36m";
         case XSCTestTermColorWhite: return "\033[37m";
     }
+
+    #ifdef _WIN32
+    return "";
+    #endif
 }
