@@ -34,6 +34,7 @@
 #include <stddef.h>
 #include <stdarg.h>
 #include <stdbool.h>
+#include <XSCTest/Compiler-Support.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -42,14 +43,14 @@ extern "C" {
     typedef struct XSCTestString * XSCTestStringRef;
 
     XSCTestStringRef XSCTestStringCreateWithCString( const char * s );
-    XSCTestStringRef XSCTestStringCreateWithFormat( const char * fmt, ... ) __attribute__( ( format( printf, 1, 2 ) ) );
+    XSCTestStringRef XSCTestStringCreateWithFormat( const char * fmt, ... ) XSCTEST_ATTRIBUTE_FORMAT( 1, 2 );
     XSCTestStringRef XSCTestStringCreateWithFormatAndArgs( const char * fmt, va_list ap );
     void             XSCTestStringDelete( XSCTestStringRef string );
     size_t           XSCTestStringGetLength( XSCTestStringRef string );
     const char *     XSCTestStringGetCString( XSCTestStringRef string );
     void             XSCTestStringAppendString( XSCTestStringRef string, XSCTestStringRef append );
     void             XSCTestStringAppendCString( XSCTestStringRef string, const char * append );
-    void             XSCTestStringAppendFormat( XSCTestStringRef string, const char * fmt, ... ) __attribute__( ( format( printf, 2, 3 ) ) );
+    void             XSCTestStringAppendFormat( XSCTestStringRef string, const char * fmt, ... ) XSCTEST_ATTRIBUTE_FORMAT( 2, 3 );
     void             XSCTestStringAppendFormatAndArgs( XSCTestStringRef string, const char * fmt, va_list ap );
     bool             XSCTestStringIsEqualToString( XSCTestStringRef string, XSCTestStringRef other );
     bool             XSCTestStringIsEqualToCString( XSCTestStringRef string, const char * other );

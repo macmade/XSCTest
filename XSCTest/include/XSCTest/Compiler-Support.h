@@ -23,42 +23,18 @@
  ******************************************************************************/
 
 /*!
- * @header      TermColor.h
+ * @header      Compiler-Support.h
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#ifndef XSCTEST_TERM_COLOR_H
-#define XSCTEST_TERM_COLOR_H
+#ifndef XSCTEST_COMPILER_SUPPORT_H
+#define XSCTEST_COMPILER_SUPPORT_H
 
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <XSCTest/Compiler-Support.h>
-
-#ifdef __cplusplus
-extern "C" {
+#ifdef _WIN32
+#define XSCTEST_ATTRIBUTE_FORMAT( _a_, _b_ )
+#else
+#define XSCTEST_ATTRIBUTE_FORMAT( _a_, _b_ ) __attribute__( ( format( printf, _a_, _b_ ) ) )
 #endif
 
-    typedef enum
-    {
-        XSCTestTermColorNone,
-        XSCTestTermColorGray,
-        XSCTestTermColorRed,
-        XSCTestTermColorGreen,
-        XSCTestTermColorYellow,
-        XSCTestTermColorBlue,
-        XSCTestTermColorMagenta,
-        XSCTestTermColorCyan,
-        XSCTestTermColorWhite
-    } XSCTestTermColor;
-
-    bool         XSCTestSupportsANSISequences( FILE * fh );
-    const char * XSCTestANSISequence( XSCTestTermColor foreground );
-    void         XSCTestColorPrint( FILE * fh, XSCTestTermColor foreground, const char * fmt, ... ) XSCTEST_ATTRIBUTE_FORMAT( 3, 4 );
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* XSCTEST_TERM_COLOR_H */
+#endif /* XSCTEST_COMPILER_SUPPORT_H */
