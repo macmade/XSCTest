@@ -32,13 +32,19 @@
 #include <XSCTest/Private/StopWatch.h>
 #include <time.h>
 #include <string.h>
-#include <sys/time.h>
 #include <stdlib.h>
+
+#ifdef _WIN32
+#pragma warning( push )
+#pragma warning( disable : 5105 )
+#include <Windows.h>
+#pragma warning( pop )
+#else
+#include <sys/time.h>
+#endif
 
 void XSCTestStopWatchStart( XSCTestStopWatchRef watch )
 {
-    struct timeval tv;
-
     if( watch == NULL )
     {
         return;
@@ -50,8 +56,18 @@ void XSCTestStopWatchStart( XSCTestStopWatchRef watch )
     watch->end    = 0;
     watch->status = XSCTestStopWatchStatusStarted;
 
-    gettimeofday( &tv, NULL );
+    #ifdef _WIN32
 
-    watch->start = ( uint64_t )( tv.tv_sec * 1000 );
-    watch->start += ( uint64_t )( tv.tv_usec / 1000 );
+
+    
+    #else
+    {
+        struct timeval tv;
+
+        gettimeofday( &tv, NULL );
+
+        watch->start = ( uint64_t )( tv.tv_sec * 1000 );
+        watch->start += ( uint64_t )( tv.tv_usec / 1000 );
+    }
+    #endif
 }
