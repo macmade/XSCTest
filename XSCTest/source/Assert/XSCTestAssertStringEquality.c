@@ -41,7 +41,11 @@ bool XSCTestAssertStringEquality( XSCTestFailureRef * failure, const char * cp1,
     }
     else if( caseInsensitive )
     {
+        #ifdef _WIN32
+        result = _stricmp( cp1, cp2 ) == 0;
+        #else
         result = strcasecmp( cp1, cp2 ) == 0;
+        #endif
     }
     else
     {
