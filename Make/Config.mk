@@ -23,6 +23,20 @@
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
+# Platform
+#-------------------------------------------------------------------------------
+
+# Host architecture
+_HOST_ARCH := $(shell uname -m)
+
+# Host architecture
+_HOST_OS := $(shell uname -s)
+
+ifneq (,$(findstring CYGWIN_NT,$(_HOST_OS)))
+_OS_CYGWIN := 1
+endif
+
+#-------------------------------------------------------------------------------
 # Paths
 #-------------------------------------------------------------------------------
 
@@ -41,6 +55,12 @@ DIR_INC         := $(DIR)XSCTest/include/
 DIR_SRC         := $(DIR)XSCTest/source/
 DIR_TEST_SRC    := $(DIR)Test/source/
 DIR_EXAMPLE_SRC := $(DIR)Example/source/
+
+ifdef _OS_CYGWIN
+
+_WIN_PATH = $(shell cygpath -w $1)
+
+endif
 
 #-------------------------------------------------------------------------------
 # Search paths
@@ -95,28 +115,12 @@ _FILES_TEST_C_BUILD    = $(addprefix $(DIR_BUILD_TEMP),$(_FILES_TEST_C_OBJ))
 _FILES_EXAMPLE_C_BUILD = $(addprefix $(DIR_BUILD_TEMP),$(_FILES_EXAMPLE_C_OBJ))
 
 #-------------------------------------------------------------------------------
-# Miscellaneous
-#-------------------------------------------------------------------------------
-
-# Host architecture
-_HOST_ARCH := $(shell uname -m)
-
-# Host architecture
-_HOST_OS := $(shell uname -s)
-
-# Current GIT branch
-_BRANCH := $(shell git rev-parse --abbrev-ref HEAD 2>/dev/null)
-
-ifneq (,$(findstring CYGWIN_NT,$(_HOST_OS)))
-_OS_CYGWIN := 1
-endif
-
-#-------------------------------------------------------------------------------
 # Commands configuration
 #-------------------------------------------------------------------------------
 
 ifdef _OS_CYGWIN
 
+# C compiler
 _CC = Make/cl.bat
 
 else
@@ -183,3 +187,10 @@ PRINT_FILE = $(call PRINT_ARCH,$(1),$(2)): $(COLOR_YELLOW)$(subst .$(COLOR_NONE)
 # Make version (version 4 allows parallel builds with output sync) 
 _MAKE_VERSION_MAJOR := $(shell echo $(MAKE_VERSION) | cut -f1 -d.)
 _MAKE_4             := $(shell [ $(_MAKE_VERSION_MAJOR) -ge 4 ] && echo true)
+
+#-------------------------------------------------------------------------------
+# Miscellaneous
+#-------------------------------------------------------------------------------
+
+# Current GIT branch
+_BRANCH := $(shell git rev-parse --abbrev-ref HEAD 2>/dev/null)
