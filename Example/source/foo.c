@@ -29,7 +29,6 @@
  */
 
 #include <XSCTest/XSCTest.h>
-#include <unistd.h>
 
 static const char * GetString1( void );
 static const char * GetString1( void )
@@ -45,12 +44,10 @@ static const char * GetString2( void )
 
 Test( Foo, Test1 )
 {
-    usleep( 10000 );
     AssertStringNotEqual( GetString1(), GetString2() );
 }
 
 Test( Foo, Test2 )
 {
-    usleep( 10000 );
     AssertStringEqual( GetString1(), GetString2() );
 }

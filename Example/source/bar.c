@@ -29,7 +29,6 @@
  */
 
 #include <XSCTest/XSCTest.h>
-#include <unistd.h>
 
 static bool GetBool1( void );
 static bool GetBool1( void )
@@ -45,12 +44,10 @@ static bool GetBool2( void )
 
 Test( Bar, Test1 )
 {
-    usleep( 10000 );
     AssertTrue( GetBool1() );
 }
 
 Test( Bar, Test2 )
 {
-    usleep( 10000 );
     AssertTrue( GetBool2() );
 }
