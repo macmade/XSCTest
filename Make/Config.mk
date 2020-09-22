@@ -80,10 +80,20 @@ vpath %$(EXT_C) $(DIR_EXAMPLE_SRC)
 #-------------------------------------------------------------------------------
 
 # File extensions
-EXT_C         := .c
-EXT_H         := .h
-EXT_O         := .o
-EXT_LIB       := .a
+EXT_C := .c
+EXT_H := .h
+
+ifdef _OS_CYGWIN
+
+EXT_O   := .obj
+EXT_LIB := .lib
+
+else
+
+EXT_O   := .o
+EXT_LIB := .a
+
+endif
 
 # Adds the suffixes used in this file
 .SUFFIXES: $(EXT_C) $(EXT_H) $(EXT_O)
