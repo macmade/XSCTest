@@ -122,10 +122,11 @@ _CC = Make/cl.bat
 else
 
 # Build flags
-_CC_FLAGS = $(OPTIM) -DDEBUG=1 -gfull
+CC_FLAGS_WARN  := -Werror -Weverything -Wno-unknown-warning-option -Wno-poison-system-directories
+CC_FLAGS_DEBUG := -O0 -DDEBUG=1 -gfull
 
 # C compiler
-_CC = $(CC) -Werror -Wno-unknown-warning-option -Weverything -Wno-poison-system-directories -std=$(STDC) -I$(DIR_INC) $(_CC_FLAGS)
+_CC = $(CC) $(CC_FLAGS_WARN) $(CC_FLAGS_DEBUG) -std=$(STDC) -I$(DIR_INC)
 
 endif
 

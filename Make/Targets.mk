@@ -74,7 +74,11 @@ test: _EXEC = $(DIR_BUILD_PRODUCTS)test
 test: build $$(_FILES_TEST_C_BUILD)
 
 	$(call PRINT_ARCH,$(_HOST_ARCH),"Creating test executable"): $(COLOR_BLUE)$(notdir $(_EXEC))$(COLOR_NONE)
+ifdef _OS_CYGWIN
+	@:
+else
 	@$(_CC) -o $(_EXEC) -L $(DIR_BUILD_PRODUCTS) -lxsctest $(_FILES_TEST_C_BUILD)
+endif
 	@! $(DIR_BUILD_PRODUCTS)test Failure
 	@$(DIR_BUILD_PRODUCTS)test Success
 
@@ -83,7 +87,11 @@ example: _EXEC = $(DIR_BUILD_PRODUCTS)example
 example: build $$(_FILES_EXAMPLE_C_BUILD)
 
 	$(call PRINT_ARCH,$(_HOST_ARCH),"Creating example executable"): $(COLOR_BLUE)$(notdir $(_EXEC))$(COLOR_NONE)
+ifdef _OS_CYGWIN
+	@:
+else
 	@$(_CC) -o $(_EXEC) -L $(DIR_BUILD_PRODUCTS) -lxsctest $(_FILES_EXAMPLE_C_BUILD)
+endif
 	@! $(DIR_BUILD_PRODUCTS)example
 
 # Static library
@@ -93,13 +101,25 @@ lib: $$(_FILES_C_BUILD)
 
 	$(call PRINT_ARCH,$(_HOST_ARCH),"Linking object files"): $(COLOR_BLUE)$(notdir $(_OBJ))$(COLOR_NONE)
 	@rm -f $(_OBJ)
+ifdef _OS_CYGWIN
+	@:
+else
 	@ld -r $(_FILES_C_BUILD) -o $(_OBJ)
+endif
 	
 	$(call PRINT_ARCH,$(_HOST_ARCH),"Creating static library"): $(COLOR_BLUE)$(notdir $(_LIB))$(COLOR_NONE)
+ifdef _OS_CYGWIN
+	@:
+else
 	@libtool -static -o $(_LIB) $(_OBJ)
+endif
 
 # Target: Object file
 $(DIR_BUILD_TEMP)%$(EXT_O): $$(shell mkdir -p $$(dir $$@)) %$(EXT_C)
 	
 	$(call PRINT_FILE,$(_HOST_ARCH),"Compiling C file",$<)
+ifdef _OS_CYGWIN
+	@:
+else
 	@$(_CC) -o $@ -c $(abspath $<)
+endif

@@ -31,7 +31,6 @@ include Make/Targets.mk
 
 CC      := clang
 PRODUCT := libxsctest
-OPTIM   := -O0
 STDC    := c11
 
 #-------------------------------------------------------------------------------
