@@ -11,9 +11,12 @@
             "options": {
                 "cwd": "${workspaceFolder}"
             },
-            "problemMatcher": [
-                "$gcc"
-            ],
+            "windows": {
+                "problemMatcher": "$msCompile"
+            },
+            "osx": {
+                "problemMatcher": "$gcc"
+            },
             "group": "build"
         },
         {
@@ -24,9 +27,12 @@
             "options": {
                 "cwd": "${workspaceFolder}"
             },
-            "problemMatcher": [
-                "$gcc"
-            ],
+            "windows": {
+                "problemMatcher": "$msCompile"
+            },
+            "osx": {
+                "problemMatcher": "$gcc"
+            },
             "group": "build"
         },
         {
@@ -39,9 +45,12 @@
             "options": {
                 "cwd": "${workspaceFolder}"
             },
-            "problemMatcher": [
-                "$gcc"
-            ],
+            "windows": {
+                "problemMatcher": "$msCompile"
+            },
+            "osx": {
+                "problemMatcher": "$gcc"
+            },
             "group": "build"
         },
         {
@@ -54,9 +63,12 @@
             "options": {
                 "cwd": "${workspaceFolder}"
             },
-            "problemMatcher": [
-                "$gcc"
-            ],
+            "windows": {
+                "problemMatcher": "$msCompile"
+            },
+            "osx": {
+                "problemMatcher": "$gcc"
+            },
             "group": "build"
         },
         {
@@ -69,9 +81,12 @@
             "options": {
                 "cwd": "${workspaceFolder}"
             },
-            "problemMatcher": [
-                "$gcc"
-            ],
+            "windows": {
+                "problemMatcher": "$msCompile"
+            },
+            "osx": {
+                "problemMatcher": "$gcc"
+            },
             "group": "build"
         }
     ]
