@@ -33,6 +33,15 @@
 
 #include <stdint.h>
 
+#ifdef _WIN32
+#pragma warning( push )
+#pragma warning( disable : 5105 )
+#include <Windows.h>
+#pragma warning( pop )
+#else
+#include <sys/time.h>
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -55,6 +64,11 @@ extern "C" {
         uint64_t               start;
         uint64_t               end;
         char *                 string;
+
+        #ifdef _WIN32
+        LARGE_INTEGER freq;
+        BOOL          useQPC;
+        #endif
     };
 
 #ifdef __clang__

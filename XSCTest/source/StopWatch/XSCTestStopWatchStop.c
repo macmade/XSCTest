@@ -33,15 +33,6 @@
 #include <time.h>
 #include <string.h>
 
-#ifdef _WIN32
-#pragma warning( push )
-#pragma warning( disable : 5105 )
-#include <Windows.h>
-#pragma warning( pop )
-#else
-#include <sys/time.h>
-#endif
-
 void XSCTestStopWatchStop( XSCTestStopWatchRef watch )
 {
     if( watch == NULL || watch->status != XSCTestStopWatchStatusStarted )
@@ -52,9 +43,20 @@ void XSCTestStopWatchStop( XSCTestStopWatchRef watch )
     watch->status = XSCTestStopWatchStatusStopped;
 
     #ifdef _WIN32
+    {
+        if( watch->useQPC )
+        {
+            LARGE_INTEGER t;
 
+            QueryPerformanceCounter( &t );
 
-    
+            watch->end = ( uint64_t )( ( t.QuadPart * 1000LL ) / watch->freq.QuadPart );
+        }
+        else
+        {
+            watch->end = GetTickCount64();
+        }
+    }
     #else
     {
         struct timeval tv;
