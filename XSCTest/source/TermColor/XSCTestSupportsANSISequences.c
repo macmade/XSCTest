@@ -29,6 +29,18 @@
  */
 
 #include <XSCTest/XSCTest.h>
+
+#ifdef _WIN32
+
+bool XSCTestSupportsANSISequences( FILE * fh )
+{
+    ( void )fh;
+
+    return false;
+}
+
+#else
+
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -50,3 +62,5 @@ bool XSCTestSupportsANSISequences( FILE * fh )
 
     return false;
 }
+
+#endif
