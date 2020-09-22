@@ -95,23 +95,14 @@ endif
 	@! $(DIR_BUILD_PRODUCTS)example
 
 # Static library
-lib: _OBJ = $(DIR_BUILD_TEMP)XSCTest$(EXT_O)
 lib: _LIB = $(DIR_BUILD_PRODUCTS)$(PRODUCT)$(EXT_LIB)
 lib: $$(_FILES_C_BUILD)
-
-	$(call PRINT_ARCH,$(_HOST_ARCH),"Linking object files"): $(COLOR_BLUE)$(notdir $(_OBJ))$(COLOR_NONE)
-	@rm -f $(_OBJ)
-ifdef _OS_CYGWIN
-	@:
-else
-	@ld -r $(_FILES_C_BUILD) -o $(_OBJ)
-endif
 	
 	$(call PRINT_ARCH,$(_HOST_ARCH),"Creating static library"): $(COLOR_BLUE)$(notdir $(_LIB))$(COLOR_NONE)
 ifdef _OS_CYGWIN
-	@:
+	@Make/lib.bat /NOLOGO /OUT:$(_LIB) $(_FILES_C_BUILD)
 else
-	@libtool -static -o $(_LIB) $(_OBJ)
+	@libtool -static -o $(_LIB) $(_FILES_C_BUILD)
 endif
 
 # Target: Object file
