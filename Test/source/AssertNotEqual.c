@@ -29,19 +29,16 @@
  */
 
 #include <XSCTest/XSCTest.h>
-#include <unistd.h>
+#include "Functions.h"
 
 Test( Success, AssertNotEqual_Int )
 {
-    usleep( 10000 );
-
+    TestSleep();
     AssertNotEqual( 1 + 1, 1 );
 }
 
 Test( Failure, AssertNotEqual_Int )
 {
-    usleep( 10000 );
-
+    TestSleep();
     AssertNotEqual( 1 + 1, 2 );
 }
-

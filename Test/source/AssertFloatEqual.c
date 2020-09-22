@@ -29,21 +29,19 @@
  */
 
 #include <XSCTest/XSCTest.h>
-#include <unistd.h>
+#include "Functions.h"
 #include <math.h>
 #include <float.h>
 
 Test( Success, AssertFloatEqual )
 {
-    usleep( 10000 );
-
+    TestSleep();
     AssertEqual( 0.1f, 0.1f );
 }
 
 Test( Success, AssertFloatNotEqual )
 {
-    usleep( 10000 );
-
+    TestSleep();
     AssertNotEqual( 0.1f, 0.2f );
 }
 
@@ -56,7 +54,7 @@ Test( Success, AssertFloatEqual_NextAfter )
     int32_t i2 = *( ( int32_t * )&f2 );
     int32_t i3 = *( ( int32_t * )&f3 );
 
-    usleep( 10000 );
+    TestSleep();
 
     AssertNotEqual( i1, i2 );
     AssertNotEqual( i1, i3 );
@@ -75,7 +73,7 @@ Test( Success, AssertFloatEqual_NextToward )
     int32_t i2 = *( ( int32_t * )&f2 );
     int32_t i3 = *( ( int32_t * )&f3 );
 
-    usleep( 10000 );
+    TestSleep();
 
     AssertNotEqual( i1, i2 );
     AssertNotEqual( i1, i3 );
@@ -87,35 +85,30 @@ Test( Success, AssertFloatEqual_NextToward )
 
 Test( Success, AssertFloatEqual_INF )
 {
-    usleep( 10000 );
-
+    TestSleep();
     AssertEqual( HUGE_VAL, HUGE_VAL );
 }
 
 Test( Failure, AssertFloatNotEqual )
 {
-    usleep( 10000 );
-
+    TestSleep();
     AssertNotEqual( 0.1f, 0.1f );
 }
 
 Test( Failure, AssertFloatEqual_NAN )
 {
-    usleep( 10000 );
-
+    TestSleep();
     AssertEqual( NAN, NAN );
 }
 
 Test( Failure, AssertFloatEqual_Sign )
 {
-    usleep( 10000 );
-
+    TestSleep();
     AssertEqual( 0.1f, -0.1f );
 }
 
 Test( Failure, AssertFloatEqual_Epsilon )
 {
-    usleep( 10000 );
-
+    TestSleep();
     AssertEqual( 0.1f, 0.1f + FLT_EPSILON );
 }

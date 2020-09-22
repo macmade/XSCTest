@@ -29,25 +29,22 @@
  */
 
 #include <XSCTest/XSCTest.h>
-#include <unistd.h>
+#include "Functions.h"
 
 Test( Success, AssertStringEqual )
 {
-    usleep( 10000 );
-
+    TestSleep();
     AssertStringEqual( "foo", "foo" );
 }
 
 Test( Failure, AssertStringEqual )
 {
-    usleep( 10000 );
-
+    TestSleep();
     AssertStringEqual( "foo", "bar" );
 }
 
 Test( Failure, AssertStringEqual_CaseSensitive )
 {
-    usleep( 10000 );
-
+    TestSleep();
     AssertStringEqual( "foo", "FOO" );
 }

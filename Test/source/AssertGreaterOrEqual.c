@@ -29,25 +29,22 @@
  */
 
 #include <XSCTest/XSCTest.h>
-#include <unistd.h>
+#include "Functions.h"
 
 Test( Success, AssertGreaterOrEqual_Greater )
 {
-    usleep( 10000 );
-
+    TestSleep();
     AssertGreaterOrEqual( 1 + 1, 1 );
 }
 
 Test( Success, AssertGreaterOrEqual_Equal )
 {
-    usleep( 10000 );
-
+    TestSleep();
     AssertGreaterOrEqual( 1 + 1, 2 );
 }
 
 Test( Failure, AssertGreaterOrEqual )
 {
-    usleep( 10000 );
-
+    TestSleep();
     AssertGreaterOrEqual( 1 + 1, 3 );
 }

@@ -29,18 +29,16 @@
  */
 
 #include <XSCTest/XSCTest.h>
-#include <unistd.h>
+#include "Functions.h"
 
 Test( Success, AssertStringEqualCaseInsensitive )
 {
-    usleep( 10000 );
-
+    TestSleep();
     AssertStringEqualCaseInsensitive( "foo", "FOO" );
 }
 
 Test( Failure, AssertStringEqualCaseInsensitive )
 {
-    usleep( 10000 );
-
+    TestSleep();
     AssertStringEqualCaseInsensitive( "foo", "bar" );
 }

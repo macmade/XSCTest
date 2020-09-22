@@ -29,18 +29,16 @@
  */
 
 #include <XSCTest/XSCTest.h>
-#include <unistd.h>
+#include "Functions.h"
 
 Test( Success, AssertTrue )
 {
-    usleep( 10000 );
-
+    TestSleep();
     AssertTrue( true == true );
 }
 
 Test( Failure, AssertTrue )
 {
-    usleep( 10000 );
-
+    TestSleep();
     AssertTrue( true == false );
 }

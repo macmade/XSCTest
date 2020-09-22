@@ -29,18 +29,16 @@
  */
 
 #include <XSCTest/XSCTest.h>
-#include <unistd.h>
+#include "Functions.h"
 
 Test( Success, AssertGreater )
 {
-    usleep( 10000 );
-
+    TestSleep();
     AssertGreater( 1 + 1, 1 );
 }
 
 Test( Failure, AssertGreater )
 {
-    usleep( 10000 );
-
+    TestSleep();
     AssertGreater( 1 + 1, 3 );
 }

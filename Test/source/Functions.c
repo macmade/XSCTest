@@ -23,28 +23,28 @@
  ******************************************************************************/
 
 /*!
- * @file        AssertLessOrEqual.c
+ * @file        Functions.c
  * @copyright   (c) 2020 - Jean-David Gadina - www.xs-labs.com
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#include <XSCTest/XSCTest.h>
 #include "Functions.h"
 
-Test( Success, AssertLessOrEqual_Less )
+#ifdef _WIN32
+#include <Windows.h>
+
+void TestSleep( void )
 {
-    TestSleep();
-    AssertLessOrEqual( 1 + 1, 3 );
+    Sleep( 10 );
 }
 
-Test( Success, AssertLessOrEqual_Equal )
+#else
+
+#include <unistd.h>
+
+void TestSleep( void )
 {
-    TestSleep();
-    AssertLessOrEqual( 1 + 1, 2 );
+    usleep( 10000 );
 }
 
-Test( Failure, AssertLessOrEqual )
-{
-    TestSleep();
-    AssertLessOrEqual( 1 + 1, 1 );
-}
+#endif
