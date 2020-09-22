@@ -119,7 +119,7 @@ $(DIR_BUILD_TEMP)%$(EXT_O): $$(shell mkdir -p $$(dir $$@)) %$(EXT_C)
 	
 	$(call PRINT_FILE,$(_HOST_ARCH),"Compiling C file",$<)
 ifdef _OS_CYGWIN
-	@:
+	@$(_CC) /c $(call _WIN_PATH,$(abspath $<)) /Fo$(call _WIN_PATH,$(abspath $@))
 else
 	@$(_CC) -o $@ -c $(abspath $<)
 endif

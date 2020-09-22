@@ -130,14 +130,18 @@ _FILES_EXAMPLE_C_BUILD = $(addprefix $(DIR_BUILD_TEMP),$(_FILES_EXAMPLE_C_OBJ))
 
 ifdef _OS_CYGWIN
 
+# Build flags
+CC_FLAGS_WARN  := /W4 /WX
+CC_FLAGS_DEBUG := /Od /sdl
+
 # C compiler
-_CC = Make/cl.bat
+_CC = Make/cl.bat /nologo /utf-8 $(CC_FLAGS_WARN) $(CC_FLAGS_DEBUG) /std:$(STDC) /I $(call _WIN_PATH,$(abspath $(DIR_INC)))
 
 else
 
 # Build flags
 CC_FLAGS_WARN  := -Werror -Weverything -Wno-unknown-warning-option -Wno-poison-system-directories
-CC_FLAGS_DEBUG := -O0 -DDEBUG=1 -gfull
+CC_FLAGS_DEBUG := -O0 -gfull
 
 # C compiler
 _CC = $(CC) $(CC_FLAGS_WARN) $(CC_FLAGS_DEBUG) -std=$(STDC) -I$(DIR_INC)
