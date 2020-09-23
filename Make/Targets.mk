@@ -75,7 +75,7 @@ test: build $$(_FILES_TEST_C_BUILD)
 
 	$(call PRINT_ARCH,$(_HOST_ARCH),"Creating test executable"): $(COLOR_BLUE)$(notdir $(_EXEC))$(COLOR_NONE)
 ifdef _OS_CYGWIN
-	@$(_CC) $(foreach _F,$(_FILES_TEST_C_BUILD),$(call _WIN_PATH,$(_F))) /Fe$(call _WIN_PATH,$(_EXEC)) /LIBPATH:$(call _WIN_PATH,$(DIR_BUILD_PRODUCTS)) xsctest$(EXT_LIB)
+	@Make/lib.bat /NOLOGO /WX $(foreach _F,$(_FILES_TEST_C_BUILD),$(call _WIN_PATH,$(_F))) /OUT:$(call _WIN_PATH,$(_EXEC)) /LIBPATH:$(call _WIN_PATH,$(DIR_BUILD_PRODUCTS)) xsctest$(EXT_LIB)
 else
 	@$(_CC) -o $(_EXEC) -L $(DIR_BUILD_PRODUCTS) -lxsctest $(_FILES_TEST_C_BUILD)
 endif
@@ -88,7 +88,7 @@ example: build $$(_FILES_EXAMPLE_C_BUILD)
 
 	$(call PRINT_ARCH,$(_HOST_ARCH),"Creating example executable"): $(COLOR_BLUE)$(notdir $(_EXEC))$(COLOR_NONE)
 ifdef _OS_CYGWIN
-	@$(_CC) $(foreach _F,$(_FILES_EXAMPLE_C_BUILD),$(call _WIN_PATH,$(_F))) /Fe$(call _WIN_PATH,$(_EXEC)) /LIBPATH:$(call _WIN_PATH,$(DIR_BUILD_PRODUCTS)) xsctest$(EXT_LIB)
+	@Make/lib.bat /NOLOGO /WX $(foreach _F,$(_FILES_EXAMPLE_C_BUILD),$(call _WIN_PATH,$(_F))) /OUT:$(call _WIN_PATH,$(_EXEC)) /LIBPATH:$(call _WIN_PATH,$(DIR_BUILD_PRODUCTS)) xsctest$(EXT_LIB)
 else
 	@$(_CC) -o $(_EXEC) -L $(DIR_BUILD_PRODUCTS) -lxsctest $(_FILES_EXAMPLE_C_BUILD)
 endif
