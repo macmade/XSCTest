@@ -36,6 +36,14 @@ ifneq (,$(findstring CYGWIN_NT,$(_HOST_OS)))
 _OS_CYGWIN := 1
 endif
 
+ifneq (,$(findstring Linux,$(_HOST_OS)))
+_OS_LINUX := 1
+endif
+
+ifneq (,$(findstring Darwin,$(_HOST_OS)))
+_OS_DARWIN := 1
+endif
+
 #-------------------------------------------------------------------------------
 # Paths
 #-------------------------------------------------------------------------------
