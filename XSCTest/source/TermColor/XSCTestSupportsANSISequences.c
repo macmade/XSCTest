@@ -41,6 +41,10 @@ bool XSCTestSupportsANSISequences( FILE * fh )
 
 #else
 
+#ifndef _POSIX_SOURCE
+#define _POSIX_SOURCE
+#endif
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
