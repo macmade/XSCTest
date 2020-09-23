@@ -33,10 +33,18 @@
 
 bool XSCTestDoubleEqual( double v1, double v2 )
 {
+#ifdef __clang__ /* isnan may uses _Generic, producing warnings on some compilers */
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdouble-promotion"
+#pragma clang diagnostic ignored "-Wconversion"
+#endif
     if( isnan( v1 ) || isnan( v2 ) )
     {
         return false;
     }
+#ifdef __clang__
+#pragma clang diagnostic push
+#endif
 
     return XSCTestDoubleDistance( v1, v2 ) <= 4;
 }
