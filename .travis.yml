@@ -1,4 +1,7 @@
-language: objective-c
+language: c
 compiler: clang
 script:
  - make test
+os:
+  - osx
+  - linux
