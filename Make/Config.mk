@@ -188,7 +188,7 @@ endif
 # @param    The object files to add to the library
 # 
 ifdef _OS_CYGWIN
-CREATE_STATIC_LIB = Make/lib.bat /NOLOGO /OUT:$(call _WIN_PATH,$1) $(foreach _F,$2,$(call _WIN_PATH,$(_F)))
+CREATE_STATIC_LIB = @Make/lib.bat /NOLOGO /OUT:$(call _WIN_PATH,$1) $(foreach _F,$2,$(call _WIN_PATH,$(_F)))
 else
 CREATE_STATIC_LIB = @ar rcs $1 $2
 endif
