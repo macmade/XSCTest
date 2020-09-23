@@ -53,14 +53,14 @@ const char * XSCTestStopWatchGetString( XSCTestStopWatchRef watch )
             return "";
         }
 
-        watch->string = calloc( ( size_t )size + 1, 1 );
+        watch->string = calloc( ( size_t )( size + 1 ), 1 );
 
         if( watch->string == NULL )
         {
             return "";
         }
 
-        snprintf( watch->string, size + 1, "%llu ms", ( unsigned long long )msec );
+        snprintf( watch->string, ( size_t )( size + 1 ), "%llu ms", ( unsigned long long )msec );
     }
 
     return watch->string;
