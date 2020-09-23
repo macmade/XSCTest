@@ -88,7 +88,7 @@ ifdef _OS_CYGWIN
 # Windows specific
 EXT_O      := .obj
 EXT_LIB    := .lib
-EXT_EXT    := .exe
+EXT_EXE    := .exe
 PREFIX_LIB :=
 
 else

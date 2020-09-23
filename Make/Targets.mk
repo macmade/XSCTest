@@ -71,28 +71,30 @@ endif
 
 # Test executable
 test: _EXEC = $(DIR_BUILD_PRODUCTS)test$(EXT_EXE)
+test: _LIB  = $(DIR_BUILD_PRODUCTS)$(PREFIX_LIB)$(PRODUCT)$(EXT_LIB)
 test: build $$(_FILES_TEST_C_BUILD)
 
 	$(call PRINT_ARCH,$(_HOST_ARCH),"Creating test executable"): $(COLOR_BLUE)$(notdir $(_EXEC))$(COLOR_NONE)
 ifdef _OS_CYGWIN
-	@Make/link.bat /NOLOGO /WX $(foreach _F,$(_FILES_TEST_C_BUILD),$(call _WIN_PATH,$(_F))) /OUT:$(call _WIN_PATH,$(_EXEC)) /LIBPATH:$(call _WIN_PATH,$(DIR_BUILD_PRODUCTS)) $(PREFIX_LIB)$(PRODUCT)$(EXT_LIB)
+	@Make/link.bat /NOLOGO /WX /OUT:$(call _WIN_PATH,$(_EXEC)) /LIBPATH:$(call _WIN_PATH,$(abspath $(DIR_BUILD_PRODUCTS))) $(foreach _F,$(_FILES_TEST_C_BUILD),$(call _WIN_PATH,$(_F))) $(_LIB)
 else
 	@$(_CC) -o $(_EXEC) -L $(DIR_BUILD_PRODUCTS) -l$(PRODUCT) $(_FILES_TEST_C_BUILD)
 endif
-	@! $(DIR_BUILD_PRODUCTS)test Failure
-	@$(DIR_BUILD_PRODUCTS)test Success
+	@! $(_EXEC) Failure
+	@$(_EXEC) Success
 
 # Example executable
 example: _EXEC = $(DIR_BUILD_PRODUCTS)example$(EXT_EXE)
+example: _LIB  = $(DIR_BUILD_PRODUCTS)$(PREFIX_LIB)$(PRODUCT)$(EXT_LIB)
 example: build $$(_FILES_EXAMPLE_C_BUILD)
 
 	$(call PRINT_ARCH,$(_HOST_ARCH),"Creating example executable"): $(COLOR_BLUE)$(notdir $(_EXEC))$(COLOR_NONE)
 ifdef _OS_CYGWIN
-	@Make/link.bat /NOLOGO /WX $(foreach _F,$(_FILES_EXAMPLE_C_BUILD),$(call _WIN_PATH,$(_F))) /OUT:$(call _WIN_PATH,$(_EXEC)) /LIBPATH:$(call _WIN_PATH,$(DIR_BUILD_PRODUCTS)) $(PREFIX_LIB)$(PRODUCT)$(EXT_LIB)
+	@Make/link.bat /NOLOGO /WX /OUT:$(call _WIN_PATH,$(_EXEC)) /LIBPATH:$(call _WIN_PATH,$(abspath $(DIR_BUILD_PRODUCTS))) $(foreach _F,$(_FILES_EXAMPLE_C_BUILD),$(call _WIN_PATH,$(_F))) $(_LIB)
 else
 	@$(_CC) -o $(_EXEC) -L $(DIR_BUILD_PRODUCTS) -l$(PRODUCT) $(_FILES_EXAMPLE_C_BUILD)
 endif
-	@! $(DIR_BUILD_PRODUCTS)example
+	@! $(_EXEC)
 
 # Static library
 lib: _LIB = $(DIR_BUILD_PRODUCTS)$(PREFIX_LIB)$(PRODUCT)$(EXT_LIB)
@@ -100,7 +102,7 @@ lib: $$(_FILES_C_BUILD)
 	
 	$(call PRINT_ARCH,$(_HOST_ARCH),"Creating static library"): $(COLOR_BLUE)$(notdir $(_LIB))$(COLOR_NONE)
 ifdef _OS_CYGWIN
-	@Make/lib.bat /NOLOGO /OUT:$(call _WIN_PATH,$(_LIB)) $(foreach _F,$(_FILES_C_BUILD),$(call _WIN_PATH,$(_F)))
+	Make/lib.bat /NOLOGO /OUT:$(call _WIN_PATH,$(_LIB)) $(foreach _F,$(_FILES_C_BUILD),$(call _WIN_PATH,$(_F)))
 else
 	@libtool -static -o $(_LIB) $(_FILES_C_BUILD)
 endif
