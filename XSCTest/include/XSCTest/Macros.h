@@ -83,16 +83,32 @@ extern "C" {
     if( XSCTestAssertGreaterOrEqualGeneric( _v1_ )( _xscFailure_, ( _v1_ ), ( _v2_ ), XSCTestInternalXString( _v1_ ), XSCTestInternalXString( _v2_ ), __FILE__, __LINE__ ) == false ) \
     return
 
-#define Test( _case_, _name_ )                                                     \
-    void Test_##_case_##_##_name_##_Init( void ) __attribute__( ( constructor ) ); \
-    void Test_##_case_##_##_name_( XSCTestFailureRef * _xscFailure_ );             \
-    void Test_##_case_##_##_name_##_Init( void )                                   \
-    {                                                                              \
-        XSCTestRegisterTest(                                                       \
-            XSCTestInternalString( _case_ ),                                       \
-            XSCTestInternalString( _name_ ),                                       \
-            Test_##_case_##_##_name_ );                                            \
-    }                                                                              \
+#ifdef _MSC_VER
+
+#pragma section( ".CRT$XCU", read )
+
+#define XSCTEST_CONSTRUCTOR( _name_ )                                                  \
+    static void __cdecl _name_( void );                                                \
+    __declspec( allocate( ".CRT$XCU" ) ) void( __cdecl * _name_##_ )( void ) = _name_; \
+    static void __cdecl _name_( void )
+
+#else
+
+#define XSCTEST_CONSTRUCTOR( _name_ )                            \
+    static void _name_( void ) __attribute__( ( constructor ) ); \
+    static void _name_( void )
+
+#endif
+
+#define Test( _case_, _name_ )                                         \
+    void Test_##_case_##_##_name_( XSCTestFailureRef * _xscFailure_ ); \
+    XSCTEST_CONSTRUCTOR( Test_##_case_##_##_name_##_Init )             \
+    {                                                                  \
+        XSCTestRegisterTest(                                           \
+            XSCTestInternalString( _case_ ),                           \
+            XSCTestInternalString( _name_ ),                           \
+            Test_##_case_##_##_name_ );                                \
+    }                                                                  \
     void Test_##_case_##_##_name_( XSCTestFailureRef * _xscFailure_ )
 
 #define XSCTestInternalXString( _s_ ) XSCTestInternalString( _s_ )
