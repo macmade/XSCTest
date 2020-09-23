@@ -162,6 +162,13 @@ _CC = $(CC) $(CC_FLAGS_WARN) $(CC_FLAGS_DEBUG) -D _XOPEN_SOURCE=600 -std=$(STDC)
 
 endif
 
+# Additional libraries
+ifdef _OS_LINUX
+_EXTRA_LIBS := m
+else
+_EXTRA_LIBS :=
+endif
+
 #-------------------------------------------------------------------------------
 # Display
 #-------------------------------------------------------------------------------
