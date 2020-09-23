@@ -167,14 +167,14 @@ endif
 #-------------------------------------------------------------------------------
 
 # Terminal colors
-COLOR_NONE                              := "\x1b[0m"
-COLOR_GRAY                              := "\x1b[30;01m"
-COLOR_RED                               := "\x1b[31;01m"
-COLOR_GREEN                             := "\x1b[32;01m"
-COLOR_YELLOW                            := "\x1b[33;01m"
-COLOR_BLUE                              := "\x1b[34;01m"
-COLOR_PURPLE                            := "\x1b[35;01m"
-COLOR_CYAN                              := "\x1b[36;01m"
+COLOR_NONE   := "\x1b[0m"
+COLOR_GRAY   := "\x1b[30;01m"
+COLOR_RED    := "\x1b[31;01m"
+COLOR_GREEN  := "\x1b[32;01m"
+COLOR_YELLOW := "\x1b[33;01m"
+COLOR_BLUE   := "\x1b[34;01m"
+COLOR_PURPLE := "\x1b[35;01m"
+COLOR_CYAN   := "\x1b[36;01m"
 
 # Platform specific
 ifdef _OS_CYGWIN
