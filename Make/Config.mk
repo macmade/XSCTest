@@ -169,6 +169,44 @@ else
 _EXTRA_LIBS :=
 endif
 
+# 
+# Compiles a single source file
+# 
+# @param    The source file
+# @param    The output file
+# 
+ifdef _OS_CYGWIN
+COMPILE_FILE = @$(_CC) /c $(call _WIN_PATH,$(abspath $1)) /Fo$(call _WIN_PATH,$(abspath $2))
+else
+COMPILE_FILE = @$(_CC) -o $2 -c $(abspath $1)
+endif
+
+# 
+# Creates a static library
+# 
+# @param    The library output file
+# @param    The object files to add to the library
+# 
+ifdef _OS_CYGWIN
+CREATE_STATIC_LIB = Make/lib.bat /NOLOGO /OUT:$(call _WIN_PATH,$1) $(foreach _F,$2,$(call _WIN_PATH,$(_F)))
+else
+CREATE_STATIC_LIB = @ar rcs $1 $2
+endif
+
+# 
+# Creates a executable
+# 
+# @param    The executabée output file
+# @param    The source/object files to compile/link
+# @param    The search paths for libraries (if any)
+# @param    The libraries to link with (if any)
+# 
+ifdef _OS_CYGWIN
+CREATE_EXEC = @Make/link.bat /NOLOGO /WX /OUT:$(call _WIN_PATH,$1) $(addprefix /LIBPATH:,$(foreach _L,$3,$(call _WIN_PATH,$(abspath $(_L))))) $(foreach _F,$2,$(call _WIN_PATH,$(_F))) $(_LIB) $(addsuffix $(EXT_LIB),$4)
+else
+CREATE_EXEC = @$(_CC) -o $1 $2 $(foreach _L,$3,$(addprefix -L ,$(_L))) $(foreach _L,$4,$(addprefix -l,$(_L)))
+endif
+
 #-------------------------------------------------------------------------------
 # Display
 #-------------------------------------------------------------------------------

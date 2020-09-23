@@ -75,11 +75,7 @@ test: _LIB  = $(DIR_BUILD_PRODUCTS)$(PREFIX_LIB)$(PRODUCT)$(EXT_LIB)
 test: build $$(_FILES_TEST_C_BUILD)
 
 	$(call PRINT_ARCH,$(_HOST_ARCH),"Creating test executable"): $(COLOR_BLUE)$(notdir $(_EXEC))$(COLOR_NONE)
-ifdef _OS_CYGWIN
-	@Make/link.bat /NOLOGO /WX /OUT:$(call _WIN_PATH,$(_EXEC)) /LIBPATH:$(call _WIN_PATH,$(abspath $(DIR_BUILD_PRODUCTS))) $(foreach _F,$(_FILES_TEST_C_BUILD),$(call _WIN_PATH,$(_F))) $(_LIB) $(addsuffix $(EXT_LIB),$(_EXTRA_LIBS))
-else
-	@$(_CC) -o $(_EXEC) $(_FILES_TEST_C_BUILD) -L $(DIR_BUILD_PRODUCTS) -l$(PRODUCT) $(addprefix -l,$(_EXTRA_LIBS))
-endif
+	$(call CREATE_EXEC,$(_EXEC),$(_FILES_TEST_C_BUILD),$(DIR_BUILD_PRODUCTS),$(PRODUCT) $(_EXTRA_LIBS))
 	@! $(_EXEC) Failure
 	@$(_EXEC) Success
 
@@ -89,11 +85,7 @@ example: _LIB  = $(DIR_BUILD_PRODUCTS)$(PREFIX_LIB)$(PRODUCT)$(EXT_LIB)
 example: build $$(_FILES_EXAMPLE_C_BUILD)
 
 	$(call PRINT_ARCH,$(_HOST_ARCH),"Creating example executable"): $(COLOR_BLUE)$(notdir $(_EXEC))$(COLOR_NONE)
-ifdef _OS_CYGWIN
-	@Make/link.bat /NOLOGO /WX /OUT:$(call _WIN_PATH,$(_EXEC)) /LIBPATH:$(call _WIN_PATH,$(abspath $(DIR_BUILD_PRODUCTS))) $(foreach _F,$(_FILES_EXAMPLE_C_BUILD),$(call _WIN_PATH,$(_F))) $(_LIB) $(addsuffix $(EXT_LIB),$(_EXTRA_LIBS))
-else
-	@$(_CC) -o $(_EXEC) $(_FILES_EXAMPLE_C_BUILD) -L $(DIR_BUILD_PRODUCTS) -l$(PRODUCT) $(addprefix -l,$(_EXTRA_LIBS))
-endif
+	$(call CREATE_EXEC,$(_EXEC),$(_FILES_EXAMPLE_C_BUILD),$(DIR_BUILD_PRODUCTS),$(PRODUCT) $(_EXTRA_LIBS))
 	@! $(_EXEC)
 
 # Static library
@@ -101,18 +93,10 @@ lib: _LIB = $(DIR_BUILD_PRODUCTS)$(PREFIX_LIB)$(PRODUCT)$(EXT_LIB)
 lib: $$(_FILES_C_BUILD)
 	
 	$(call PRINT_ARCH,$(_HOST_ARCH),"Creating static library"): $(COLOR_BLUE)$(notdir $(_LIB))$(COLOR_NONE)
-ifdef _OS_CYGWIN
-	Make/lib.bat /NOLOGO /OUT:$(call _WIN_PATH,$(_LIB)) $(foreach _F,$(_FILES_C_BUILD),$(call _WIN_PATH,$(_F)))
-else
-	@ar rcs $(_LIB) $(_FILES_C_BUILD)
-endif
+	$(call CREATE_STATIC_LIB,$(_LIB),$(_FILES_C_BUILD))
 
 # Target: Object file
 $(DIR_BUILD_TEMP)%$(EXT_O): $$(shell mkdir -p $$(dir $$@)) %$(EXT_C)
 	
 	$(call PRINT_FILE,$(_HOST_ARCH),"Compiling C file",$<)
-ifdef _OS_CYGWIN
-	@$(_CC) /c $(call _WIN_PATH,$(abspath $<)) /Fo$(call _WIN_PATH,$(abspath $@))
-else
-	@$(_CC) -o $@ -c $(abspath $<)
-endif
+	$(call COMPILE_FILE,$<,$@)
