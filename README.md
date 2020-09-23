@@ -14,7 +14,7 @@ XSCTest
 About
 -----
 
-**XSCTest is a C11 unit testing library.**
+**XSCTest is a cross-platform C11 unit testing library.**
 
 License
 -------
