@@ -76,7 +76,7 @@ test: build $$(_FILES_TEST_C_BUILD)
 
 	$(call PRINT_ARCH,$(_HOST_ARCH),"Creating test executable"): $(COLOR_BLUE)$(notdir $(_EXEC))$(COLOR_NONE)
 ifdef _OS_CYGWIN
-	@Make/link.bat /NOLOGO /WX /OUT:$(call _WIN_PATH,$(_EXEC)) /LIBPATH:$(call _WIN_PATH,$(abspath $(DIR_BUILD_PRODUCTS))) $(foreach _F,$(_FILES_TEST_C_BUILD),$(call _WIN_PATH,$(_F))) $(_LIB)
+	@Make/link.bat /NOLOGO /WX /OUT:$(call _WIN_PATH,$(_EXEC)) /LIBPATH:$(call _WIN_PATH,$(abspath $(DIR_BUILD_PRODUCTS))) $(foreach _F,$(_FILES_TEST_C_BUILD),$(call _WIN_PATH,$(_F))) $(_LIB) $(foreach _L,$(_EXTRA_LIBS),$(addsuffix $(EXT_LIB),$(_L)))
 else
 	@$(_CC) -o $(_EXEC) $(_FILES_TEST_C_BUILD) -L $(DIR_BUILD_PRODUCTS) -l$(PRODUCT) $(foreach _L,$(_EXTRA_LIBS),$(addprefix -l,$(_L)))
 endif
@@ -90,7 +90,7 @@ example: build $$(_FILES_EXAMPLE_C_BUILD)
 
 	$(call PRINT_ARCH,$(_HOST_ARCH),"Creating example executable"): $(COLOR_BLUE)$(notdir $(_EXEC))$(COLOR_NONE)
 ifdef _OS_CYGWIN
-	@Make/link.bat /NOLOGO /WX /OUT:$(call _WIN_PATH,$(_EXEC)) /LIBPATH:$(call _WIN_PATH,$(abspath $(DIR_BUILD_PRODUCTS))) $(foreach _F,$(_FILES_EXAMPLE_C_BUILD),$(call _WIN_PATH,$(_F))) $(_LIB)
+	@Make/link.bat /NOLOGO /WX /OUT:$(call _WIN_PATH,$(_EXEC)) /LIBPATH:$(call _WIN_PATH,$(abspath $(DIR_BUILD_PRODUCTS))) $(foreach _F,$(_FILES_EXAMPLE_C_BUILD),$(call _WIN_PATH,$(_F))) $(_LIB) $(foreach _L,$(_EXTRA_LIBS),$(addsuffix $(EXT_LIB),$(_L)))
 else
 	@$(_CC) -o $(_EXEC) $(_FILES_EXAMPLE_C_BUILD) -L $(DIR_BUILD_PRODUCTS) -l$(PRODUCT) $(foreach _L,$(_EXTRA_LIBS),$(addprefix -l,$(_L)))
 endif
