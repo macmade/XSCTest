@@ -78,7 +78,7 @@ test: build $$(_FILES_TEST_C_BUILD)
 ifdef _OS_CYGWIN
 	@Make/link.bat /NOLOGO /WX /OUT:$(call _WIN_PATH,$(_EXEC)) /LIBPATH:$(call _WIN_PATH,$(abspath $(DIR_BUILD_PRODUCTS))) $(foreach _F,$(_FILES_TEST_C_BUILD),$(call _WIN_PATH,$(_F))) $(_LIB)
 else
-	@$(_CC) -o $(_EXEC) -L $(DIR_BUILD_PRODUCTS) -l$(PRODUCT) $(_FILES_TEST_C_BUILD)
+	@$(_CC) -o $(_EXEC) $(_FILES_TEST_C_BUILD) -L $(DIR_BUILD_PRODUCTS) -l$(PRODUCT)
 endif
 	@! $(_EXEC) Failure
 	@$(_EXEC) Success
@@ -92,7 +92,7 @@ example: build $$(_FILES_EXAMPLE_C_BUILD)
 ifdef _OS_CYGWIN
 	@Make/link.bat /NOLOGO /WX /OUT:$(call _WIN_PATH,$(_EXEC)) /LIBPATH:$(call _WIN_PATH,$(abspath $(DIR_BUILD_PRODUCTS))) $(foreach _F,$(_FILES_EXAMPLE_C_BUILD),$(call _WIN_PATH,$(_F))) $(_LIB)
 else
-	@$(_CC) -o $(_EXEC) -L $(DIR_BUILD_PRODUCTS) -l$(PRODUCT) $(_FILES_EXAMPLE_C_BUILD)
+	@$(_CC) -o $(_EXEC) $(_FILES_EXAMPLE_C_BUILD) -L $(DIR_BUILD_PRODUCTS) -l$(PRODUCT)
 endif
 	@! $(_EXEC)
 
@@ -104,7 +104,7 @@ lib: $$(_FILES_C_BUILD)
 ifdef _OS_CYGWIN
 	Make/lib.bat /NOLOGO /OUT:$(call _WIN_PATH,$(_LIB)) $(foreach _F,$(_FILES_C_BUILD),$(call _WIN_PATH,$(_F)))
 else
-	@libtool -static -o $(_LIB) $(_FILES_C_BUILD)
+	@ar rcs $(_LIB) $(_FILES_C_BUILD)
 endif
 
 # Target: Object file
