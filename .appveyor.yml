@@ -15,10 +15,10 @@ for:
       only:
         - platform: x86
     build_script: 
-      - C:\cygwin\bin\bash.exe -lc "make"
+      - C:\cygwin\bin\bash.exe -lc "make test"
   -
     matrix:
       only:
         - platform: x64
     build_script: 
-      - C:\cygwin64\bin\bash.exe -lc "make"
+      - C:\cygwin64\bin\bash.exe -lc "make test"
