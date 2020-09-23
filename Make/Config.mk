@@ -76,22 +76,28 @@ vpath %$(EXT_C) $(DIR_TEST_SRC)
 vpath %$(EXT_C) $(DIR_EXAMPLE_SRC)
 
 #-------------------------------------------------------------------------------
-# File suffixes
+# Files
 #-------------------------------------------------------------------------------
 
-# File extensions
+# Source extensions
 EXT_C := .c
 EXT_H := .h
 
 ifdef _OS_CYGWIN
 
-EXT_O   := .obj
-EXT_LIB := .lib
+# Windows specific
+EXT_O      := .obj
+EXT_LIB    := .lib
+EXT_EXT    := .exe
+PREFIX_LIB :=
 
 else
 
-EXT_O   := .o
-EXT_LIB := .a
+# POSIX specific
+EXT_O      := .o
+EXT_LIB    := .a
+EXT_EXT    :=
+PREFIX_LIB := lib
 
 endif
 

@@ -70,32 +70,32 @@ endif
 .SECONDEXPANSION:
 
 # Test executable
-test: _EXEC = $(DIR_BUILD_PRODUCTS)test
+test: _EXEC = $(DIR_BUILD_PRODUCTS)test$(EXT_EXE)
 test: build $$(_FILES_TEST_C_BUILD)
 
 	$(call PRINT_ARCH,$(_HOST_ARCH),"Creating test executable"): $(COLOR_BLUE)$(notdir $(_EXEC))$(COLOR_NONE)
 ifdef _OS_CYGWIN
-	@Make/lib.bat /NOLOGO /WX $(foreach _F,$(_FILES_TEST_C_BUILD),$(call _WIN_PATH,$(_F))) /OUT:$(call _WIN_PATH,$(_EXEC)) /LIBPATH:$(call _WIN_PATH,$(DIR_BUILD_PRODUCTS)) xsctest$(EXT_LIB)
+	@Make/link.bat /NOLOGO /WX $(foreach _F,$(_FILES_TEST_C_BUILD),$(call _WIN_PATH,$(_F))) /OUT:$(call _WIN_PATH,$(_EXEC)) /LIBPATH:$(call _WIN_PATH,$(DIR_BUILD_PRODUCTS)) $(PREFIX_LIB)$(PRODUCT)$(EXT_LIB)
 else
-	@$(_CC) -o $(_EXEC) -L $(DIR_BUILD_PRODUCTS) -lxsctest $(_FILES_TEST_C_BUILD)
+	@$(_CC) -o $(_EXEC) -L $(DIR_BUILD_PRODUCTS) -l$(PRODUCT) $(_FILES_TEST_C_BUILD)
 endif
 	@! $(DIR_BUILD_PRODUCTS)test Failure
 	@$(DIR_BUILD_PRODUCTS)test Success
 
 # Example executable
-example: _EXEC = $(DIR_BUILD_PRODUCTS)example
+example: _EXEC = $(DIR_BUILD_PRODUCTS)example$(EXT_EXE)
 example: build $$(_FILES_EXAMPLE_C_BUILD)
 
 	$(call PRINT_ARCH,$(_HOST_ARCH),"Creating example executable"): $(COLOR_BLUE)$(notdir $(_EXEC))$(COLOR_NONE)
 ifdef _OS_CYGWIN
-	@Make/lib.bat /NOLOGO /WX $(foreach _F,$(_FILES_EXAMPLE_C_BUILD),$(call _WIN_PATH,$(_F))) /OUT:$(call _WIN_PATH,$(_EXEC)) /LIBPATH:$(call _WIN_PATH,$(DIR_BUILD_PRODUCTS)) xsctest$(EXT_LIB)
+	@Make/link.bat /NOLOGO /WX $(foreach _F,$(_FILES_EXAMPLE_C_BUILD),$(call _WIN_PATH,$(_F))) /OUT:$(call _WIN_PATH,$(_EXEC)) /LIBPATH:$(call _WIN_PATH,$(DIR_BUILD_PRODUCTS)) $(PREFIX_LIB)$(PRODUCT)$(EXT_LIB)
 else
-	@$(_CC) -o $(_EXEC) -L $(DIR_BUILD_PRODUCTS) -lxsctest $(_FILES_EXAMPLE_C_BUILD)
+	@$(_CC) -o $(_EXEC) -L $(DIR_BUILD_PRODUCTS) -l$(PRODUCT) $(_FILES_EXAMPLE_C_BUILD)
 endif
 	@! $(DIR_BUILD_PRODUCTS)example
 
 # Static library
-lib: _LIB = $(DIR_BUILD_PRODUCTS)$(PRODUCT)$(EXT_LIB)
+lib: _LIB = $(DIR_BUILD_PRODUCTS)$(PREFIX_LIB)$(PRODUCT)$(EXT_LIB)
 lib: $$(_FILES_C_BUILD)
 	
 	$(call PRINT_ARCH,$(_HOST_ARCH),"Creating static library"): $(COLOR_BLUE)$(notdir $(_LIB))$(COLOR_NONE)
