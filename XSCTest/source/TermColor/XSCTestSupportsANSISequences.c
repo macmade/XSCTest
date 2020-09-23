@@ -42,6 +42,7 @@ bool XSCTestSupportsANSISequences( FILE * fh )
 #else
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <unistd.h>
 
 bool XSCTestSupportsANSISequences( FILE * fh )

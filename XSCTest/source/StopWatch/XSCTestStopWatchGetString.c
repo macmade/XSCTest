@@ -46,7 +46,7 @@ const char * XSCTestStopWatchGetString( XSCTestStopWatchRef watch )
         uint64_t msec;
 
         msec = XSCTestStopWatchGetMilliseconds( watch );
-        size = snprintf( NULL, 0, "%llu ms", msec );
+        size = snprintf( NULL, 0, "%llu ms", ( unsigned long long )msec );
 
         if( size <= 0 )
         {
@@ -60,7 +60,7 @@ const char * XSCTestStopWatchGetString( XSCTestStopWatchRef watch )
             return "";
         }
 
-        snprintf( watch->string, size + 1, "%llu ms", msec );
+        snprintf( watch->string, size + 1, "%llu ms", ( unsigned long long )msec );
     }
 
     return watch->string;
