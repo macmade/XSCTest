@@ -33,7 +33,7 @@
 
 bool XSCTestDoubleEqual( double v1, double v2 )
 {
-    if( XSCTEST_ISNAN( v1 ) || XSCTEST_ISNAN( v2 ) )
+    if( isnan( v1 ) || isnan( v2 ) )
     {
         return false;
     }

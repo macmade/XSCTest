@@ -38,15 +38,6 @@
 extern "C" {
 #endif
 
-#define XSCTEST_ISNAN( _v_ ) _Generic( \
-    ( _v_ ),                           \
-    float                              \
-    : isnan( ( float )_v_ ),           \
-      double                           \
-    : isnan( ( double )_v_ ),          \
-      long double                      \
-    : isnan( ( long double )_v_ ) )
-
     bool     XSCTestFloatEqual( float v1, float v2 );
     bool     XSCTestDoubleEqual( double v1, double v2 );
     uint64_t XSCTestFloatDistance( float v1, float v2 );

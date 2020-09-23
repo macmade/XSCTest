@@ -42,7 +42,7 @@ bool XSCTestAssertIntegerCompareGreater( XSCTestFailureRef * failure, int64_t v1
     }
 
     expression = XSCTestStringCreateWithFormat( "%s > %s", expression1, expression2 );
-    evaluated  = XSCTestStringCreateWithFormat( "%lli > %lli", v1, v2 );
+    evaluated  = XSCTestStringCreateWithFormat( "%lli > %lli", ( long long )v1, ( long long )v2 );
 
     if( failure != NULL )
     {

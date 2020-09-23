@@ -42,7 +42,7 @@ bool XSCTestAssertUnsignedIntegerCompareNotEqual( XSCTestFailureRef * failure, u
     }
 
     expression = XSCTestStringCreateWithFormat( "%s != %s", expression1, expression2 );
-    evaluated  = XSCTestStringCreateWithFormat( "%llu != %llu", v1, v2 );
+    evaluated  = XSCTestStringCreateWithFormat( "%llu != %llu", ( unsigned long long )v1, ( unsigned long long )v2 );
 
     if( failure != NULL )
     {
