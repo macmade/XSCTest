@@ -31,6 +31,10 @@
 #include <XSCTest/XSCTest.h>
 #include <string.h>
 
+#ifndef _WIN32
+#include <strings.h>
+#endif
+
 bool XSCTestAssertStringEquality( XSCTestFailureRef * failure, const char * cp1, const char * cp2, bool expected, bool caseInsensitive, const char * expression1, const char * expression2, const char * file, int line )
 {
     bool result;
@@ -41,11 +45,11 @@ bool XSCTestAssertStringEquality( XSCTestFailureRef * failure, const char * cp1,
     }
     else if( caseInsensitive )
     {
-        #ifdef _WIN32
+#ifdef _WIN32
         result = _stricmp( cp1, cp2 ) == 0;
-        #else
+#else
         result = strcasecmp( cp1, cp2 ) == 0;
-        #endif
+#endif
     }
     else
     {

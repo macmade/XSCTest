@@ -33,7 +33,7 @@
 
 bool XSCTestFloatEqual( float v1, float v2 )
 {
-    if( isnanf( v1 ) || isnanf( v2 ) )
+    if( XSCTEST_ISNAN( v1 ) || XSCTEST_ISNAN( v2 ) )
     {
         return false;
     }
