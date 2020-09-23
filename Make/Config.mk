@@ -150,7 +150,7 @@ CC_FLAGS_WARN  := -Werror -Weverything -Wno-unknown-warning-option -Wno-poison-s
 CC_FLAGS_DEBUG := -O0 -gfull
 
 # C compiler
-_CC = $(CC) $(CC_FLAGS_WARN) $(CC_FLAGS_DEBUG) -std=$(STDC) -I$(DIR_INC)
+_CC = $(CC) $(CC_FLAGS_WARN) $(CC_FLAGS_DEBUG) -D _XOPEN_SOURCE=600 -std=$(STDC) -I$(DIR_INC)
 
 endif
 
