@@ -30,7 +30,7 @@
 .DEFAULT_GOAL := all
 
 # Declaration for phony targets, to avoid problems with local files
-.PHONY: all clean build lib test example
+.PHONY: all clean lib test example
 
 # Declaration for precious targets, to avoid cleaning of intermediate files
 .PRECIOUS: $(DIR_BUILD_TEMP)%$(EXT_O)
@@ -40,7 +40,7 @@
 #-------------------------------------------------------------------------------
 
 # Main Target
-all: build
+all: lib
 	
 	@:
 
@@ -52,16 +52,6 @@ clean:
 	
 	$(call PRINT_ARCH,$(_HOST_ARCH),Cleaning all product files)
 	@rm -rf $(DIR_BUILD_PRODUCTS)*
-	
-
-# Build (parallel if available)
-build:
-	
-ifeq ($(_MAKE_4),true)
-	@$(MAKE) -s -j 50 --output-sync lib
-else
-	@$(MAKE) lib
-endif
 
 #-------------------------------------------------------------------------------
 # Targets with second expansion
@@ -71,7 +61,7 @@ endif
 
 # Test executable
 test: _EXEC = $(DIR_BUILD_PRODUCTS)test$(EXT_EXE)
-test: build $$(_FILES_TEST_C_BUILD)
+test: lib $$(_FILES_TEST_C_BUILD)
 
 	$(call PRINT_ARCH,$(_HOST_ARCH),"Creating test executable"): $(COLOR_BLUE)$(notdir $(_EXEC))$(COLOR_NONE)
 	$(call CREATE_EXEC,$(_EXEC),$(_FILES_TEST_C_BUILD),$(DIR_BUILD_PRODUCTS),$(PRODUCT) $(_EXTRA_LIBS))
@@ -80,7 +70,7 @@ test: build $$(_FILES_TEST_C_BUILD)
 
 # Example executable
 example: _EXEC = $(DIR_BUILD_PRODUCTS)example$(EXT_EXE)
-example: build $$(_FILES_EXAMPLE_C_BUILD)
+example: lib $$(_FILES_EXAMPLE_C_BUILD)
 
 	$(call PRINT_ARCH,$(_HOST_ARCH),"Creating example executable"): $(COLOR_BLUE)$(notdir $(_EXEC))$(COLOR_NONE)
 	$(call CREATE_EXEC,$(_EXEC),$(_FILES_EXAMPLE_C_BUILD),$(DIR_BUILD_PRODUCTS),$(PRODUCT) $(_EXTRA_LIBS))
