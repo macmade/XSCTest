@@ -254,14 +254,6 @@ PRINT_ARCH = $(call PRINT,,$(2) [ $(COLOR_RED)$(1)$(COLOR_NONE) ])
 PRINT_FILE = $(call PRINT_ARCH,$(1),$(2)): $(COLOR_YELLOW)$(subst .$(COLOR_NONE).,,$(patsubst %.,%,$(subst /,.,$(dir $(patsubst $(DIR_TEST_SRC)%,%,$(patsubst $(DIR_EXAMPLE_SRC)%,%,$(patsubst $(DIR_SRC)%,%,$3))))))$(COLOR_NONE).)$(COLOR_GRAY)"$(notdir $(3))"$(COLOR_NONE)
 
 #-------------------------------------------------------------------------------
-# Tools
-#-------------------------------------------------------------------------------
-
-# Make version (version 4 allows parallel builds with output sync) 
-_MAKE_VERSION_MAJOR := $(shell echo $(MAKE_VERSION) | cut -f1 -d.)
-_MAKE_4             := $(shell [ $(_MAKE_VERSION_MAJOR) -ge 4 ] && echo true)
-
-#-------------------------------------------------------------------------------
 # Miscellaneous
 #-------------------------------------------------------------------------------
 
