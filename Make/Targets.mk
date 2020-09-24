@@ -71,7 +71,6 @@ endif
 
 # Test executable
 test: _EXEC = $(DIR_BUILD_PRODUCTS)test$(EXT_EXE)
-test: _LIB  = $(DIR_BUILD_PRODUCTS)$(PREFIX_LIB)$(PRODUCT)$(EXT_LIB)
 test: build $$(_FILES_TEST_C_BUILD)
 
 	$(call PRINT_ARCH,$(_HOST_ARCH),"Creating test executable"): $(COLOR_BLUE)$(notdir $(_EXEC))$(COLOR_NONE)
@@ -81,7 +80,6 @@ test: build $$(_FILES_TEST_C_BUILD)
 
 # Example executable
 example: _EXEC = $(DIR_BUILD_PRODUCTS)example$(EXT_EXE)
-example: _LIB  = $(DIR_BUILD_PRODUCTS)$(PREFIX_LIB)$(PRODUCT)$(EXT_LIB)
 example: build $$(_FILES_EXAMPLE_C_BUILD)
 
 	$(call PRINT_ARCH,$(_HOST_ARCH),"Creating example executable"): $(COLOR_BLUE)$(notdir $(_EXEC))$(COLOR_NONE)
