@@ -205,7 +205,7 @@ endif
 # 
 # Creates an executable
 # 
-# @param    The executabée output file
+# @param    The executable output file
 # @param    The source/object files to compile/link
 # @param    The search paths for libraries (if any)
 # @param    The libraries to link with (if any)
