@@ -116,7 +116,9 @@ extern "C" {
 
 #define XSCTestAssertEqualGeneric( _v_ ) _Generic( \
     ( _v_ ),                                       \
-    signed char                                    \
+    char                                           \
+    : XSCTestAssertIntegerCompareEqual,            \
+      signed char                                  \
     : XSCTestAssertIntegerCompareEqual,            \
       signed short                                 \
     : XSCTestAssertIntegerCompareEqual,            \
@@ -143,7 +145,9 @@ extern "C" {
 
 #define XSCTestAssertNotEqualGeneric( _v_ ) _Generic( \
     ( _v_ ),                                          \
-    signed char                                       \
+    char                                              \
+    : XSCTestAssertIntegerCompareNotEqual,            \
+      signed char                                     \
     : XSCTestAssertIntegerCompareNotEqual,            \
       signed short                                    \
     : XSCTestAssertIntegerCompareNotEqual,            \
@@ -170,7 +174,9 @@ extern "C" {
 
 #define XSCTestAssertLessGeneric( _v_ ) _Generic( \
     ( _v_ ),                                      \
-    signed char                                   \
+    char                                          \
+    : XSCTestAssertIntegerCompareLess,            \
+      signed char                                 \
     : XSCTestAssertIntegerCompareLess,            \
       signed short                                \
     : XSCTestAssertIntegerCompareLess,            \
@@ -197,7 +203,9 @@ extern "C" {
 
 #define XSCTestAssertLessOrEqualGeneric( _v_ ) _Generic( \
     ( _v_ ),                                             \
-    signed char                                          \
+    char                                                 \
+    : XSCTestAssertIntegerCompareLessOrEqual,            \
+      signed char                                        \
     : XSCTestAssertIntegerCompareLessOrEqual,            \
       signed short                                       \
     : XSCTestAssertIntegerCompareLessOrEqual,            \
@@ -224,7 +232,9 @@ extern "C" {
 
 #define XSCTestAssertGreaterGeneric( _v_ ) _Generic( \
     ( _v_ ),                                         \
-    signed char                                      \
+    char                                             \
+    : XSCTestAssertIntegerCompareGreater,            \
+      signed char                                    \
     : XSCTestAssertIntegerCompareGreater,            \
       signed short                                   \
     : XSCTestAssertIntegerCompareGreater,            \
@@ -251,7 +261,9 @@ extern "C" {
 
 #define XSCTestAssertGreaterOrEqualGeneric( _v_ ) _Generic( \
     ( _v_ ),                                                \
-    signed char                                             \
+    char                                                    \
+    : XSCTestAssertIntegerCompareGreaterOrEqual,            \
+      signed char                                           \
     : XSCTestAssertIntegerCompareGreaterOrEqual,            \
       signed short                                          \
     : XSCTestAssertIntegerCompareGreaterOrEqual,            \
