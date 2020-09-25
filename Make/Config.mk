@@ -159,7 +159,7 @@ CC_FLAGS_WARN  := -Werror -Weverything -Wno-unknown-warning-option -Wno-poison-s
 CC_FLAGS_DEBUG := -O0 -gfull
 
 ifdef _OS_LINUX
-_CC_PLATFORM_FLAGS := -D_POSIX_SOURCE -D _XOPEN_SOURCE=600
+_CC_PLATFORM_FLAGS := -D_POSIX_SOURCE -D _XOPEN_SOURCE=600 -D_GNU_SOURCE
 endif
 
 ifdef _OS_DARWIN
