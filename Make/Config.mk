@@ -145,8 +145,9 @@ _FILES_C_BUILD_EXAMPLE = $(addprefix $(DIR_BUILD_TEMP),$(_FILES_C_OBJ_EXAMPLE))
 ifdef _OS_CYGWIN
 
 # Build flags
-CC_FLAGS_WARN  := /W4 /WX
-CC_FLAGS_DEBUG := /Od /sdl
+CC_FLAGS_WARN      := /W4 /WX
+CC_FLAGS_DEBUG     := /Od /sdl
+_CC_PLATFORM_FLAGS := 
 
 # C compiler
 _CC = Make/cl.bat /nologo /utf-8 $(CC_FLAGS_WARN) $(CC_FLAGS_DEBUG) /std:$(STDC) /I $(call _WIN_PATH,$(abspath $(DIR_INC)))
@@ -157,8 +158,16 @@ else
 CC_FLAGS_WARN  := -Werror -Weverything -Wno-unknown-warning-option -Wno-poison-system-directories
 CC_FLAGS_DEBUG := -O0 -gfull
 
+ifdef _OS_LINUX
+_CC_PLATFORM_FLAGS := -D_POSIX_SOURCE -D_XOPEN_SOURCE
+endif
+
+ifdef _OS_DARWIN
+_CC_PLATFORM_FLAGS := -D_POSIX_SOURCE -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE
+endif
+
 # C compiler
-_CC = $(CC) $(CC_FLAGS_WARN) $(CC_FLAGS_DEBUG) -D _XOPEN_SOURCE=600 -std=$(STDC) -I$(DIR_INC)
+_CC = $(CC) $(strip $(CC_FLAGS_WARN) $(CC_FLAGS_DEBUG) $(_CC_PLATFORM_FLAGS)) -D _XOPEN_SOURCE=600 -std=$(STDC) -I$(DIR_INC)
 
 endif
 
