@@ -61,10 +61,10 @@ clean:
 
 # Test executable
 test: _EXEC = $(DIR_BUILD_PRODUCTS)test$(EXT_EXE)
-test: lib $$(_FILES_C_BUILD_TEST)
+test: lib $$(_FILES_C_BUILD_TESTS)
 
-	$(call PRINT_ARCH,$(_HOST_ARCH),"Creating test executable"): $(COLOR_BLUE)$(notdir $(_EXEC))$(COLOR_NONE)
-	$(call CREATE_EXEC,$(_EXEC),$(_FILES_C_BUILD_TEST),$(DIR_BUILD_PRODUCTS),$(PRODUCT) $(_EXTRA_LIBS))
+	$(call PRINT_ARCH,$(_HOST_ARCH),Creating test executable,: $(COLOR_BLUE)$(notdir $(_EXEC))$(COLOR_NONE))
+	$(call CREATE_EXEC,$(_EXEC),$(_FILES_C_BUILD_TESTS),$(DIR_BUILD_PRODUCTS),$(PRODUCT) $(_EXTRA_LIBS))
 	@! $(_EXEC) Failure
 	@$(_EXEC) Success
 
@@ -72,7 +72,7 @@ test: lib $$(_FILES_C_BUILD_TEST)
 example: _EXEC = $(DIR_BUILD_PRODUCTS)example$(EXT_EXE)
 example: lib $$(_FILES_C_BUILD_EXAMPLE)
 
-	$(call PRINT_ARCH,$(_HOST_ARCH),"Creating example executable"): $(COLOR_BLUE)$(notdir $(_EXEC))$(COLOR_NONE)
+	$(call PRINT_ARCH,$(_HOST_ARCH),Creating example executable,: $(COLOR_BLUE)$(notdir $(_EXEC))$(COLOR_NONE))
 	$(call CREATE_EXEC,$(_EXEC),$(_FILES_C_BUILD_EXAMPLE),$(DIR_BUILD_PRODUCTS),$(PRODUCT) $(_EXTRA_LIBS))
 	@! $(_EXEC)
 
@@ -80,11 +80,11 @@ example: lib $$(_FILES_C_BUILD_EXAMPLE)
 lib: _LIB = $(DIR_BUILD_PRODUCTS)$(PREFIX_LIB)$(PRODUCT)$(EXT_LIB)
 lib: $$(_FILES_C_BUILD)
 	
-	$(call PRINT_ARCH,$(_HOST_ARCH),"Creating static library"): $(COLOR_BLUE)$(notdir $(_LIB))$(COLOR_NONE)
+	$(call PRINT_ARCH,$(_HOST_ARCH),Creating static library,: $(COLOR_BLUE)$(notdir $(_LIB))$(COLOR_NONE))
 	$(call CREATE_STATIC_LIB,$(_LIB),$(_FILES_C_BUILD))
 
 # Target: Object file
 $(DIR_BUILD_TEMP)%$(EXT_O): $$(shell mkdir -p $$(dir $$@)) %$(EXT_C)
 	
-	$(call PRINT_FILE,$(_HOST_ARCH),"Compiling C file",$<)
+	$(call PRINT_FILE,$(_HOST_ARCH),Compiling C file,$<)
 	$(call COMPILE_FILE,$<,$@)

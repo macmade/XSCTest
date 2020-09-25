@@ -61,7 +61,7 @@ DIR_BUILD_TEMP     := $(DIR_BUILD)Intermediates/
 # Source directories
 DIR_INC         := $(DIR)XSCTest/include/
 DIR_SRC         := $(DIR)XSCTest/source/
-DIR_SRC_TEST    := $(DIR)Test/source/
+DIR_SRC_TESTS   := $(DIR)Test/source/
 DIR_SRC_EXAMPLE := $(DIR)Example/source/
 
 ifdef _OS_CYGWIN
@@ -80,7 +80,7 @@ vpath
 
 # Define the search paths for source files
 vpath %$(EXT_C) $(DIR_SRC)
-vpath %$(EXT_C) $(DIR_SRC_TEST)
+vpath %$(EXT_C) $(DIR_SRC_TESTS)
 vpath %$(EXT_C) $(DIR_SRC_EXAMPLE)
 
 #-------------------------------------------------------------------------------
@@ -125,17 +125,17 @@ GET_C_FILES = $(foreach dir,$(1), $(wildcard $(dir)*$(EXT_C)))
 
 # Gets only the file name of the C files
 _FILES_C_REL         = $(subst $(DIR_SRC),,$(FILES_C))
-_FILES_C_REL_TEST    = $(subst $(DIR_SRC_TEST),,$(FILES_C_TEST))
+_FILES_C_REL_TESTS   = $(subst $(DIR_SRC_TESTS),,$(FILES_C_TESTS))
 _FILES_C_REL_EXAMPLE = $(subst $(DIR_SRC_EXAMPLE),,$(FILES_C_EXAMPLE))
 
 # Replace the code extension by the object one
 _FILES_C_OBJ         = $(subst $(EXT_C),$(EXT_O),$(_FILES_C_REL))
-_FILES_C_OBJ_TEST    = $(subst $(EXT_C),$(EXT_O),$(_FILES_C_REL_TEST))
+_FILES_C_OBJ_TESTS   = $(subst $(EXT_C),$(EXT_O),$(_FILES_C_REL_TESTS))
 _FILES_C_OBJ_EXAMPLE = $(subst $(EXT_C),$(EXT_O),$(_FILES_C_REL_EXAMPLE))
 
 # Prefix all object files with the build directory
 _FILES_C_BUILD         = $(addprefix $(DIR_BUILD_TEMP),$(_FILES_C_OBJ))
-_FILES_C_BUILD_TEST    = $(addprefix $(DIR_BUILD_TEMP),$(_FILES_C_OBJ_TEST))
+_FILES_C_BUILD_TESTS   = $(addprefix $(DIR_BUILD_TEMP),$(_FILES_C_OBJ_TESTS))
 _FILES_C_BUILD_EXAMPLE = $(addprefix $(DIR_BUILD_TEMP),$(_FILES_C_OBJ_EXAMPLE))
 
 #-------------------------------------------------------------------------------
@@ -221,21 +221,14 @@ endif
 #-------------------------------------------------------------------------------
 
 # Terminal colors
-COLOR_NONE   := "\033[0m"
-COLOR_GRAY   := "\033[30;01m"
-COLOR_RED    := "\033[31;01m"
-COLOR_GREEN  := "\033[32;01m"
-COLOR_YELLOW := "\033[33;01m"
-COLOR_BLUE   := "\033[34;01m"
-COLOR_PURPLE := "\033[35;01m"
-COLOR_CYAN   := "\033[36;01m"
-
-# Platform specific
-ifdef _OS_CYGWIN
-_ECHO_ARGS := -e
-else
-_ECHO_ARGS :=
-endif
+COLOR_NONE   := \033[0m
+COLOR_GRAY   := \033[30;01m
+COLOR_RED    := \033[31;01m
+COLOR_GREEN  := \033[32;01m
+COLOR_YELLOW := \033[33;01m
+COLOR_BLUE   := \033[34;01m
+COLOR_PURPLE := \033[35;01m
+COLOR_CYAN   := \033[36;01m
 
 # 
 # Prints a message to the standard output
@@ -243,15 +236,16 @@ endif
 # @param    The prompt components
 # @param    The message
 # 
-PRINT = @echo $(_ECHO_ARGS) "[ "$(COLOR_CYAN)XSCTest$(COLOR_NONE) "]> [ "$(COLOR_PURPLE)$(MAKELEVEL)$(COLOR_NONE) "]> "$(foreach _P,$(_BRANCH) $(1),"[ "$(COLOR_GREEN)$(_P)$(COLOR_NONE)" ]>")" *** "$(2)
+PRINT = @printf "[ $(COLOR_CYAN)XSCTest$(COLOR_NONE) ]> [ $(COLOR_PURPLE)$(MAKELEVEL)$(COLOR_NONE) ]> $(foreach _P,$(_BRANCH) $1,[ $(COLOR_GREEN)$(_P)$(COLOR_NONE) ]>) *** $2\n"
 
 # 
 # Prints an architecture related message to the standard output
 # 
 # @param    The architecture
 # @param    The message
+# @param    An optional message to  print after the architecture
 # 
-PRINT_ARCH = $(call PRINT,,$(2) [ $(COLOR_RED)$(1)$(COLOR_NONE) ])
+PRINT_ARCH = $(call PRINT,,$2 [ $(COLOR_RED)$1$(COLOR_NONE) ]$3)
 
 # 
 # Prints an architecture related message about a file to the standard output
@@ -260,7 +254,7 @@ PRINT_ARCH = $(call PRINT,,$(2) [ $(COLOR_RED)$(1)$(COLOR_NONE) ])
 # @param    The message
 # @param    The file
 # 
-PRINT_FILE = $(call PRINT_ARCH,$(1),$(2)): $(COLOR_YELLOW)$(subst .$(COLOR_NONE).,,$(patsubst %.,%,$(subst /,.,$(dir $(patsubst $(DIR_SRC_TEST)%,%,$(patsubst $(DIR_SRC_EXAMPLE)%,%,$(patsubst $(DIR_SRC)%,%,$3))))))$(COLOR_NONE).)$(COLOR_GRAY)"$(notdir $(3))"$(COLOR_NONE)
+PRINT_FILE = $(call PRINT_ARCH,$1,$2,: $(COLOR_YELLOW)$(subst .$(COLOR_NONE).,,$(patsubst %.,%,$(subst /,.,$(dir $(patsubst $(DIR_SRC_TESTS)%,%,$(patsubst $(DIR_SRC_EXAMPLE)%,%,$(patsubst $(DIR_SRC)%,%,$3))))))$(COLOR_NONE).)$(COLOR_GRAY)$(notdir $(3))$(COLOR_NONE))
 
 #-------------------------------------------------------------------------------
 # Miscellaneous
