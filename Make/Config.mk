@@ -61,8 +61,8 @@ DIR_BUILD_TEMP     := $(DIR_BUILD)Intermediates/
 # Source directories
 DIR_INC         := $(DIR)XSCTest/include/
 DIR_SRC         := $(DIR)XSCTest/source/
-DIR_TEST_SRC    := $(DIR)Test/source/
-DIR_EXAMPLE_SRC := $(DIR)Example/source/
+DIR_SRC_TEST    := $(DIR)Test/source/
+DIR_SRC_EXAMPLE := $(DIR)Example/source/
 
 ifdef _OS_CYGWIN
 
@@ -80,8 +80,8 @@ vpath
 
 # Define the search paths for source files
 vpath %$(EXT_C) $(DIR_SRC)
-vpath %$(EXT_C) $(DIR_TEST_SRC)
-vpath %$(EXT_C) $(DIR_EXAMPLE_SRC)
+vpath %$(EXT_C) $(DIR_SRC_TEST)
+vpath %$(EXT_C) $(DIR_SRC_EXAMPLE)
 
 #-------------------------------------------------------------------------------
 # Files
@@ -125,18 +125,18 @@ GET_C_FILES = $(foreach dir,$(1), $(wildcard $(dir)*$(EXT_C)))
 
 # Gets only the file name of the C files
 _FILES_C_REL         = $(subst $(DIR_SRC),,$(FILES_C))
-_FILES_TEST_C_REL    = $(subst $(DIR_TEST_SRC),,$(FILES_TEST_C))
-_FILES_EXAMPLE_C_REL = $(subst $(DIR_EXAMPLE_SRC),,$(FILES_EXAMPLE_C))
+_FILES_C_REL_TEST    = $(subst $(DIR_SRC_TEST),,$(FILES_C_TEST))
+_FILES_C_REL_EXAMPLE = $(subst $(DIR_SRC_EXAMPLE),,$(FILES_C_EXAMPLE))
 
 # Replace the code extension by the object one
 _FILES_C_OBJ         = $(subst $(EXT_C),$(EXT_O),$(_FILES_C_REL))
-_FILES_TEST_C_OBJ    = $(subst $(EXT_C),$(EXT_O),$(_FILES_TEST_C_REL))
-_FILES_EXAMPLE_C_OBJ = $(subst $(EXT_C),$(EXT_O),$(_FILES_EXAMPLE_C_REL))
+_FILES_C_OBJ_TEST    = $(subst $(EXT_C),$(EXT_O),$(_FILES_C_REL_TEST))
+_FILES_C_OBJ_EXAMPLE = $(subst $(EXT_C),$(EXT_O),$(_FILES_C_REL_EXAMPLE))
 
 # Prefix all object files with the build directory
 _FILES_C_BUILD         = $(addprefix $(DIR_BUILD_TEMP),$(_FILES_C_OBJ))
-_FILES_TEST_C_BUILD    = $(addprefix $(DIR_BUILD_TEMP),$(_FILES_TEST_C_OBJ))
-_FILES_EXAMPLE_C_BUILD = $(addprefix $(DIR_BUILD_TEMP),$(_FILES_EXAMPLE_C_OBJ))
+_FILES_C_BUILD_TEST    = $(addprefix $(DIR_BUILD_TEMP),$(_FILES_C_OBJ_TEST))
+_FILES_C_BUILD_EXAMPLE = $(addprefix $(DIR_BUILD_TEMP),$(_FILES_C_OBJ_EXAMPLE))
 
 #-------------------------------------------------------------------------------
 # Commands configuration
@@ -251,7 +251,7 @@ PRINT_ARCH = $(call PRINT,,$(2) [ $(COLOR_RED)$(1)$(COLOR_NONE) ])
 # @param    The message
 # @param    The file
 # 
-PRINT_FILE = $(call PRINT_ARCH,$(1),$(2)): $(COLOR_YELLOW)$(subst .$(COLOR_NONE).,,$(patsubst %.,%,$(subst /,.,$(dir $(patsubst $(DIR_TEST_SRC)%,%,$(patsubst $(DIR_EXAMPLE_SRC)%,%,$(patsubst $(DIR_SRC)%,%,$3))))))$(COLOR_NONE).)$(COLOR_GRAY)"$(notdir $(3))"$(COLOR_NONE)
+PRINT_FILE = $(call PRINT_ARCH,$(1),$(2)): $(COLOR_YELLOW)$(subst .$(COLOR_NONE).,,$(patsubst %.,%,$(subst /,.,$(dir $(patsubst $(DIR_SRC_TEST)%,%,$(patsubst $(DIR_SRC_EXAMPLE)%,%,$(patsubst $(DIR_SRC)%,%,$3))))))$(COLOR_NONE).)$(COLOR_GRAY)"$(notdir $(3))"$(COLOR_NONE)
 
 #-------------------------------------------------------------------------------
 # Miscellaneous

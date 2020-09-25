@@ -61,19 +61,19 @@ clean:
 
 # Test executable
 test: _EXEC = $(DIR_BUILD_PRODUCTS)test$(EXT_EXE)
-test: lib $$(_FILES_TEST_C_BUILD)
+test: lib $$(_FILES_C_BUILD_TEST)
 
 	$(call PRINT_ARCH,$(_HOST_ARCH),"Creating test executable"): $(COLOR_BLUE)$(notdir $(_EXEC))$(COLOR_NONE)
-	$(call CREATE_EXEC,$(_EXEC),$(_FILES_TEST_C_BUILD),$(DIR_BUILD_PRODUCTS),$(PRODUCT) $(_EXTRA_LIBS))
+	$(call CREATE_EXEC,$(_EXEC),$(_FILES_C_BUILD_TEST),$(DIR_BUILD_PRODUCTS),$(PRODUCT) $(_EXTRA_LIBS))
 	@! $(_EXEC) Failure
 	@$(_EXEC) Success
 
 # Example executable
 example: _EXEC = $(DIR_BUILD_PRODUCTS)example$(EXT_EXE)
-example: lib $$(_FILES_EXAMPLE_C_BUILD)
+example: lib $$(_FILES_C_BUILD_EXAMPLE)
 
 	$(call PRINT_ARCH,$(_HOST_ARCH),"Creating example executable"): $(COLOR_BLUE)$(notdir $(_EXEC))$(COLOR_NONE)
-	$(call CREATE_EXEC,$(_EXEC),$(_FILES_EXAMPLE_C_BUILD),$(DIR_BUILD_PRODUCTS),$(PRODUCT) $(_EXTRA_LIBS))
+	$(call CREATE_EXEC,$(_EXEC),$(_FILES_C_BUILD_EXAMPLE),$(DIR_BUILD_PRODUCTS),$(PRODUCT) $(_EXTRA_LIBS))
 	@! $(_EXEC)
 
 # Static library
