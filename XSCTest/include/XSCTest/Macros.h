@@ -114,13 +114,16 @@ extern "C" {
 #define XSCTestInternalXString( _s_ ) XSCTestInternalString( _s_ )
 #define XSCTestInternalString( _s_ )  #_s_
 
+#ifdef _WIN32
+#define XSCTestAssertEqualGenericChar char: XSCTestAssertIntegerCompareEqual
+#else
+#define XSCTestAssertEqualGenericChar char: XSCTestAssertIntegerCompareEqual, signed char: XSCTestAssertIntegerCompareEqual
+#endif
+
 #define XSCTestAssertEqualGeneric( _v_ ) _Generic( \
     ( _v_ ),                                       \
-    char                                           \
-    : XSCTestAssertIntegerCompareEqual,            \
-      signed char                                  \
-    : XSCTestAssertIntegerCompareEqual,            \
-      signed short                                 \
+    XSCTestAssertEqualGenericChar,                 \
+    signed short                                   \
     : XSCTestAssertIntegerCompareEqual,            \
       signed int                                   \
     : XSCTestAssertIntegerCompareEqual,            \
@@ -143,13 +146,16 @@ extern "C" {
       double                                       \
     : XSCTestAssertDoubleCompareEqual )
 
+#ifdef _WIN32
+#define XSCTestAssertNotEqualGenericChar char: XSCTestAssertIntegerCompareNotEqual
+#else
+#define XSCTestAssertNotEqualGenericChar char: XSCTestAssertIntegerCompareNotEqual, signed char: XSCTestAssertIntegerCompareNotEqual
+#endif
+
 #define XSCTestAssertNotEqualGeneric( _v_ ) _Generic( \
     ( _v_ ),                                          \
-    char                                              \
-    : XSCTestAssertIntegerCompareNotEqual,            \
-      signed char                                     \
-    : XSCTestAssertIntegerCompareNotEqual,            \
-      signed short                                    \
+    XSCTestAssertNotEqualGenericChar,                 \
+    signed short                                      \
     : XSCTestAssertIntegerCompareNotEqual,            \
       signed int                                      \
     : XSCTestAssertIntegerCompareNotEqual,            \
@@ -172,13 +178,16 @@ extern "C" {
       double                                          \
     : XSCTestAssertDoubleCompareNotEqual )
 
+#ifdef _WIN32
+#define XSCTestAssertLessGenericChar char: XSCTestAssertIntegerCompareLess
+#else
+#define XSCTestAssertLessGenericChar char: XSCTestAssertIntegerCompareLess, signed char: XSCTestAssertIntegerCompareLess
+#endif
+
 #define XSCTestAssertLessGeneric( _v_ ) _Generic( \
     ( _v_ ),                                      \
-    char                                          \
-    : XSCTestAssertIntegerCompareLess,            \
-      signed char                                 \
-    : XSCTestAssertIntegerCompareLess,            \
-      signed short                                \
+    XSCTestAssertLessGenericChar,                 \
+    signed short                                  \
     : XSCTestAssertIntegerCompareLess,            \
       signed int                                  \
     : XSCTestAssertIntegerCompareLess,            \
@@ -201,13 +210,16 @@ extern "C" {
       double                                      \
     : XSCTestAssertDoubleCompareLess )
 
+#ifdef _WIN32
+#define XSCTestAssertLessOrEqualGenericChar char: XSCTestAssertIntegerCompareLessOrEqual
+#else
+#define XSCTestAssertLessOrEqualGenericChar char: XSCTestAssertIntegerCompareLessOrEqual, signed char: XSCTestAssertIntegerCompareLessOrEqual
+#endif
+
 #define XSCTestAssertLessOrEqualGeneric( _v_ ) _Generic( \
     ( _v_ ),                                             \
-    char                                                 \
-    : XSCTestAssertIntegerCompareLessOrEqual,            \
-      signed char                                        \
-    : XSCTestAssertIntegerCompareLessOrEqual,            \
-      signed short                                       \
+    XSCTestAssertLessOrEqualGenericChar,                 \
+    signed short                                         \
     : XSCTestAssertIntegerCompareLessOrEqual,            \
       signed int                                         \
     : XSCTestAssertIntegerCompareLessOrEqual,            \
@@ -230,13 +242,16 @@ extern "C" {
       double                                             \
     : XSCTestAssertDoubleCompareLessOrEqual )
 
+#ifdef _WIN32
+#define XSCTestAssertGreaterGenericChar char: XSCTestAssertIntegerCompareGreater
+#else
+#define XSCTestAssertGreaterGenericChar char: XSCTestAssertIntegerCompareGreater, signed char: XSCTestAssertIntegerCompareGreater
+#endif
+
 #define XSCTestAssertGreaterGeneric( _v_ ) _Generic( \
     ( _v_ ),                                         \
-    char                                             \
-    : XSCTestAssertIntegerCompareGreater,            \
-      signed char                                    \
-    : XSCTestAssertIntegerCompareGreater,            \
-      signed short                                   \
+    XSCTestAssertGreaterGenericChar,                 \
+    signed short                                     \
     : XSCTestAssertIntegerCompareGreater,            \
       signed int                                     \
     : XSCTestAssertIntegerCompareGreater,            \
@@ -259,13 +274,16 @@ extern "C" {
       double                                         \
     : XSCTestAssertDoubleCompareGreater )
 
+#ifdef _WIN32
+#define XSCTestAssertGreaterOrEqualGenericChar char: XSCTestAssertIntegerCompareGreaterOrEqual
+#else
+#define XSCTestAssertGreaterOrEqualGenericChar char: XSCTestAssertIntegerCompareGreaterOrEqual, signed char: XSCTestAssertIntegerCompareGreaterOrEqual
+#endif
+
 #define XSCTestAssertGreaterOrEqualGeneric( _v_ ) _Generic( \
     ( _v_ ),                                                \
-    char                                                    \
-    : XSCTestAssertIntegerCompareGreaterOrEqual,            \
-      signed char                                           \
-    : XSCTestAssertIntegerCompareGreaterOrEqual,            \
-      signed short                                          \
+    XSCTestAssertGreaterOrEqualGenericChar,                 \
+    signed short                                            \
     : XSCTestAssertIntegerCompareGreaterOrEqual,            \
       signed int                                            \
     : XSCTestAssertIntegerCompareGreaterOrEqual,            \
