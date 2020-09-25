@@ -121,7 +121,7 @@ endif
 # 
 # @param    The directory
 # 
-GET_C_FILES = $(foreach dir,$(1), $(wildcard $(dir)*$(EXT_C)))
+GET_C_FILES = $(foreach dir,$1, $(wildcard $(dir)*$(EXT_C)))
 
 # Gets only the file name of the C files
 _FILES_C_REL         = $(subst $(DIR_SRC),,$(FILES_C))
@@ -254,7 +254,7 @@ PRINT_ARCH = $(call PRINT,,$2 [ $(COLOR_RED)$1$(COLOR_NONE) ]$3)
 # @param    The message
 # @param    The file
 # 
-PRINT_FILE = $(call PRINT_ARCH,$1,$2,: $(COLOR_YELLOW)$(subst .$(COLOR_NONE).,,$(patsubst %.,%,$(subst /,.,$(dir $(patsubst $(DIR_SRC_TESTS)%,%,$(patsubst $(DIR_SRC_EXAMPLE)%,%,$(patsubst $(DIR_SRC)%,%,$3))))))$(COLOR_NONE).)$(COLOR_GRAY)$(notdir $(3))$(COLOR_NONE))
+PRINT_FILE = $(call PRINT_ARCH,$1,$2,: $(COLOR_YELLOW)$(subst .$(COLOR_NONE).,,$(patsubst %.,%,$(subst /,.,$(dir $(patsubst $(DIR_SRC_TESTS)%,%,$(patsubst $(DIR_SRC_EXAMPLE)%,%,$(patsubst $(DIR_SRC)%,%,$3))))))$(COLOR_NONE).)$(COLOR_GRAY)$(notdir $3)$(COLOR_NONE))
 
 #-------------------------------------------------------------------------------
 # Miscellaneous
