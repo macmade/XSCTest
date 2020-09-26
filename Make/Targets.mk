@@ -83,8 +83,20 @@ lib: $$(_FILES_C_BUILD)
 	$(call PRINT_ARCH,$(_HOST_ARCH),Creating static library,: $(COLOR_BLUE)$(notdir $(_LIB))$(COLOR_NONE))
 	$(call CREATE_STATIC_LIB,$(_LIB),$(_FILES_C_BUILD))
 
-# Target: Object file
-$(DIR_BUILD_TEMP)%$(EXT_O): $$(shell mkdir -p $$(dir $$@)) %$(EXT_C)
+# Target: Object file (XSCTest)
+$(DIR_BUILD_TEMP_XS)%$(EXT_O): $$(shell mkdir -p $$(dir $$@)) $(addprefix $(DIR_SRC),%$(EXT_C))
+	
+	$(call PRINT_FILE,$(_HOST_ARCH),Compiling C file,$<)
+	$(call COMPILE_FILE,$<,$@)
+
+# Target: Object file (Unit-Tests)
+$(DIR_BUILD_TEMP_TESTS)%$(EXT_O): $$(shell mkdir -p $$(dir $$@)) $(addprefix $(DIR_SRC_TESTS),%$(EXT_C))
+	
+	$(call PRINT_FILE,$(_HOST_ARCH),Compiling C file,$<)
+	$(call COMPILE_FILE,$<,$@)
+
+# Target: Object file (Example)
+$(DIR_BUILD_TEMP_EXAMPLE)%$(EXT_O): $$(shell mkdir -p $$(dir $$@)) $(addprefix $(DIR_SRC_EXAMPLE),%$(EXT_C))
 	
 	$(call PRINT_FILE,$(_HOST_ARCH),Compiling C file,$<)
 	$(call COMPILE_FILE,$<,$@)

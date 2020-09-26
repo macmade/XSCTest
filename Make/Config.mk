@@ -55,14 +55,17 @@ DIR := ./
 DIR_BUILD := $(DIR)Build/
 
 # Relative build directories
-DIR_BUILD_PRODUCTS := $(DIR_BUILD)Products/
-DIR_BUILD_TEMP     := $(DIR_BUILD)Intermediates/
+DIR_BUILD_PRODUCTS     := $(DIR_BUILD)Products/
+DIR_BUILD_TEMP         := $(DIR_BUILD)Intermediates/
+DIR_BUILD_TEMP_XS      := $(DIR_BUILD_TEMP)XSCTest/
+DIR_BUILD_TEMP_TESTS   := $(DIR_BUILD_TEMP)Unit-Tests/
+DIR_BUILD_TEMP_EXAMPLE := $(DIR_BUILD_TEMP)Example/
 
 # Source directories
 DIR_INC         := $(DIR)XSCTest/include/
 DIR_SRC         := $(DIR)XSCTest/source/
-DIR_SRC_TESTS   := $(DIR)Test/source/
-DIR_SRC_EXAMPLE := $(DIR)Example/source/
+DIR_SRC_TESTS   := $(DIR)Unit-Tests/
+DIR_SRC_EXAMPLE := $(DIR)Example/
 
 ifdef _OS_CYGWIN
 
@@ -77,11 +80,6 @@ endif
 # Clear any existing search path
 VPATH =
 vpath
-
-# Define the search paths for source files
-vpath %$(EXT_C) $(DIR_SRC)
-vpath %$(EXT_C) $(DIR_SRC_TESTS)
-vpath %$(EXT_C) $(DIR_SRC_EXAMPLE)
 
 #-------------------------------------------------------------------------------
 # Files
@@ -134,9 +132,9 @@ _FILES_C_OBJ_TESTS   = $(subst $(EXT_C),$(EXT_O),$(_FILES_C_REL_TESTS))
 _FILES_C_OBJ_EXAMPLE = $(subst $(EXT_C),$(EXT_O),$(_FILES_C_REL_EXAMPLE))
 
 # Prefix all object files with the build directory
-_FILES_C_BUILD         = $(addprefix $(DIR_BUILD_TEMP),$(_FILES_C_OBJ))
-_FILES_C_BUILD_TESTS   = $(addprefix $(DIR_BUILD_TEMP),$(_FILES_C_OBJ_TESTS))
-_FILES_C_BUILD_EXAMPLE = $(addprefix $(DIR_BUILD_TEMP),$(_FILES_C_OBJ_EXAMPLE))
+_FILES_C_BUILD         = $(addprefix $(DIR_BUILD_TEMP_XS),$(_FILES_C_OBJ))
+_FILES_C_BUILD_TESTS   = $(addprefix $(DIR_BUILD_TEMP_TESTS),$(_FILES_C_OBJ_TESTS))
+_FILES_C_BUILD_EXAMPLE = $(addprefix $(DIR_BUILD_TEMP_EXAMPLE),$(_FILES_C_OBJ_EXAMPLE))
 
 #-------------------------------------------------------------------------------
 # Commands configuration
@@ -254,7 +252,7 @@ PRINT_ARCH = $(call PRINT,,$2 [ $(COLOR_RED)$1$(COLOR_NONE) ]$3)
 # @param    The message
 # @param    The file
 # 
-PRINT_FILE = $(call PRINT_ARCH,$1,$2,: $(COLOR_YELLOW)$(subst .$(COLOR_NONE).,,$(patsubst %.,%,$(subst /,.,$(dir $(patsubst $(DIR_SRC_TESTS)%,%,$(patsubst $(DIR_SRC_EXAMPLE)%,%,$(patsubst $(DIR_SRC)%,%,$3))))))$(COLOR_NONE).)$(COLOR_GRAY)$(notdir $3)$(COLOR_NONE))
+PRINT_FILE = $(call PRINT_ARCH,$1,$2,: $(COLOR_YELLOW)$(subst .$(COLOR_NONE).,,$(subst .source.,.,$(patsubst %.,%,$(subst /,.,$(dir $3))))$(COLOR_NONE).)$(COLOR_GRAY)$(notdir $3)$(COLOR_NONE))
 
 #-------------------------------------------------------------------------------
 # Miscellaneous
