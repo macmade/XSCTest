@@ -95,6 +95,7 @@ ifdef _OS_CYGWIN
 EXT_O      := .obj
 EXT_LIB    := .lib
 EXT_EXE    := .exe
+EXT_DEP    :=
 PREFIX_LIB :=
 
 else
@@ -103,6 +104,7 @@ else
 EXT_O      := .o
 EXT_LIB    := .a
 EXT_EXT    :=
+EXT_DEP    := .d
 PREFIX_LIB := lib
 
 endif
@@ -165,7 +167,7 @@ _CC_PLATFORM_FLAGS := -D_POSIX_SOURCE -D _XOPEN_SOURCE=600 -D_DARWIN_C_SOURCE
 endif
 
 # C compiler
-_CC = $(CC) $(strip $(CC_FLAGS_WARN) $(CC_FLAGS_DEBUG) $(_CC_PLATFORM_FLAGS)) -std=$(STDC) -I$(DIR_INC)
+_CC = $(CC) $(strip $(CC_FLAGS_WARN) $(CC_FLAGS_DEBUG) $(_CC_PLATFORM_FLAGS)) -std=$(STDC) -MD -I$(DIR_INC)
 
 endif
 
