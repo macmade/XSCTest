@@ -44,8 +44,6 @@ XSCTestStringRef XSCTestStringCreateWithFormatAndArgs( const char * fmt, va_list
     int              length;
     va_list          ap2;
 
-    va_copy( ap2, ap );
-
     if( fmt == NULL || strlen( fmt ) == 0 )
     {
         return XSCTestStringCreateWithCString( "" );
@@ -58,11 +56,14 @@ XSCTestStringRef XSCTestStringCreateWithFormatAndArgs( const char * fmt, va_list
         return NULL;
     }
 
+    va_copy( ap2, ap );
+
     length = vsnprintf( NULL, 0, fmt, ap );
 
     if( length < 0 )
     {
         free( string );
+        va_end( ap2 );
 
         return XSCTestStringCreateWithCString( "" );
     }
@@ -73,11 +74,13 @@ XSCTestStringRef XSCTestStringCreateWithFormatAndArgs( const char * fmt, va_list
     if( string->cstr == NULL )
     {
         free( string );
+        va_end( ap2 );
 
         return NULL;
     }
 
     vsnprintf( string->cstr, string->length + 1, fmt, ap2 );
+    va_end( ap2 );
 
     return string;
 }
