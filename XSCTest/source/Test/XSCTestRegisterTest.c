@@ -28,7 +28,7 @@
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#include <XSCTest/XSCTest.h>
+#include <XSCTest/XSCTest-Internal.h>
 
 void XSCTestRegisterTest( const char * suite, const char * name, void ( *func )( XSCTestFailureRef * ) )
 {

@@ -31,13 +31,17 @@
 #ifndef XSCTEST_FAILURE_H
 #define XSCTEST_FAILURE_H
 
+#ifdef XSCTEST_INTERNAL_H
 #include <XSCTest/String.h>
+#endif
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
     typedef struct XSCTestFailure * XSCTestFailureRef;
+
+#ifdef XSCTEST_INTERNAL_H
 
     XSCTestFailureRef XSCTestFailureCreate( const char * expression, const char * evaluated, const char * expected, const char * actual, const char * file, int line );
     void              XSCTestFailureDelete( XSCTestFailureRef failure );
@@ -48,6 +52,8 @@ extern "C" {
     const char *      XSCTestFailureGetActual( XSCTestFailureRef failure );
     const char *      XSCTestFailureGetFile( XSCTestFailureRef failure );
     int               XSCTestFailureGetLine( XSCTestFailureRef failure );
+
+#endif
 
 #ifdef __cplusplus
 }

@@ -28,7 +28,7 @@
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#include <XSCTest/XSCTest.h>
+#include <XSCTest/XSCTest-Internal.h>
 #include <string.h>
 
 bool XSCTestAssertUnsignedIntegerCompareGreater( XSCTestFailureRef * failure, uint64_t v1, uint64_t v2, const char * expression1, const char * expression2, const char * file, int line )

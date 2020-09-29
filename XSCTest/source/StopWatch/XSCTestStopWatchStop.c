@@ -28,7 +28,7 @@
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#include <XSCTest/XSCTest.h>
+#include <XSCTest/XSCTest-Internal.h>
 #include <XSCTest/Private/StopWatch.h>
 #include <time.h>
 #include <string.h>
@@ -42,7 +42,7 @@ void XSCTestStopWatchStop( XSCTestStopWatchRef watch )
 
     watch->status = XSCTestStopWatchStatusStopped;
 
-    #ifdef _WIN32
+#ifdef _WIN32
     {
         if( watch->useQPC )
         {
@@ -57,7 +57,7 @@ void XSCTestStopWatchStop( XSCTestStopWatchRef watch )
             watch->end = GetTickCount64();
         }
     }
-    #else
+#else
     {
         struct timeval tv;
 
@@ -66,5 +66,5 @@ void XSCTestStopWatchStop( XSCTestStopWatchRef watch )
         watch->end = ( uint64_t )( tv.tv_sec * 1000 );
         watch->end += ( uint64_t )( tv.tv_usec / 1000 );
     }
-    #endif
+#endif
 }

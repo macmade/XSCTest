@@ -28,7 +28,7 @@
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#include <XSCTest/XSCTest.h>
+#include <XSCTest/XSCTest-Internal.h>
 
 bool XSCTestAssertBoolean( XSCTestFailureRef * failure, bool value, bool expected, const char * expression, const char * file, int line )
 {

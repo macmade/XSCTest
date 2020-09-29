@@ -28,7 +28,7 @@
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#include <XSCTest/XSCTest.h>
+#include <XSCTest/XSCTest-Internal.h>
 #include <string.h>
 
 void XSCTestLogTestCaseResult( FILE * fh, const char * testSuite, const char * testCase, XSCTestFailureRef failure, XSCTestStopWatchRef time )

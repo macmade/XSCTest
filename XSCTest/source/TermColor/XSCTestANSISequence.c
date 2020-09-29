@@ -28,7 +28,7 @@
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#include <XSCTest/XSCTest.h>
+#include <XSCTest/XSCTest-Internal.h>
 
 const char * XSCTestANSISequence( XSCTestTermColor foreground )
 {
@@ -45,7 +45,7 @@ const char * XSCTestANSISequence( XSCTestTermColor foreground )
         case XSCTestTermColorWhite: return "\033[37m";
     }
 
-    #ifdef _WIN32
+#ifdef _WIN32
     return "";
-    #endif
+#endif
 }

@@ -28,7 +28,7 @@
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#include <XSCTest/XSCTest.h>
+#include <XSCTest/XSCTest-Internal.h>
 #include <string.h>
 
 bool XSCTestAssertFloatCompareNotEqual( XSCTestFailureRef * failure, float v1, float v2, const char * expression1, const char * expression2, const char * file, int line )

@@ -31,19 +31,8 @@
 #ifndef XSCTEST_H
 #define XSCTEST_H
 
-#include <XSCTest/FloatingPoint.h>
-#include <XSCTest/TermColor.h>
-#include <XSCTest/StopWatch.h>
-#include <XSCTest/String.h>
-#include <XSCTest/Array.h>
-#include <XSCTest/Failure.h>
-#include <XSCTest/Assert.h>
-#include <XSCTest/Logging.h>
-#include <XSCTest/Macros.h>
 #include <XSCTest/Test.h>
-#include <XSCTest/Suite.h>
-#include <XSCTest/Case.h>
-#include <XSCTest/Utility.h>
-#include <XSCTest/Arguments.h>
+#include <XSCTest/Assert.h>
+#include <XSCTest/Macros.h>
 
 #endif /* XSCTEST_H */

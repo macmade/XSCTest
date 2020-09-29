@@ -28,12 +28,12 @@
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#include <XSCTest/XSCTest.h>
+#include <XSCTest/XSCTest-Internal.h>
 #include <XSCTest/Private/Test.h>
 
 #ifdef _WIN32
 #pragma warning( push )
-#pragma warning( disable : 5105 )
+#pragma warning( disable: 5105 )
 #include <Windows.h>
 #pragma warning( pop )
 #endif
@@ -49,9 +49,9 @@ bool XSCTestRunAllSuites( FILE * fh, XSCTestArgumentsRef args )
     XSCTestStringRef    suitesString;
     XSCTestArrayRef     tests;
 
-    #ifdef _WIN32
+#ifdef _WIN32
     UINT cp = GetConsoleOutputCP();
-    #endif
+#endif
 
     passed       = 0;
     failed       = 0;
@@ -68,9 +68,9 @@ bool XSCTestRunAllSuites( FILE * fh, XSCTestArgumentsRef args )
         return false;
     }
 
-    #ifdef _WIN32
+#ifdef _WIN32
     SetConsoleOutputCP( CP_UTF8 );
-    #endif
+#endif
 
     XSCTestLog(
         fh,
@@ -177,9 +177,9 @@ bool XSCTestRunAllSuites( FILE * fh, XSCTestArgumentsRef args )
     XSCTestStringDelete( suitesString );
     XSCTestArrayDelete( tests );
 
-    #ifdef _WIN32
+#ifdef _WIN32
     SetConsoleOutputCP( cp );
-    #endif
+#endif
 
     return failed == 0;
 }

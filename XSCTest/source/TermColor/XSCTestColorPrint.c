@@ -28,7 +28,7 @@
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#include <XSCTest/XSCTest.h>
+#include <XSCTest/XSCTest-Internal.h>
 #include <stdarg.h>
 
 void XSCTestColorPrint( FILE * fh, XSCTestTermColor foreground, const char * fmt, ... )

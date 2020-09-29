@@ -28,7 +28,7 @@
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#include <XSCTest/XSCTest.h>
+#include <XSCTest/XSCTest-Internal.h>
 
 XSCTestStringRef XSCTestCreateNumberedString( const char * str, size_t count )
 {

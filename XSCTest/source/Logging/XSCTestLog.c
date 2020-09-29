@@ -28,7 +28,7 @@
  * @author      Jean-David Gadina - www.xs-labs.com
  */
 
-#include <XSCTest/XSCTest.h>
+#include <XSCTest/XSCTest-Internal.h>
 #include <stdarg.h>
 
 void XSCTestLog( FILE * fh, XSCTestTermColor color, XSCTestLogStyle style, unsigned int options, const char * fmt, ... )
