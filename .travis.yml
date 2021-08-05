@@ -5,3 +5,5 @@ script:
 os:
   - osx
   - linux
+notifications:
+    slack: xs-labs:FXh1yLXNkpcVxKZhZU6icdhI
